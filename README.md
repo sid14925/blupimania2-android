@@ -1,0 +1,128 @@
+# BlupiMania 2 for Android
+
+An open-source Android port of the classic 2001 puzzle game **BlupiMania 2**, created by
+**Epsitec SA** and **Daniel Roux**.
+
+The original game is a Windows title built on a Direct3D 7 engine. This project keeps the
+original game code intact and adds a compatibility layer underneath it, so the game runs
+natively on Android with full touchscreen support.
+
+<p align="center">
+  <img src="docs/screenshot1.png" width="45%" alt="BlupiMania 2 running on Android">
+  <img src="docs/screenshot2.png" width="45%" alt="Main menu on Android">
+</p>
+
+## Credits & Trademark
+
+* Original game and source code: **Epsitec SA** and **Daniel Roux** — <https://blupi.org>
+* Upstream source: the [`blupimania2`](https://github.com/colobot/colobot/tree/blupimania2)
+  branch of the [Colobot](https://github.com/colobot/colobot) project, maintained by the
+  TerranovaTeam / Colobot community.
+* **"Blupi" and "BlupiMania" are registered trademarks of Epsitec SA.**
+  Used with the express permission of Epsitec SA for this project.
+
+This port is **free of charge, non-commercial, contains no ads and no in-app purchases**.
+It is an unofficial, fan-made port released with the permission of the rights holder.
+
+## License
+
+Epsitec SA opened the BlupiMania 2 sources to the free and open-source community with the
+stated intent that *"the code will use GPL3 like CoLoBoT"*
+([colobot/colobot#896](https://github.com/colobot/colobot/issues/896)).
+Accordingly, the changes in this repository are released under the **GNU General Public
+License v3** (see [LICENSE](LICENSE)).
+
+The original game code remains **Copyright (C) Epsitec SA / Daniel Roux**. The upstream
+`blupimania2` branch does not yet carry a formal `LICENSE` file; a written confirmation of
+the licensing terms has been requested from Epsitec.
+
+## What was ported
+
+The original game logic, level data, scripting engine (CBot) and rendering flow are
+**unmodified**. Everything below the game was rewritten:
+
+| Original (2001, Windows) | This port |
+| --- | --- |
+| Win32 (`WinMain`, message loop) | SDL2 |
+| Direct3D 7 fixed-function pipeline | OpenGL ES 2.0 (übershader emulating the FFP) |
+| DirectDraw surfaces | CPU pixel buffers + GL textures |
+| DirectSound (3D buffers, envelopes) | custom SDL2 audio mixer (pitch/pan/envelopes) |
+| DirectInput | SDL2 joystick |
+| Mouse & keyboard | Touchscreen gestures |
+
+Layout:
+
+```
+src/     original game code (minimal, documented changes only)
+port/
+  compat/  Win32 + DirectX 7 shim headers (windows.h, d3d.h, ddraw.h, dsound.h, ...)
+  gl/      IDirect3DDevice7 implemented over OpenGL ES 2.0
+  sdl/     SDL2 platform layer, texture manager, audio mixer, Android bootstrap
+android/   Gradle project (SDL2 activity, asset packaging)
+```
+
+## Touch controls
+
+| Gesture | Action |
+| --- | --- |
+| Tap | Click — move Blupi, press buttons |
+| One-finger drag | Pan the camera across the map |
+| Two-finger pinch | Zoom in / out |
+| Two-finger horizontal drag | Rotate the camera |
+| Tap during the intro cinematic | Skip it |
+
+## Download
+
+Grab the latest APK from the [Releases](../../releases) page.
+Requires Android 5.0 (API 21) or newer; arm64-v8a and x86_64 builds are included.
+
+## Building from source
+
+You need the Android SDK, NDK r26+ and JDK 17.
+
+```bash
+git clone --recursive https://github.com/sid14925/blupimania2-android.git
+# SDL2 sources must sit next to the repository:
+#   ../SDL2-src   (SDL 2.30.x)
+cd blupimania2-android/android
+./gradlew assembleDebug
+```
+
+### Game data
+
+The build packages the original game data (`blupimania1.dat`, `blupimania2.dat`,
+`blupimania3.dat`, `scene/`, `defi/`, `diagram/`, `files/`) into the APK assets. The data
+files are **not** included in this repository — copy them from your own installation of the
+game into `android/app/src/main/assets/data/` (lowercase names), then regenerate the file
+list:
+
+```bash
+# from android/app/src/main/assets/data/
+find . -type f ! -name assets.lst ! -name data.ver | sed 's|^\./||' > assets.lst
+echo "rip-1.3-port1" > data.ver
+```
+
+On first launch the app extracts these assets into its internal storage.
+
+A desktop (Windows/Linux) build of the same port is also possible via the top-level
+`CMakeLists.txt`; it is used for debugging.
+
+## Privacy
+
+This app collects **no data whatsoever** — see [PRIVACY.md](PRIVACY.md).
+
+## Development notes
+
+This port was developed with the assistance of Anthropic's **Claude Fable 5**, which
+handled the D3D7→OpenGL ES translation layer, the Win32 compatibility shims and the
+touch input design. A few notable porting pitfalls that took real debugging:
+
+* `char` is **unsigned** on ARM but signed on x86/MSVC — the terrain and water level data
+  broke silently on real devices while working fine on the x86 emulator.
+* `long` is 8 bytes on LP64, which corrupted the 208-byte `.MOD` model file layout.
+* Texture UV scroll offsets grow large over time; `mediump` precision made the water
+  disappear on real GPUs.
+* SDL's touch→mouse synthesis produced ghost clicks at the end of every camera pan.
+
+Author: **Vilmos Cseke** — [GitHub](https://github.com/sid14925) ·
+[YouTube](https://www.youtube.com/@csekevilmos408/videos)

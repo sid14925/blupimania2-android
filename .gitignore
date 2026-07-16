@@ -9,7 +9,7 @@ android/gradle-*.log
 android/local.properties
 build.log
 
-# game data is packaged separately (not part of the source tree)
+# original game data (Copyright Epsitec SA) — supply your own copy, see README
 android/app/src/main/assets/data/
 
 *.obj
