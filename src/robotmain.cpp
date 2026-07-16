@@ -664,10 +664,18 @@ void CRobotMain::ChangePhase(Phase phase, Phase fadeIn)
 		}
 
 		// Cr�e les boutons.
+#ifdef __ANDROID__
+		// �cran tactile: bouton X plus grand et d�cal� du coin
+		pos.x = 596.0f/640.0f;
+		pos.y = 442.0f/480.0f;
+		dim.x =  34.0f/640.0f;
+		dim.y =  34.0f/480.0f;
+#else
 		pos.x = 620.0f/640.0f;
 		pos.y = 460.0f/480.0f;
 		dim.x =  20.0f/640.0f;
 		dim.y =  20.0f/480.0f;
+#endif
 		pb = m_interface->CreateButton(pos, dim, 11, EVENT_BUTTON_QUIT);
 
 		if ( !RetEdit() )
@@ -929,6 +937,14 @@ BOOL CRobotMain::EventProcess(const Event &event)
 		{
 			UpdateInfoText();
 			m_camera->EventProcess(event);
+
+			// Port: sur �cran tactile, un tap saute aussi la cin�matique.
+			if ( event.event == EVENT_LBUTTONDOWN &&
+				 m_bMovieLock && !m_bMovieFinal )
+			{
+				AbortMovie();
+				return FALSE;
+			}
 
 			switch( event.event )
 			{
