@@ -11,7 +11,7 @@ class CTerrain;
 class CCamera;
 class CObject;
 
-enum ParticuleType;
+enum ParticuleType : int;
 
 
 

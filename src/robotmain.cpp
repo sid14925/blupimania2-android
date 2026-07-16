@@ -130,7 +130,7 @@ BOOL rPoint(CBotVar* pThis, CBotVar* var, CBotVar* pResult, int& Exception)
 	pX->SetValFloat( var->GivValFloat() );
 	var = var->GivNext();
 
-	if ( var == NULL ) 
+	if ( var == NULL )  
 	{
 		Exception = CBotErrLowParam;  return FALSE;
 	}
@@ -3956,7 +3956,7 @@ BOOL CRobotMain::WriteScene()
 				 y == 0 || y == nbTiles-1 )  // sur un bord ?
 			{
 				if ( res == TR_HOLE )  continue;
-			}				 
+			}				  
 
 			pos.x = dimTile*(x-nbTiles/2);
 			pos.z = dimTile*(y-nbTiles/2);

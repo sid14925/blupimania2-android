@@ -9,7 +9,7 @@ class CTerrain;
 class CWater;
 class CObject;
 
-enum Sound;
+enum Sound : int;
 
 
 enum TaskPush

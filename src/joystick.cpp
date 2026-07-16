@@ -37,7 +37,7 @@ BOOL CALLBACK EnumJoysticksCallback( const DIDEVICEINSTANCE* pdidInstance,
 
 	// If it failed, then we can't use this joystick. (Maybe the user unplugged
 	// it while we were in the middle of enumerating it.)
-	if( FAILED(hr) ) 
+	if( FAILED(hr) )  
 		return DIENUM_CONTINUE;
 
 
@@ -52,13 +52,13 @@ BOOL CALLBACK EnumJoysticksCallback( const DIDEVICEINSTANCE* pdidInstance,
 BOOL CALLBACK EnumAxesCallback( const DIDEVICEOBJECTINSTANCE* pdidoi,
 								VOID* pContext )
 {
-	DIPROPRANGE diprg; 
-	diprg.diph.dwSize		= sizeof(DIPROPRANGE); 
-	diprg.diph.dwHeaderSize = sizeof(DIPROPHEADER); 
-	diprg.diph.dwHow		= DIPH_BYOFFSET; 
+	DIPROPRANGE diprg;  
+	diprg.diph.dwSize		= sizeof(DIPROPRANGE);  
+	diprg.diph.dwHeaderSize = sizeof(DIPROPHEADER);  
+	diprg.diph.dwHow		= DIPH_BYOFFSET;  
 	diprg.diph.dwObj		= pdidoi->dwOfs; // Specify the enumerated axis
-	diprg.lMin				= -1000; 
-	diprg.lMax				= +1000; 
+	diprg.lMin				= -1000;  
+	diprg.lMax				= +1000;  
 	
 	// Set the range for the axis
 	if( FAILED( g_pJoystick->SetProperty( DIPROP_RANGE, &diprg.diph ) ) )
@@ -135,7 +135,7 @@ BOOL InitDirectInput(HINSTANCE hInst, HWND hWnd, BOOL &bFFB)
 		}
 	}
 
-	// Set the data format to "simple joystick" - a predefined data format 
+	// Set the data format to "simple joystick" - a predefined data format  
 	//
 	// A data format specifies which controls on a device we are interested in,
 	// and how they should be reported. This tells DInput that we will be
@@ -214,7 +214,7 @@ BOOL SetAcquire(BOOL bActive)
 		{
 			g_pJoystick->Acquire();
 
-			if( g_pEffect != NULL ) 
+			if( g_pEffect != NULL )  
 			{
 				g_pEffect->Start( 1, 0 );  // start the effect
 			}
@@ -234,7 +234,7 @@ BOOL UpdateInputState( DIJOYSTATE &js )
 {
 	HRESULT 	hr;
 
-	if ( g_pJoystick ) 
+	if ( g_pJoystick )  
 	{
 		do
 		{
@@ -257,7 +257,7 @@ BOOL UpdateInputState( DIJOYSTATE &js )
 		}
 		while ( DIERR_INPUTLOST == hr );
 		if ( FAILED(hr) )  return FALSE;
-	} 
+	}  
 	return TRUE;
 }
 
@@ -274,9 +274,9 @@ BOOL FreeDirectInput()
 	}
 
 	// Unacquire and release any DirectInputDevice objects.
-	if( NULL != g_pJoystick ) 
+	if( NULL != g_pJoystick )  
 	{
-		// Unacquire the device one last time just in case 
+		// Unacquire the device one last time just in case  
 		// the app tried to exit while the device is still acquired.
 		g_pJoystick->Unacquire();
 		g_pJoystick->Release();
@@ -285,7 +285,7 @@ BOOL FreeDirectInput()
 
 
 	// Release any DirectInput objects.
-	if( g_pDI ) 
+	if( g_pDI )  
 	{
 		g_pDI->Release();
 		g_pDI = NULL;
@@ -296,10 +296,10 @@ BOOL FreeDirectInput()
 
 
 
-// 
+//  
 
 BOOL  EffectFound = FALSE;  // global flag
- 
+  
 BOOL CALLBACK DIEnumEffectsProc(LPCDIEFFECTINFO pei, LPVOID pv)
 {
 	*((GUID *)pv) = pei->guid;
@@ -313,10 +313,10 @@ BOOL EnumEffects()
 {
 	HRESULT  hr;
 	GUID	g_guidEffect;
- 
-	hr = g_pJoystick->EnumEffects( 
+  
+	hr = g_pJoystick->EnumEffects(  
 							(LPDIENUMEFFECTSCALLBACK) DIEnumEffectsProc,
-							&g_guidEffect, 
+							&g_guidEffect,  
 							DIEFT_PERIODIC);
 	if (FAILED(hr))
 	{
@@ -334,7 +334,7 @@ BOOL EnumEffects()
 	dipdw.dwData            = FALSE;
 
 	hr = g_pJoystick->SetProperty( DIPROP_AUTOCENTER, &dipdw.diph );
-	if( FAILED(hr) ) 
+	if( FAILED(hr) )  
 	{
 		OutputDebugString("SetProperty failed\n");
 		return FALSE;

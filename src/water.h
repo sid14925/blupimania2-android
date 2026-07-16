@@ -10,7 +10,7 @@ class CTerrain;
 class CParticule;
 class CSound;
 
-enum ParticuleType;
+enum ParticuleType : int;
 
 
 
@@ -52,7 +52,7 @@ typedef struct
 WaterPick;
 
 
-enum WaterType
+enum WaterType : int
 {
 	WATER_NULL		= 0,	// pas d'eau
 	WATER_TT		= 1,	// texture transparente

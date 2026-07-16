@@ -4,7 +4,7 @@
 
 // un programme écrit est tout d'abord transformé en une liste de tokens
 // avant d'aborder le compilateur proprement dit
-// par exemple 
+// par exemple  
 // int var = 3 * ( pos.y + x )
 // est décomposé en (chaque ligne est un token)
 //		int

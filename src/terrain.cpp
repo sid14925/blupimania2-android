@@ -1343,13 +1343,13 @@ BOOL CTerrain::CreateObjects()
 				if ( res == TR_SPACE )
 				{
 					dir[0] = RetResource(x+0, y+1);  // up
-					dir[1] = RetResource(x+1, y+1);  // 
+					dir[1] = RetResource(x+1, y+1);  //  
 					dir[2] = RetResource(x+1, y+0);  // right
-					dir[3] = RetResource(x+1, y-1);  // 
+					dir[3] = RetResource(x+1, y-1);  //  
 					dir[4] = RetResource(x+0, y-1);  // down
-					dir[5] = RetResource(x-1, y-1);  // 
+					dir[5] = RetResource(x-1, y-1);  //  
 					dir[6] = RetResource(x-1, y+0);  // left
-					dir[7] = RetResource(x-1, y+1);  // 
+					dir[7] = RetResource(x-1, y+1);  //  
 
 					// Crée les points (.).
 					if ( dir[3] != TR_SPACE &&

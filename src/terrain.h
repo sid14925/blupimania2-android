@@ -9,7 +9,7 @@ class CD3DEngine;
 class CModFile;
 class CParticule;
 
-enum ParticuleType;
+enum ParticuleType : int;
 
 
 
@@ -30,7 +30,7 @@ enum TerrainRes
 };
 
 
-enum LockZone
+enum LockZone : int
 {
 	LZ_FREE		= 0,		// zone libre
 	LZ_MAX1X	= 1,		// zone libre (un passage fermé)

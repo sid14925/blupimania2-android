@@ -25,23 +25,23 @@ BOOL IsEqual(float a, float b)
 
 // Retourne la valeur minimale.
 
-inline float Min(float a, float b)
+float Min(float a, float b)
 {
 	if ( a <= b )  return a;
 	else           return b;
 }
 
-inline float Min(float a, float b, float c)
+float Min(float a, float b, float c)
 {
 	return Min( Min(a,b), c );
 }
 
-inline float Min(float a, float b, float c, float d)
+float Min(float a, float b, float c, float d)
 {
 	return Min( Min(a,b), Min(c,d) );
 }
 
-inline float Min(float a, float b, float c, float d, float e)
+float Min(float a, float b, float c, float d, float e)
 {
 	return Min( Min(a,b), Min(c,d), e );
 }
@@ -49,23 +49,23 @@ inline float Min(float a, float b, float c, float d, float e)
 
 // Retourne la valeur maximale.
 
-inline float Max(float a, float b)
+float Max(float a, float b)
 {
 	if ( a >= b )  return a;
 	else           return b;
 }
 
-inline float Max(float a, float b, float c)
+float Max(float a, float b, float c)
 {
 	return Max( Max(a,b), c );
 }
 
-inline float Max(float a, float b, float c, float d)
+float Max(float a, float b, float c, float d)
 {
 	return Max( Max(a,b), Max(c,d) );
 }
 
-inline float Max(float a, float b, float c, float d, float e)
+float Max(float a, float b, float c, float d, float e)
 {
 	return Max( Max(a,b), Max(c,d), e );
 }
@@ -73,7 +73,7 @@ inline float Max(float a, float b, float c, float d, float e)
 
 // Retourne la valeur normalisée (0..1).
 
-inline float Norm(float a)
+float Norm(float a)
 {
 	if ( a < 0.0f )  return 0.0f;
 	if ( a > 1.0f )  return 1.0f;
@@ -83,7 +83,7 @@ inline float Norm(float a)
 
 // Retourne la valeur normalisée (-1..1).
 
-inline float NormSign(float a)
+float NormSign(float a)
 {
 	if ( a < -1.0f )  return -1.0f;
 	if ( a >  1.0f )  return  1.0f;
@@ -93,7 +93,7 @@ inline float NormSign(float a)
 
 // Retourne la valeur absolue d'un nombre.
 
-inline float Abs(float a)
+float Abs(float a)
 {
 	return (float)fabs(a);
 }
@@ -101,7 +101,7 @@ inline float Abs(float a)
 
 // Permute deux entiers.
 
-inline void Swap(int &a, int &b)
+void Swap(int &a, int &b)
 {
 	int		c;
 
@@ -112,7 +112,7 @@ inline void Swap(int &a, int &b)
 
 // Permute deux réels.
 
-inline void Swap(float &a, float &b)
+void Swap(float &a, float &b)
 {
 	float	c;
 
@@ -123,7 +123,7 @@ inline void Swap(float &a, float &b)
 
 // Permute deux points.
 
-inline void Swap(FPOINT &a, FPOINT &b)
+void Swap(FPOINT &a, FPOINT &b)
 {
 	FPOINT	c;
 
@@ -136,7 +136,7 @@ inline void Swap(FPOINT &a, FPOINT &b)
 //	Mod(8.1, 4) = 0.1
 //	Mod(n, 1) = partie fractionnaire de n
 
-inline float Mod(float a, float m)
+float Mod(float a, float m)
 {
 	return a - ((int)(a/m))*m;
 }
@@ -163,7 +163,7 @@ D3DVECTOR Grid(D3DVECTOR pos, float step)
 // Retourne un angle normalisé, c'est-à-dire compris entre
 // 0 et 2*PI.
 
-inline float NormAngle(float angle)
+float NormAngle(float angle)
 {
 	angle = Mod(angle, PI*2.0f);
 	if ( angle < 0.0f )
@@ -272,7 +272,7 @@ FPOINT RotatePoint(float angle, float dist)
 //      |  / |
 //      |/)a |
 //  ----o----o-->
-//      |    x 
+//      |    x  
 //      |
 
 float RotateAngle(float x, float y)
@@ -780,7 +780,7 @@ D3DVECTOR LookatPoint( D3DVECTOR eye, float angleH, float angleV, float length )
 
 // Retourne la distance entre deux points.
 
-inline float Length(FPOINT a, FPOINT b)
+float Length(FPOINT a, FPOINT b)
 {
 	return sqrtf( (a.x-b.x)*(a.x-b.x) +
 				  (a.y-b.y)*(a.y-b.y) );
@@ -788,21 +788,21 @@ inline float Length(FPOINT a, FPOINT b)
 
 // Retourne l'hypothénuse d'un triangle rectangle.
 
-inline float Length(float x, float y)
+float Length(float x, float y)
 {
 	return sqrtf( (x*x) + (y*y) );
 }
 
 // Retourne la longueur d'un vecteur.
 
-inline float Length(const D3DVECTOR &u)
+float Length(const D3DVECTOR &u)
 {
 	return sqrtf( (u.x*u.x) + (u.y*u.y) + (u.z*u.z) );
 }
 
 // Retourne la distance entre deux points.
 
-inline float Length(const D3DVECTOR &a, const D3DVECTOR &b)
+float Length(const D3DVECTOR &a, const D3DVECTOR &b)
 {
 	return sqrtf( (a.x-b.x)*(a.x-b.x) +
 				  (a.y-b.y)*(a.y-b.y) +
@@ -811,7 +811,7 @@ inline float Length(const D3DVECTOR &a, const D3DVECTOR &b)
 
 // Retourne la distance "à plat" entre deux points.
 
-inline float Length2d(const D3DVECTOR &a, const D3DVECTOR &b)
+float Length2d(const D3DVECTOR &a, const D3DVECTOR &b)
 {
 	return sqrtf( (a.x-b.x)*(a.x-b.x) +
 				  (a.z-b.z)*(a.z-b.z) );
@@ -845,7 +845,7 @@ float Angle( D3DVECTOR u, D3DVECTOR v )
 
 // Retourne le produit vectoriel de deux vecteurs.
 
-inline D3DVECTOR Cross( D3DVECTOR u, D3DVECTOR v )
+D3DVECTOR Cross( D3DVECTOR u, D3DVECTOR v )
 {
 	return D3DVECTOR( u.y*v.z - u.z*v.y,
 					  u.z*v.x - u.x*v.z,
@@ -1089,7 +1089,7 @@ float Rand(float init)
 
 	if ( state < 0 )  state += M;
 	if ( state == 0 )  state = 1;
- 
+  
 	tmp = A * ( state % Q ) - R * ( state / Q );
 	if ( tmp >= 0 )
 	{
@@ -1192,7 +1192,7 @@ float Neutral(float value, float dead)
 // Calcule une valeur (radians) proportionnelle comprise
 // entre a et b (degrés).
 
-inline float Prop(int a, int b, float p)
+float Prop(int a, int b, float p)
 {
 	float	aa, bb;
 

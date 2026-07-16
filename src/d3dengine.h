@@ -82,7 +82,7 @@ enum D3DMaping
 	D3DMAPPINGMZ	= 9,
 };
 
-enum D3DMouse
+enum D3DMouse : int
 {
 	D3DMOUSEHIDE	= 0,		// pas de souris
 	D3DMOUSENORM	= 1,		// flèche standard
@@ -97,7 +97,7 @@ enum D3DMouse
 	D3DMOUSESCROLLD	= 10,		// v
 };
 
-enum D3DShadowType
+enum D3DShadowType : int
 {
 	D3DSHADOWNORM		= 0,
 	D3DSHADOWGLASS		= 1,

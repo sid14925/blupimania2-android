@@ -5,7 +5,7 @@
 
 
 
-enum Phase
+enum Phase : int
 {
 	PHASE_NULL,
 	PHASE_INIT,
@@ -79,11 +79,11 @@ class CSound;
 class CAuto;
 class CFileBuffer;
 
-enum ObjectType;
-enum CameraType;
-enum ParticuleType;
-enum Sound;
-enum D3DMouse;
+enum ObjectType : int;
+enum CameraType : int;
+enum ParticuleType : int;
+enum Sound : int;
+enum D3DMouse : int;
 
 
 

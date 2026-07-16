@@ -50,7 +50,7 @@ enum ClassType
 
 
 
-enum Error
+enum Error : int
 {
 	ERR_OK				= 0,		// ok
 	ERR_GENERIC			= 1,		// erreur quelconque
@@ -100,7 +100,7 @@ enum Error
 
 // Procédures.
 
-enum EventMsg;
+enum EventMsg : int;
 
 extern EventMsg	GetUniqueEventMsg();
 

@@ -8,7 +8,7 @@ class CInstanceManager;
 class CTerrain;
 class CObject;
 
-enum Sound;
+enum Sound : int;
 
 
 enum TaskRoll

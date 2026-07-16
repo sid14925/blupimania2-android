@@ -94,16 +94,16 @@ BOOL CBotWhile :: Execute(CBotStack* &pj)
 		// la condition est vrai, passe dans le second mode
 
 		if (!pile->SetState(1)) return FALSE;			// prêt pour la suite
- 
+  
 	case 1:
 		// évalue le bloc d'instruction associé
-		if ( m_Block != NULL && 
+		if ( m_Block != NULL &&  
 			!m_Block->Execute(pile) )
 		{
 			if (pile->IfContinue(0, m_label)) continue;	// si continue, repasse au test
 			return pj->BreakReturn(pile, m_label);		// transmet le résultat et libère la pile
 		}
- 
+  
 		// termine s'il y a une erreur
 		if ( !pile->IsOk() )
 		{
@@ -112,7 +112,7 @@ BOOL CBotWhile :: Execute(CBotStack* &pj)
 
 		// repasse au test pour recommencer
 		if (!pile->SetState(0, 0)) return FALSE;
-		continue; 
+		continue;  
 	}
 }
 
@@ -126,14 +126,14 @@ void CBotWhile :: RestoreState(CBotStack* &pj, BOOL bMain)
 	{											// il y a 2 états possibles (selon reprise)
 	case 0:
 		// évalue la condition
-		m_Condition->RestoreState(pile, bMain); 
+		m_Condition->RestoreState(pile, bMain);  
 		return;
- 
+  
 	case 1:
 		// évalue le bloc d'instruction associé
 		if ( m_Block != NULL ) m_Block->RestoreState(pile, bMain);
 		return;
-	} 
+	}  
 }
 
 
@@ -213,13 +213,13 @@ BOOL CBotDo :: Execute(CBotStack* &pj)
 	{													// il y a 2 états possibles (selon reprise)
 	case 0:
 		// évalue le bloc d'instruction associé
-		if ( m_Block != NULL && 
+		if ( m_Block != NULL &&  
 			!m_Block->Execute(pile) )
 		{
 			if (pile->IfContinue(1, m_label)) continue;	// si continue, repasse au test
 			return pj->BreakReturn(pile, m_label);		// transmet le résultat et libère la pile
 		}
- 
+  
 		// termine s'il y a une erreur
 		if ( !pile->IsOk() )
 		{
@@ -227,7 +227,7 @@ BOOL CBotDo :: Execute(CBotStack* &pj)
 		}
 
 		if (!pile->SetState(1)) return FALSE;			// prêt pour la suite
- 
+  
 	case 1:
 		// évalue la condition
 		if ( !m_Condition->Execute(pile) ) return FALSE; // interrompu ici ?
@@ -242,7 +242,7 @@ BOOL CBotDo :: Execute(CBotStack* &pj)
 
 		// repasse au bloc d'instruction pour recommencer
 		if (!pile->SetState(0, 0)) return FALSE;
-		continue; 
+		continue;  
 	}
 }
 
@@ -368,7 +368,7 @@ BOOL CBotFor :: Execute(CBotStack* &pj)
 		if ( m_Init != NULL &&
 			 !m_Init->Execute(pile) ) return FALSE;		// interrompu ici ?
 		if (!pile->SetState(1)) return FALSE;			// prêt pour la suite
- 
+  
 	case 1:
 		// évalue la condition
 		if ( m_Test != NULL )							// pas de condition ? -> vrai !
@@ -389,7 +389,7 @@ BOOL CBotFor :: Execute(CBotStack* &pj)
 	
 	case 2:
 		// évalue le bloc d'instruction associé
-		if ( m_Block != NULL && 
+		if ( m_Block != NULL &&  
 			!m_Block->Execute(pile) )
  		{
 			if (pile->IfContinue(3, m_label)) continue;	// si continue, passe à l'incrémentation
@@ -411,7 +411,7 @@ BOOL CBotFor :: Execute(CBotStack* &pj)
 
 		// repasse au test pour recommencer
 		if (!pile->SetState(1, 0)) return FALSE;			// revient au test
-		continue; 
+		continue;  
 	}
 }
 
@@ -597,7 +597,7 @@ CBotInstr* CBotSwitch::Compile(CBotToken* &p, CBotCStack* pStack)
 								CBotInstr* i = CBotCase::Compile( p, pStk2 );
 								if (i == NULL)
 								{
-									delete inst; 
+									delete inst;  
 									return pStack->Return(NULL, pStk2);
 								}
 								delete pStk2;
@@ -656,7 +656,7 @@ CBotInstr* CBotSwitch::Compile(CBotToken* &p, CBotCStack* pStack)
 
 BOOL CBotSwitch :: Execute(CBotStack* &pj)
 {
-	CBotStack* pile1 = pj->AddStack(this);		// ajoute un élément à la pile 
+	CBotStack* pile1 = pj->AddStack(this);		// ajoute un élément à la pile  
 //	if ( pile1 == EOX ) return TRUE;
 
 	CBotInstr*	p = m_Block;					// la première expression
@@ -705,7 +705,7 @@ void CBotSwitch :: RestoreState(CBotStack* &pj, BOOL bMain)
 {
 	if ( !bMain ) return;
 
-	CBotStack* pile1 = pj->RestoreStack(this);	// ajoute un élément à la pile 
+	CBotStack* pile1 = pj->RestoreStack(this);	// ajoute un élément à la pile  
 	if ( pile1 == NULL ) return;
 
 	CBotInstr*	p = m_Block;					// la première expression
@@ -1000,7 +1000,7 @@ BOOL CBotTry :: Execute(CBotStack* &pj)
 		}
 		pc = pc->m_next;
 	}
-	if ( m_FinalInst != NULL && 
+	if ( m_FinalInst != NULL &&  
 		 pile1->GivState() > 0 && val != 0 ) pile1->SetState(-1);// si arret alors fait le final
 
 	if (pile1->GivState() <= -1)

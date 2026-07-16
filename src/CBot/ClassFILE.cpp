@@ -44,7 +44,7 @@ void PrepareFilename(CBotString &filename)  //DD!
 // reçois le nom du fichier en paramètre
 
 // exécution
-BOOL rfconstruct (CBotVar* pThis, CBotVar* pVar, CBotVar* pResult, int& Exception) 
+BOOL rfconstruct (CBotVar* pThis, CBotVar* pVar, CBotVar* pResult, int& Exception)  
 {
 	CBotString	mode;
 
@@ -66,7 +66,7 @@ BOOL rfconstruct (CBotVar* pThis, CBotVar* pVar, CBotVar* pResult, int& Exceptio
 		if ( mode != "r" && mode != "w" ) { Exception = CBotErrBadParam; return FALSE; }
 
 		// pas de 3e paramètre
-		if ( pVar->GivNext() != NULL ) { Exception = CBotErrOverParam; return FALSE; } 
+		if ( pVar->GivNext() != NULL ) { Exception = CBotErrOverParam; return FALSE; }  
 	}
 
 	// enregistre le nom du fichier

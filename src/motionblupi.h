@@ -15,31 +15,31 @@ class CObject;
 
 #define MBLUPI_WAIT		0		// attend au repos
 #define MBLUPI_TURN		1		// tourne
-#define MBLUPI_ERROR	2		// opération impossible
-#define MBLUPI_ERROR2	3		// 
+#define MBLUPI_ERROR	2		// opï¿½ration impossible
+#define MBLUPI_ERROR2	3		//  
 #define MBLUPI_HELLO	4		// bonjour avec le bras
-#define MBLUPI_HELLO2	5		// 
-#define MBLUPI_AMAZE	6		// ohhhhh... (étonné)
-#define MBLUPI_AMAZE2	7		// 
+#define MBLUPI_HELLO2	5		//  
+#define MBLUPI_AMAZE	6		// ohhhhh... (ï¿½tonnï¿½)
+#define MBLUPI_AMAZE2	7		//  
 #define MBLUPI_PFIOU	8		// pfiouuu...
-#define MBLUPI_PFIOU2	9		// 
-#define MBLUPI_PFIOU3	10		// 
-#define MBLUPI_RUSH		11		// élan pour pousser
-#define MBLUPI_ROLL		12		// pousse une sphère pour la rouler
-#define MBLUPI_ROLL2	13		// 
+#define MBLUPI_PFIOU2	9		//  
+#define MBLUPI_PFIOU3	10		//  
+#define MBLUPI_RUSH		11		// ï¿½lan pour pousser
+#define MBLUPI_ROLL		12		// pousse une sphï¿½re pour la rouler
+#define MBLUPI_ROLL2	13		//  
 #define MBLUPI_TRAX		14		// presse un bouton du trax
-#define MBLUPI_TRAX2	15		// 
+#define MBLUPI_TRAX2	15		//  
 #define MBLUPI_TAPTAP	16		// tape du pied
-#define MBLUPI_TAPTAP2	17		// 
+#define MBLUPI_TAPTAP2	17		//  
 #define MBLUPI_DRINK1	18		// prend fiole
 #define MBLUPI_DRINK2	19		// boit fiole
 #define MBLUPI_YOUPIE	20		// content
-#define MBLUPI_YOUPIE2	21		// 
+#define MBLUPI_YOUPIE2	21		//  
 #define MBLUPI_GOAL1	22		// attrape le ballon
 #define MBLUPI_GOAL2	23		// suspendu au ballon
 #define MBLUPI_STOP		24		// stoppe un robot
-#define MBLUPI_TRUCK	25		// transporté par dock
-#define MBLUPI_OUPS		26		// perd l'équilibre
+#define MBLUPI_TRUCK	25		// transportï¿½ par dock
+#define MBLUPI_OUPS		26		// perd l'ï¿½quilibre
 #define MBLUPI_WALK1	27		// marche 1
 #define MBLUPI_WALK2	28		// marche 2
 #define MBLUPI_WALK3	29		// marche 3
@@ -52,12 +52,12 @@ class CObject;
 
 #define MBLUPI_EYE		100		// yeux..
 #define MBLUPI_OPEN		0		// ..normaux
-#define MBLUPI_CLOSE	1		// ..fermés
+#define MBLUPI_CLOSE	1		// ..fermï¿½s
 
 #define MBLUPI_MOUTH	110		// bouche..
 #define MBLUPI_HAPPY	0		// ..sourire \-/
-#define MBLUPI_SAD		1		// ..triste  /-\ 
-#define MBLUPI_ANGRY	2		// ..fâché    o
+#define MBLUPI_SAD		1		// ..triste  (backslash removed for GCC)
+#define MBLUPI_ANGRY	2		// ..fï¿½chï¿½    o
 
 #define MBLUPI_WALK		200		// marche normalement
 #define MBLUPI_PUSH		201		// pousse une caisse

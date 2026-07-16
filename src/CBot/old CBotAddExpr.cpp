@@ -42,7 +42,7 @@ CBotInstr* CBotAddExpr::Compile(CBotToken* &p, CBotCStack* pStack)
 		int			 type1, type2;
 		type1 = pStk->GetType(CBotTypChar);					// de quel type le premier opérande ?
 
-		p = p->Next();										// saute le token de l'opération 
+		p = p->Next();										// saute le token de l'opération  
 
 		// cherche des instructions qui peuvent convenir à droite
 
@@ -53,7 +53,7 @@ CBotInstr* CBotAddExpr::Compile(CBotToken* &p, CBotCStack* pStack)
 			type2 = pStk->GetType(CBotTypChar);				// de quel type le résultat ?
 
 			if ( type1 == type2 &&							// les résultats sont-ils compatibles
-				 type1 != CBotTypBoolean && 
+				 type1 != CBotTypBoolean &&  
 				 (inst->m_token.GetType() != ID_SUB ||
 				  type1 < CBotTypBoolean ))					// pas de soustraction de chaînes !
 			{

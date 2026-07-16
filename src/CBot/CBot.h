@@ -1,27 +1,27 @@
 ////////////////////////////////////////////////////////////////////
-// interpréteur pour le language CBot du jeu COLOBOT
+// interprï¿½teur pour le language CBot du jeu COLOBOT
 
-// dernière révision : 25/09/2001	DD
+// derniï¿½re rï¿½vision : 25/09/2001	DD
 
 
 #include "resource.h"
-#include "CBotDll.h"				// définitions publiques
+#include "CBotDll.h"				// dï¿½finitions publiques
 #include "CBotToken.h"				// gestion des tokens
 
-#define	STACKRUN	TRUE			// reprise de l'exécution direct sur une routine suspendue
-#define	STACKMEM	TRUE			// préréserve la mémoire pour la pile d'exécution
-#define	MAXSTACK	100				// taille du stack réservé
+#define	STACKRUN	TRUE			// reprise de l'exï¿½cution direct sur une routine suspendue
+#define	STACKMEM	TRUE			// prï¿½rï¿½serve la mï¿½moire pour la pile d'exï¿½cution
+#define	MAXSTACK	100				// taille du stack rï¿½servï¿½
 
-#define	EOX			(CBotStack*)-1	// marqueur condition spéciale
+#define	EOX			(CBotStack*)-1	// marqueur condition spï¿½ciale
 
 /////////////////////////////////////////////////////////////////////
-// résumé des classes utilisées, définies ci-après
+// rï¿½sumï¿½ des classes utilisï¿½es, dï¿½finies ci-aprï¿½s
 
 class CBotCompExpr;	// une expression telle que
 					// () <= ()
-class CBotAddExpr;	// une expression telle que 
+class CBotAddExpr;	// une expression telle que  
 					// () + ()
-class CBotParExpr;	// un élément de base ou entre parenthèse
+class CBotParExpr;	// un ï¿½lï¿½ment de base ou entre parenthï¿½se
 					// Toto.truc
 					// 12.5
 					// "chaine"
@@ -31,17 +31,17 @@ class CBotExprVar;	// un nom de variable tel que
 					// chose.truc.machin
 class CBotWhile;	// while (...) {...};
 class CBotIf;		// if (...) {...} else {...}
-class CBotDefParam;	// liste de paramètres d'une fonction
+class CBotDefParam;	// liste de paramï¿½tres d'une fonction
 
 
 
 
 ////////////////////////////////////////////////////////////////////////
-// Gestion de la pile d'exécution
+// Gestion de la pile d'exï¿½cution
 ////////////////////////////////////////////////////////////////////////
 
 // en fait, en externe, la seule chose qu'il est possible de faire
-// c'est de créer une instance d'une pile 
+// c'est de crï¿½er une instance d'une pile  
 // pour l'utiliser pour la routine CBotProgram::Execute(CBotStack)
 
 class CBotStack
@@ -51,22 +51,22 @@ private:
 	CBotStack*		m_next2;
 	CBotStack*		m_prev;
 	friend class CBotInstArray;
- 
+  
 	int				m_state;
 	int				m_step;
 	static int		m_error;
 	static int		m_start;
 	static int		m_end;
 	static
-	CBotVar*		m_retvar;					// résultat d'un return
+	CBotVar*		m_retvar;					// rï¿½sultat d'un return
 
-	CBotVar*		m_var;						// résultat des opérations
-	CBotVar*		m_listVar;					// les variables déclarées à ce niveau
+	CBotVar*		m_var;						// rï¿½sultat des opï¿½rations
+	CBotVar*		m_listVar;					// les variables dï¿½clarï¿½es ï¿½ ce niveau
 
-	BOOL			m_bBlock;					// fait partie d'un bloc (variables sont locales à ce bloc)
+	BOOL			m_bBlock;					// fait partie d'un bloc (variables sont locales ï¿½ ce bloc)
 	BOOL			m_bOver;					// limites de la pile ?
-//	BOOL			m_bDontDelete;				// spécial, ne pas détruire les variables au delete
-	CBotProgram*	m_prog;						// les fonctions définies par user
+//	BOOL			m_bDontDelete;				// spï¿½cial, ne pas dï¿½truire les variables au delete
+	CBotProgram*	m_prog;						// les fonctions dï¿½finies par user
 
 	static
 	int				m_initimer;
@@ -78,7 +78,7 @@ private:
 	void*			m_pUser;
 
 	CBotInstr*		m_instr;					// l'instruction correspondante
-	BOOL			m_bFunc;					// une entrée d'une fonction ?
+	BOOL			m_bFunc;					// une entrï¿½e d'une fonction ?
 	CBotCall*		m_call;						// point de reprise dans un call extern
 	friend class	CBotTry;
 
@@ -93,10 +93,10 @@ public:
 	BOOL			StackOver();
 
 	int				GivError(int& start, int& end);
-	int				GivError();						// rend le numéro d'erreur retourné
+	int				GivError();						// rend le numï¿½ro d'erreur retournï¿½
 
-	void			Reset(void* pUser);				// plus d'erreur, timer au début
-	void			SetType(CBotTypResult& type);	// détermine le type
+	void			Reset(void* pUser);				// plus d'erreur, timer au dï¿½but
+	void			SetType(CBotTypResult& type);	// dï¿½termine le type
 	int				GivType(int mode = 0);			// donne le type de valeur sur le stack
 	CBotTypResult	GivTypResult(int mode = 0);		// donne le type complet de valeur sur le stack
 
@@ -115,26 +115,26 @@ public:
 	CBotVar*		CopyVar(CBotToken& Token, BOOL bUpdate = FALSE);	// trouve et rend une copie
 
 
-	CBotStack*		AddStack(CBotInstr* instr = NULL, BOOL bBlock = FALSE);	// étend le stack
-	CBotStack*		AddStackEOX(CBotCall* instr = NULL, BOOL bBlock = FALSE);	// étend le stack
+	CBotStack*		AddStack(CBotInstr* instr = NULL, BOOL bBlock = FALSE);	// ï¿½tend le stack
+	CBotStack*		AddStackEOX(CBotCall* instr = NULL, BOOL bBlock = FALSE);	// ï¿½tend le stack
 	CBotStack*		RestoreStack(CBotInstr* instr = NULL);
 	CBotStack*		RestoreStackEOX(CBotCall* instr = NULL);
 
-	CBotStack*		AddStack2(BOOL bBlock = FALSE);						// étend le stack
-	BOOL			Return(CBotStack* pFils);							// transmet le résultat au dessus
-	BOOL			ReturnKeep(CBotStack* pFils);						// transmet le résultat sans réduire la pile
+	CBotStack*		AddStack2(BOOL bBlock = FALSE);						// ï¿½tend le stack
+	BOOL			Return(CBotStack* pFils);							// transmet le rï¿½sultat au dessus
+	BOOL			ReturnKeep(CBotStack* pFils);						// transmet le rï¿½sultat sans rï¿½duire la pile
 	BOOL			BreakReturn(CBotStack* pfils, const char* name = NULL);
-																		// en cas de break éventuel
+																		// en cas de break ï¿½ventuel
 	BOOL			IfContinue(int state, const char* name);
 																		// ou de "continue"
 	
 	BOOL			IsOk();
 
-	BOOL			SetState(int n, int lim = -10);						// sélectionne un état
-	int				GivState();											// dans quel état j'ère ?
-	BOOL			IncState(int lim = -10);							// passe à l'état suivant
-	BOOL			IfStep();											// faire du pas à pas ?
-	BOOL			Execute(); 
+	BOOL			SetState(int n, int lim = -10);						// sï¿½lectionne un ï¿½tat
+	int				GivState();											// dans quel ï¿½tat j'ï¿½re ?
+	BOOL			IncState(int lim = -10);							// passe ï¿½ l'ï¿½tat suivant
+	BOOL			IfStep();											// faire du pas ï¿½ pas ?
+	BOOL			Execute();  
 
 	void			SetVar( CBotVar* var );
 	void			SetCopyVar( CBotVar* var );
@@ -172,7 +172,7 @@ public:
 	int				m_temp;
 };
 
-// les routines inline doivent être déclarées dans le fichier .h
+// les routines inline doivent ï¿½tre dï¿½clarï¿½es dans le fichier .h
 
 inline BOOL CBotStack::IsOk()
 {
@@ -206,13 +206,13 @@ private:
 	int				m_end;
 	int				m_start;
 
-	CBotVar*		m_var;						// résultat des opérations
+	CBotVar*		m_var;						// rï¿½sultat des opï¿½rations
 
-	BOOL			m_bBlock;					// fait partie d'un bloc (variables sont locales à ce bloc)
+	BOOL			m_bBlock;					// fait partie d'un bloc (variables sont locales ï¿½ ce bloc)
 	CBotVar*		m_listVar;
 
 	static
-	CBotProgram*	m_prog;						// liste des fonctions compilées
+	CBotProgram*	m_prog;						// liste des fonctions compilï¿½es
 	static
 	CBotTypResult	m_retTyp;
 //	static
@@ -225,9 +225,9 @@ public:
 	BOOL			IsOk();
 	int				GivError();
 	int				GivError(int& start, int& end);
-												// rend le numéro d'erreur retourné
+												// rend le numï¿½ro d'erreur retournï¿½
 
-	void			SetType(CBotTypResult& type);// détermine le type
+	void			SetType(CBotTypResult& type);// dï¿½termine le type
 	CBotTypResult	GivTypResult(int mode = 0);	// donne le type de valeur sur le stack
 	int				GivType(int mode = 0);		// donne le type de valeur sur le stack
 	CBotClass*		GivClass();					// donne la classe de la valeur sur le stack
@@ -239,8 +239,8 @@ public:
 	CBotVar*		CopyVar(CBotToken& Token);	// trouve et rend une copie
 
 	CBotCStack*		TokenStack(CBotToken* pToken = NULL, BOOL bBlock = FALSE);
-	CBotInstr*		Return(CBotInstr* p, CBotCStack* pParent);	// transmet le résultat au dessus
-	CBotFunction*	ReturnFunc(CBotFunction* p, CBotCStack* pParent);	// transmet le résultat au dessus
+	CBotInstr*		Return(CBotInstr* p, CBotCStack* pParent);	// transmet le rï¿½sultat au dessus
+	CBotFunction*	ReturnFunc(CBotFunction* p, CBotCStack* pParent);	// transmet le rï¿½sultat au dessus
 	
 	void			SetVar( CBotVar* var );
 	void			SetCopyVar( CBotVar* var );
@@ -268,7 +268,7 @@ extern BOOL SaveVar(FILE* pf, CBotVar* pVar);
 
 
 /////////////////////////////////////////////////////////////////////
-// classes définissant une instruction
+// classes dï¿½finissant une instruction
 class CBotInstr
 {
 private:
@@ -278,9 +278,9 @@ private:
 protected:
 	CBotToken	m_token;				// conserve le token
 	CBotString	name;					// debug
-	CBotInstr*	m_next;					// instructions chaînées
-	CBotInstr*	m_next2b;				// seconde liste pour définition en chaîne
-	CBotInstr*	m_next3;				// troisième liste pour les indices et champs
+	CBotInstr*	m_next;					// instructions chaï¿½nï¿½es
+	CBotInstr*	m_next2b;				// seconde liste pour dï¿½finition en chaï¿½ne
+	CBotInstr*	m_next3;				// troisiï¿½me liste pour les indices et champs
 	static
 	int			m_LoopLvl;
 	friend class	CBotClassInst;
@@ -332,7 +332,7 @@ public:
 	static
 	void		DecLvl();
 	static
-	BOOL		ChkLvl(CBotString& label, int type);
+	BOOL		ChkLvl(const CBotString& label, int type);
 
 	BOOL		IsOfClass(CBotString name);
 };
@@ -342,7 +342,7 @@ class CBotWhile : public CBotInstr
 private:
 	CBotInstr*	m_Condition;		// la condition
 	CBotInstr*	m_Block;			// les instructions
-	CBotString	m_label;			// une étiquette s'il y a
+	CBotString	m_label;			// une ï¿½tiquette s'il y a
 
 public:
 				CBotWhile();
@@ -358,7 +358,7 @@ class CBotDo : public CBotInstr
 private:
 	CBotInstr*	m_Block;			// les instructions
 	CBotInstr*	m_Condition;		// la condition
-	CBotString	m_label;			// une étiquette s'il y a
+	CBotString	m_label;			// une ï¿½tiquette s'il y a
 
 public:
 				CBotDo();
@@ -374,9 +374,9 @@ class CBotFor : public CBotInstr
 private:
 	CBotInstr*	m_Init;				// intruction initiale
 	CBotInstr*	m_Test;				// la condition de test
-	CBotInstr*	m_Incr;				// instruction pour l'incrément
+	CBotInstr*	m_Incr;				// instruction pour l'incrï¿½ment
 	CBotInstr*	m_Block;			// les instructions
-	CBotString	m_label;			// une étiquette s'il y a
+	CBotString	m_label;			// une ï¿½tiquette s'il y a
 
 public:
 				CBotFor();
@@ -390,7 +390,7 @@ public:
 class CBotBreak : public CBotInstr
 {
 private:
-	CBotString	m_label;			// une étiquette s'il y a
+	CBotString	m_label;			// une ï¿½tiquette s'il y a
 
 public:
 				CBotBreak();
@@ -404,7 +404,7 @@ public:
 class CBotReturn : public CBotInstr
 {
 private:
-	CBotInstr*	m_Instr;			// le paramètre à retourner
+	CBotInstr*	m_Instr;			// le paramï¿½tre ï¿½ retourner
 
 public:
 				CBotReturn();
@@ -419,7 +419,7 @@ public:
 class CBotSwitch : public CBotInstr
 {
 private:
-	CBotInstr*	m_Value;			// value à chercher
+	CBotInstr*	m_Value;			// value ï¿½ chercher
 	CBotInstr*	m_Block;			// les instructions
 
 public:
@@ -435,7 +435,7 @@ public:
 class CBotCase : public CBotInstr
 {
 private:
-	CBotInstr*	m_Value;			// valeur à comparer
+	CBotInstr*	m_Value;			// valeur ï¿½ comparer
 
 public:
 				CBotCase();
@@ -485,7 +485,7 @@ public:
 class CBotThrow : public CBotInstr
 {
 private:
-	CBotInstr*	m_Value;			// la valeur à envoyer
+	CBotInstr*	m_Value;			// la valeur ï¿½ envoyer
 
 public:
 				CBotThrow();
@@ -527,14 +527,14 @@ public:
 };
 
 
-// définition d'un nombre entier
+// dï¿½finition d'un nombre entier
 
 class CBotInt : public CBotInstr
 {
 private:
-	CBotInstr*	m_var;				// la variable à initialiser
-	CBotInstr*	m_expr;				// la valeur à mettre, s'il y a
-///	CBotInstr*	m_next;				// plusieurs définitions enchaînées
+	CBotInstr*	m_var;				// la variable ï¿½ initialiser
+	CBotInstr*	m_expr;				// la valeur ï¿½ mettre, s'il y a
+///	CBotInstr*	m_next;				// plusieurs dï¿½finitions enchaï¿½nï¿½es
 
 public:
 				CBotInt();
@@ -545,15 +545,15 @@ public:
 	void		RestoreState(CBotStack* &pj, BOOL bMain);
 };
 
-// définition d'un tableau
+// dï¿½finition d'un tableau
 
 class CBotInstArray : public CBotInstr
 {
 private:
-	CBotInstr*	m_var;				// la variable à initialiser
+	CBotInstr*	m_var;				// la variable ï¿½ initialiser
 	CBotInstr*	m_listass;			// liste d'assignations pour le tableau
 	CBotTypResult
-				m_typevar;			// type d'éléments
+				m_typevar;			// type d'ï¿½lï¿½ments
 //	CBotString	m_ClassName;
 
 public:
@@ -566,14 +566,14 @@ public:
 };
 
 
-// définition d'une liste d'assignation pour un tableau
+// dï¿½finition d'une liste d'assignation pour un tableau
 // int [ ] a [ ] = ( ( 1, 2, 3 ) , ( 3, 2, 1 ) ) ;
 
 class CBotListArray : public CBotInstr
 {
 private:
-	CBotInstr*	m_expr;				// expression pour un élément
-									// les autres sont chaînés avec CBotInstr::m_next3;
+	CBotInstr*	m_expr;				// expression pour un ï¿½lï¿½ment
+									// les autres sont chaï¿½nï¿½s avec CBotInstr::m_next3;
 public:
 				CBotListArray();
 				~CBotListArray();
@@ -590,13 +590,13 @@ class CBotEmpty : public CBotInstr
 	void		RestoreState(CBotStack* &pj, BOOL bMain);
 };
 
-// définition d'un booléen
+// dï¿½finition d'un boolï¿½en
 
 class CBotBoolean : public CBotInstr
 {
 private:
-	CBotInstr*	m_var;				// la variable à initialiser
-	CBotInstr*	m_expr;				// la valeur à mettre, s'il y a
+	CBotInstr*	m_var;				// la variable ï¿½ initialiser
+	CBotInstr*	m_expr;				// la valeur ï¿½ mettre, s'il y a
 
 public:
 				CBotBoolean();
@@ -608,13 +608,13 @@ public:
 };
 
 
-// définition d'un nombre réel
+// dï¿½finition d'un nombre rï¿½el
 
 class CBotFloat : public CBotInstr
 {
 private:
-	CBotInstr*	m_var;				// la variable à initialiser
-	CBotInstr*	m_expr;				// la valeur à mettre, s'il y a
+	CBotInstr*	m_var;				// la variable ï¿½ initialiser
+	CBotInstr*	m_expr;				// la valeur ï¿½ mettre, s'il y a
 
 public:
 				CBotFloat();
@@ -625,13 +625,13 @@ public:
 	void		RestoreState(CBotStack* &pj, BOOL bMain);
 };
 
-// définition d'un elément string
+// dï¿½finition d'un elï¿½ment string
 
 class CBotIString : public CBotInstr
 {
 private:
-	CBotInstr*	m_var;				// la variable à initialiser
-	CBotInstr*	m_expr;				// la valeur à mettre, s'il y a
+	CBotInstr*	m_var;				// la variable ï¿½ initialiser
+	CBotInstr*	m_expr;				// la valeur ï¿½ mettre, s'il y a
 
 public:
 				CBotIString();
@@ -642,16 +642,16 @@ public:
 	void		RestoreState(CBotStack* &pj, BOOL bMain);
 };
 
-// définition d'un elément dans une classe quelconque
+// dï¿½finition d'un elï¿½ment dans une classe quelconque
 
 class CBotClassInst : public CBotInstr
 {
 private:
-	CBotInstr*	m_var;				// la variable à initialiser
-	CBotClass*	m_pClass;			// référence à la classe
-	CBotInstr*	m_Parameters;		// les paramètres à évaluer pour le constructeur
-	CBotInstr*	m_expr;				// la valeur à mettre, s'il y a
-	BOOL		m_hasParams;		// il y a des paramètres ?
+	CBotInstr*	m_var;				// la variable ï¿½ initialiser
+	CBotClass*	m_pClass;			// rï¿½fï¿½rence ï¿½ la classe
+	CBotInstr*	m_Parameters;		// les paramï¿½tres ï¿½ ï¿½valuer pour le constructeur
+	CBotInstr*	m_expr;				// la valeur ï¿½ mettre, s'il y a
+	BOOL		m_hasParams;		// il y a des paramï¿½tres ?
 	long		m_nMethodeIdent;
 
 public:
@@ -674,8 +674,8 @@ public:
 };
 
 
-// left opérande
-// n'accepte que les expressions pouvant être à gauche d'une assignation
+// left opï¿½rande
+// n'accepte que les expressions pouvant ï¿½tre ï¿½ gauche d'une assignation
 
 class CBotLeftExpr : public CBotInstr
 {
@@ -738,8 +738,8 @@ public:
 class CBotExpression : public CBotInstr
 {
 private:
-	CBotLeftExpr*	m_leftop;			// élément de gauche
-	CBotInstr*		m_rightop;			// élément de droite
+	CBotLeftExpr*	m_leftop;			// ï¿½lï¿½ment de gauche
+	CBotInstr*		m_rightop;			// ï¿½lï¿½ment de droite
 
 public:
 				CBotExpression();
@@ -753,7 +753,7 @@ public:
 class CBotListExpression : public CBotInstr
 {
 private:
-	CBotInstr*	m_Expr;				// la 1ère expression à évaluer
+	CBotInstr*	m_Expr;				// la 1ï¿½re expression ï¿½ ï¿½valuer
 
 public:
 				CBotListExpression();
@@ -767,9 +767,9 @@ public:
 class CBotLogicExpr : public CBotInstr
 {
 private:
-	CBotInstr*	m_condition;		// test à évaluer
-	CBotInstr*	m_op1;				// élément de gauche
-	CBotInstr*	m_op2;				// élément de droite
+	CBotInstr*	m_condition;		// test ï¿½ ï¿½valuer
+	CBotInstr*	m_op1;				// ï¿½lï¿½ment de gauche
+	CBotInstr*	m_op2;				// ï¿½lï¿½ment de droite
 	friend class CBotTwoOpExpr;
 
 public:
@@ -794,9 +794,9 @@ public:
 
 
 
-// une expression éventuellement entre parenthèses ( ... )
+// une expression ï¿½ventuellement entre parenthï¿½ses ( ... )
 // il n'y a jamais d'instance de cette classe
-// l'objet retourné étant le contenu de la parenthése
+// l'objet retournï¿½ ï¿½tant le contenu de la parenthï¿½se
 class CBotParExpr : public CBotInstr
 {
 private:
@@ -806,11 +806,11 @@ public:
 	CBotInstr*	Compile(CBotToken* &p, CBotCStack* pStack);
 };
 
-// expression unaire 
+// expression unaire  
 class CBotExprUnaire : public CBotInstr
 {
 private:
-	CBotInstr*	m_Expr;				// l'expression à évaluer
+	CBotInstr*	m_Expr;				// l'expression ï¿½ ï¿½valuer
 public:
 				CBotExprUnaire();
 				~CBotExprUnaire();
@@ -820,13 +820,13 @@ public:
 	void		RestoreState(CBotStack* &pj, BOOL bMain);
 };
 
-// toutes les opérations à 2 opérandes
+// toutes les opï¿½rations ï¿½ 2 opï¿½randes
 
 class CBotTwoOpExpr : public CBotInstr
 {
 private:
-	CBotInstr*	m_leftop;			// élément de gauche
-	CBotInstr*	m_rightop;			// élément de droite
+	CBotInstr*	m_leftop;			// ï¿½lï¿½ment de gauche
+	CBotInstr*	m_rightop;			// ï¿½lï¿½ment de droite
 public:
 				CBotTwoOpExpr();
 				~CBotTwoOpExpr();
@@ -856,7 +856,7 @@ public:
 class CBotListInstr : public CBotInstr
 {
 private:
-	CBotInstr*	m_Instr;			// les instructions à faire
+	CBotInstr*	m_Instr;			// les instructions ï¿½ faire
 
 public:
 				CBotListInstr();
@@ -871,11 +871,11 @@ public:
 class CBotInstrCall : public CBotInstr
 {
 private:
-	CBotInstr*	m_Parameters;		// les paramètres à évaluer
-//	int			m_typeRes;			// type du résultat
-//	CBotString	m_RetClassName;		// class du résultat
+	CBotInstr*	m_Parameters;		// les paramï¿½tres ï¿½ ï¿½valuer
+//	int			m_typeRes;			// type du rï¿½sultat
+//	CBotString	m_RetClassName;		// class du rï¿½sultat
 	CBotTypResult
-				m_typRes;			// type complet du résultat
+				m_typRes;			// type complet du rï¿½sultat
 	long		m_nFuncIdent;		// id de la fonction
 
 public:
@@ -887,19 +887,19 @@ public:
 	void		RestoreState(CBotStack* &pj, BOOL bMain);
 };
 
-// un appel d'une méthode
+// un appel d'une mï¿½thode
 
 class CBotInstrMethode : public CBotInstr
 {
 private:
-	CBotInstr*	m_Parameters;		// les paramètres à évaluer
-//	int			m_typeRes;			// type du résultat
-//	CBotString	m_RetClassName;		// class du résultat
+	CBotInstr*	m_Parameters;		// les paramï¿½tres ï¿½ ï¿½valuer
+//	int			m_typeRes;			// type du rï¿½sultat
+//	CBotString	m_RetClassName;		// class du rï¿½sultat
 	CBotTypResult
-				m_typRes;			// type complet du résultat
+				m_typRes;			// type complet du rï¿½sultat
 
-	CBotString	m_NomMethod;		// nom de la méthode
-	long		m_MethodeIdent;		// identificateur de la méthode
+	CBotString	m_NomMethod;		// nom de la mï¿½thode
+	long		m_MethodeIdent;		// identificateur de la mï¿½thode
 //	long		m_nThisIdent;		// identificateur pour "this"
 	CBotString	m_ClassName;		// nom de la classe
 
@@ -973,7 +973,7 @@ class CBotLeftExprVar : public CBotInstr
 private:
 public:
 	CBotTypResult
-				m_typevar;			// type de variable déclarée
+				m_typevar;			// type de variable dï¿½clarï¿½e
 	long		m_nIdent;			// identificateur unique pour cette variable
 
 public:
@@ -1028,7 +1028,7 @@ public:
 class CBotNew : public CBotInstr
 {
 private:
-	CBotInstr*	m_Parameters;		// les paramètres à évaluer
+	CBotInstr*	m_Parameters;		// les paramï¿½tres ï¿½ ï¿½valuer
 	long		m_nMethodeIdent;
 //	long		m_nThisIdent;
 	CBotToken	m_vartoken;
@@ -1043,7 +1043,7 @@ public:
 	void		RestoreState(CBotStack* &pj, BOOL bMain);
 };
 
-// expression représentant un nombre
+// expression reprï¿½sentant un nombre
 
 class CBotExprNum : public CBotInstr
 {
@@ -1063,7 +1063,7 @@ public:
 
 
 
-// expression représentant une chaine de caractères
+// expression reprï¿½sentant une chaine de caractï¿½res
 
 class CBotExprAlpha : public CBotInstr
 {
@@ -1087,7 +1087,7 @@ class CBotVarInt : public CBotVar
 {
 private:
 	int			m_val;			// la valeur
-	CBotString	m_defnum;		// le nom si donné par DefineNum
+	CBotString	m_defnum;		// le nom si donnï¿½ par DefineNum
 	friend class CBotVar;
 
 public:
@@ -1135,8 +1135,8 @@ public:
 
 };
 
-// classe pour la gestion des nombres réels (float)
-class CBotVarFloat : CBotVar
+// classe pour la gestion des nombres rï¿½els (float)
+class CBotVarFloat : public CBotVar
 {
 private:
 	float		m_val;		// la valeur
@@ -1176,8 +1176,8 @@ public:
 };
 
 
-// classe pour la gestion des chaînes (String)
-class CBotVarString : CBotVar
+// classe pour la gestion des chaï¿½nes (String)
+class CBotVarString : public CBotVar
 {
 private:
 	CBotString	m_val;		// la valeur
@@ -1204,7 +1204,7 @@ public:
 };
 
 // classe pour la gestion des boolean
-class CBotVarBoolean : CBotVar
+class CBotVarBoolean : public CBotVar
 {
 private:
 	BOOL		m_val;		// la valeur
@@ -1237,18 +1237,18 @@ class CBotVarClass : public CBotVar
 {
 private:
 	static
-	CBotVarClass*	m_ExClass;		// liste des instances existantes à un moment donné
-	CBotVarClass*	m_ExNext;		// pour cette liste générale
-	CBotVarClass*	m_ExPrev;		// pour cette liste générale
+	CBotVarClass*	m_ExClass;		// liste des instances existantes ï¿½ un moment donnï¿½
+	CBotVarClass*	m_ExNext;		// pour cette liste gï¿½nï¿½rale
+	CBotVarClass*	m_ExPrev;		// pour cette liste gï¿½nï¿½rale
 
 private:
-	CBotClass*		m_papa;			// la définition de la classe
+	CBotClass*		m_papa;			// la dï¿½finition de la classe
 	CBotVar*		m_pVar;			// contenu
 	friend class	CBotVar;		// mon papa est un copain
 	friend class	CBotVarPointer;	// et le pointeur aussi
 	int				m_CptUse;		// compteur d'utilisation
 	long			m_ItemIdent;	// identificateur (unique) de l'instance
-	BOOL			m_bConstructor;	// set si un constructeur a été appelé
+	BOOL			m_bConstructor;	// set si un constructeur a ï¿½tï¿½ appelï¿½
 
 public:
 				CBotVarClass( const CBotToken* name, CBotTypResult& type );
@@ -1257,7 +1257,7 @@ public:
 	void		Copy(CBotVar* pSrc, BOOL bName=TRUE);
 	void		SetClass(CBotClass* pClass);
 	CBotClass*	GivClass();
-	CBotVar*	GivItem(const char* name);	// rend un élément d'une classe selon son nom (*)
+	CBotVar*	GivItem(const char* name);	// rend un ï¿½lï¿½ment d'une classe selon son nom (*)
 	CBotVar*	GivItem(int n, BOOL bExtend);
 	CBotVar*	GivItemList();
 
@@ -1266,10 +1266,10 @@ public:
 	BOOL		Save1State(FILE* pf);
 	void		Maj(void* pUser, BOOL bContinue);
 
-	void		IncrementUse();				// une référence en plus
-	void		DecrementUse();				// une référence en moins
+	void		IncrementUse();				// une rï¿½fï¿½rence en plus
+	void		DecrementUse();				// une rï¿½fï¿½rence en moins
 
-	CBotVarClass* 
+	CBotVarClass*  
 				GivPointer();
 	void		SetItemList(CBotVar* pVar);
 
@@ -1289,13 +1289,13 @@ public:
 };
 
 
-// classe pour la gestion des pointeurs à une instances de classe
+// classe pour la gestion des pointeurs ï¿½ une instances de classe
 class CBotVarPointer : public CBotVar
 {
 private:
 	CBotVarClass*
 				m_pVarClass;				// contenu
-	CBotClass*	m_papa;						// la classe prévue pour ce pointeur
+	CBotClass*	m_papa;						// la classe prï¿½vue pour ce pointeur
 	friend class CBotVar;			// mon papa est un copain
 
 public:
@@ -1305,7 +1305,7 @@ public:
 	void		Copy(CBotVar* pSrc, BOOL bName=TRUE);
 	void		SetClass(CBotClass* pClass);
 	CBotClass*	GivClass();
-	CBotVar*	GivItem(const char* name);	// rend un élément d'une classe selon son nom (*)
+	CBotVar*	GivItem(const char* name);	// rend un ï¿½lï¿½ment d'une classe selon son nom (*)
 	CBotVar*	GivItemList();
 
 	CBotString	GivValString();
@@ -1313,8 +1313,8 @@ public:
 	CBotVarClass*
 				GivPointer();
 
-	void		SetIdent(long n);			// associe un numéro d'identification (unique)
-	long		GivIdent();					// donne le numéro d'identification associé
+	void		SetIdent(long n);			// associe un numï¿½ro d'identification (unique)
+	long		GivIdent();					// donne le numï¿½ro d'identification associï¿½
 	void		ConstructorSet();
 
 	BOOL		Save1State(FILE* pf);
@@ -1333,7 +1333,7 @@ class CBotVarArray : public CBotVar
 {
 private:
 	CBotVarClass*
-				m_pInstance;				// instance gérant le tableau
+				m_pInstance;				// instance gï¿½rant le tableau
 
 	friend class CBotVar;					// papa est un copain
 
@@ -1346,12 +1346,12 @@ public:
 				GivPointer();
 	
 	void		Copy(CBotVar* pSrc, BOOL bName=TRUE);
-	CBotVar*	GivItem(int n, BOOL bGrow=FALSE);	// rend un élément selon son index numérique
-												// agrandi le tableau si nécessaire si bExtend
-//	CBotVar*	GivItem(const char* name);		// rend un élément selon son index litéral
-	CBotVar*	GivItemList();					// donne le premier élément de la liste
+	CBotVar*	GivItem(int n, BOOL bGrow=FALSE);	// rend un ï¿½lï¿½ment selon son index numï¿½rique
+												// agrandi le tableau si nï¿½cessaire si bExtend
+//	CBotVar*	GivItem(const char* name);		// rend un ï¿½lï¿½ment selon son index litï¿½ral
+	CBotVar*	GivItemList();					// donne le premier ï¿½lï¿½ment de la liste
 
-	CBotString	GivValString();					// donne le contenu du tableau dans une chaîne
+	CBotString	GivValString();					// donne le contenu du tableau dans une chaï¿½ne
 
 	BOOL		Save1State(FILE* pf);
 };
@@ -1360,7 +1360,7 @@ public:
 extern CBotInstr* CompileParams(CBotToken* &p, CBotCStack* pStack, CBotVar** ppVars);
 
 extern BOOL TypeCompatible( CBotTypResult& type1, CBotTypResult& type2, int op = 0 );
-extern BOOL TypesCompatibles( CBotTypResult& type1, CBotTypResult& type2 );
+extern BOOL TypesCompatibles( CBotTypResult type1, CBotTypResult type2 );
 
 extern BOOL WriteWord(FILE* pf, WORD w);
 extern BOOL ReadWord(FILE* pf, WORD& w);
@@ -1399,14 +1399,14 @@ private:
 	CBotCall*	m_next;
 
 public:
-				CBotCall(const char* name, 
-						 BOOL rExec (CBotVar* pVar, CBotVar* pResult, int& Exception, void* pUser), 
+				CBotCall(const char* name,  
+						 BOOL rExec (CBotVar* pVar, CBotVar* pResult, int& Exception, void* pUser),  
 						 CBotTypResult rCompile (CBotVar* &pVar, void* pUser));
 				~CBotCall();
 
 	static
-	BOOL		AddFunction(const char* name, 
-							BOOL rExec (CBotVar* pVar, CBotVar* pResult, int& Exception, void* pUser), 
+	BOOL		AddFunction(const char* name,  
+							BOOL rExec (CBotVar* pVar, CBotVar* pResult, int& Exception, void* pUser),  
 							CBotTypResult rCompile (CBotVar* &pVar, void* pUser));
 
 	static
@@ -1432,7 +1432,7 @@ public:
 	static void	Free();
 };
 
-// classe gérant les méthodes déclarées par AddFunction sur une classe
+// classe gï¿½rant les mï¿½thodes dï¿½clarï¿½es par AddFunction sur une classe
 
 class CBotCallMethode
 {
@@ -1446,13 +1446,13 @@ private:
 	long		m_nFuncIdent;
 
 public:
-				CBotCallMethode(const char* name, 
-						 BOOL rExec (CBotVar* pThis, CBotVar* pVar, CBotVar* pResult, int& Exception), 
+				CBotCallMethode(const char* name,  
+						 BOOL rExec (CBotVar* pThis, CBotVar* pVar, CBotVar* pResult, int& Exception),  
 						 CBotTypResult rCompile (CBotVar* pThis, CBotVar* &pVar));
 				~CBotCallMethode();
 
 	CBotTypResult
-				CompileCall(const char* name, CBotVar* pThis, 
+				CompileCall(const char* name, CBotVar* pThis,  
 							CBotVar** ppVars, CBotCStack* pStack,
 							long& nIdent);
 
@@ -1464,15 +1464,15 @@ public:
 	
 };
 
-// une liste de paramètres
+// une liste de paramï¿½tres
 
 class CBotDefParam
 {
 private:
-	CBotToken		m_token;		// nom du paramètre
+	CBotToken		m_token;		// nom du paramï¿½tre
 	CBotString		m_typename;		// nom du type
-	CBotTypResult	m_type;			// type de paramètre
-	CBotDefParam*	m_next;			// paramètre suivant
+	CBotTypResult	m_type;			// type de paramï¿½tre
+	CBotDefParam*	m_next;			// paramï¿½tre suivant
 	long			m_nIdent;
 
 public:
@@ -1492,7 +1492,7 @@ public:
 };
 
 
-// une déclaration de fonction
+// une dï¿½claration de fonction
 
 class CBotFunction : CBotInstr
 {
@@ -1505,18 +1505,18 @@ private:
 	friend class	CBotCStack;
 //	long			m_nThisIdent;
 	long			m_nFuncIdent;
-	BOOL			m_bSynchro;		// méthode synchronisée ?
+	BOOL			m_bSynchro;		// mï¿½thode synchronisï¿½e ?
 
 private:
-	CBotDefParam*	m_Param;		// liste des paramètres
+	CBotDefParam*	m_Param;		// liste des paramï¿½tres
 	CBotInstr*		m_Block;		// le bloc d'instructions
 	CBotFunction*	m_next;
 	CBotToken		m_retToken;		// si retourne un CBotTypClass
-	CBotTypResult	m_retTyp;		// type complet du résultat
+	CBotTypResult	m_retTyp;		// type complet du rï¿½sultat
 
 	BOOL			m_bPublic;		// fonction publique
 	BOOL			m_bExtern;		// fonction extern
-	CBotString		m_MasterClass;	// nom de la classe qu'on dérive
+	CBotString		m_MasterClass;	// nom de la classe qu'on dï¿½rive
 	CBotProgram*	m_pProg;
 	friend class CBotProgram;
 	friend class CBotClass;

@@ -12,7 +12,7 @@ class CInstanceManager;
 
 // Evénements.
 
-enum EventMsg
+enum EventMsg : int
 {
 	EVENT_NULL				= 0,
 
@@ -455,7 +455,7 @@ Event;
 #define VK_DEFAULT		(0x200+12)	// action par défaut
 
 
-enum KeyRank
+enum KeyRank : int
 {
 	KEYRANK_LEFT	= 0,
 	KEYRANK_RIGHT	= 1,

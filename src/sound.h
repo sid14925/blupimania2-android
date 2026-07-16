@@ -13,7 +13,7 @@ class CInstanceManager;
 class CD3DEngine;
 
 
-enum Sound
+enum Sound : int
 {
 	SOUND_CLICK			= 0,
 	SOUND_BOUM			= 1,

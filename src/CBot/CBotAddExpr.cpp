@@ -42,7 +42,7 @@ CBotInstr* CBotAddExpr::Compile(CBotToken* &p, CBotStack* pStack)
 		int			 type1, type2;
 		type1 = pStack->GetType();							// de quel type le premier opérande ?
 
-		p = p->Next();										// saute le token de l'opération 
+		p = p->Next();										// saute le token de l'opération  
 
 		// cherche des instructions qui peuvent convenir à droite
 

@@ -195,7 +195,7 @@ static BOOL WINAPI DriverEnumCallback( GUID* pGUID, TCHAR* strDesc,
     LPDIRECTDRAW7      pDD;
     LPDIRECT3D7        pD3D;
     HRESULT            hr;
-    
+     
     // Use the GUID to create the DirectDraw object
     hr = DirectDrawCreateEx( pGUID, (VOID**)&pDD, IID_IDirectDraw7, NULL );
     if( FAILED(hr) )
@@ -263,7 +263,7 @@ HRESULT D3DEnum_EnumerateDevices( HRESULT (*AppConfirmFn)(DDCAPS*, D3DDEVICEDESC
     g_fnAppConfirmFn = AppConfirmFn;
 
     // Enumerate drivers, devices, and modes
-    DirectDrawEnumerateEx( DriverEnumCallback, NULL, 
+    DirectDrawEnumerateEx( DriverEnumCallback, NULL,  
                            DDENUM_ATTACHEDSECONDARYDEVICES |
                            DDENUM_DETACHEDSECONDARYDEVICES |
                            DDENUM_NONDISPLAYDEVICES );
@@ -353,7 +353,7 @@ static VOID UpdateDialogControls( HWND hDlg, D3DEnum_DeviceInfo* pCurrentDevice,
 
         // Add device name to the combo box
         DWORD dwItem = ComboBox_AddString( hwndDevice, pDevice->strDesc );
-        
+         
         // Set the remaining UI states for the current device
         if( pDevice == pCurrentDevice )
         {
@@ -366,7 +366,7 @@ static VOID UpdateDialogControls( HWND hDlg, D3DEnum_DeviceInfo* pCurrentDevice,
                 EnableWindow( hwndWindowed, pDevice->bDesktopCompatible );
                 Button_SetCheck( hwndWindowed, bWindowed );
             }
-            
+             
             // Enable/set the stereo checkbox, as appropriate
             if( hwndStereo )
             {
@@ -419,7 +419,7 @@ static VOID UpdateDialogControls( HWND hDlg, D3DEnum_DeviceInfo* pCurrentDevice,
 // Name: ChangeDeviceProc()
 // Desc: Windows message handling function for the device select dialog
 //-----------------------------------------------------------------------------
-static BOOL CALLBACK ChangeDeviceProc( HWND hDlg, UINT uiMsg, WPARAM wParam, 
+static BOOL CALLBACK ChangeDeviceProc( HWND hDlg, UINT uiMsg, WPARAM wParam,  
                                        LPARAM lParam )
 {
     static D3DEnum_DeviceInfo** ppDeviceArg;
@@ -436,7 +436,7 @@ static BOOL CALLBACK ChangeDeviceProc( HWND hDlg, UINT uiMsg, WPARAM wParam,
     // Handle the initialization message
     if( WM_INITDIALOG == uiMsg )
     {
-        // Get the app's current device, passed in as an lParam argument        
+        // Get the app's current device, passed in as an lParam argument         
         ppDeviceArg = (D3DEnum_DeviceInfo**)lParam;
         if( NULL == ppDeviceArg )
             return FALSE;
@@ -467,7 +467,7 @@ static BOOL CALLBACK ChangeDeviceProc( HWND hDlg, UINT uiMsg, WPARAM wParam,
         BOOL  bStereo    = hwndStereo   ? Button_GetCheck( hwndStereo )   : 0;
 
         D3DEnum_DeviceInfo* pDevice = &pDeviceList[dwDevice];
-        
+         
         if( IDOK == LOWORD(wParam) )
         {
             // Handle the case when the user hits the OK button. Check if any
@@ -591,7 +591,7 @@ HRESULT D3DEnum_SelectDefaultDevice( D3DEnum_DeviceInfo** ppDevice,
     else
         return D3DENUMERR_NOCOMPATIBLEDEVICES;
 
-    // Set the windowed state of the newly selected device  
+    // Set the windowed state of the newly selected device   
     (*ppDevice)->bWindowed = TRUE;
 
     return S_OK;

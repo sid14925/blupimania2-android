@@ -11,7 +11,7 @@ class CMainUndo;
 class CRobotMain;
 
 
-enum TaskOrder
+enum TaskOrder : int
 {
 	TO_NULL,		// rien
 	TO_MOVE,		// avance

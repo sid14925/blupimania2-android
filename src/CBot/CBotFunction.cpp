@@ -1,16 +1,16 @@
 ///////////////////////////////////////////////////////////////////////
-// compilation des diverses fonctions déclarées par l'utilisateur
+// compilation des diverses fonctions dï¿½clarï¿½es par l'utilisateur
 //
 
 #include "CBot.h"
 
 // les divers constructeurs / destructeurs
-// pour libérer tout selon l'arbre établi
+// pour libï¿½rer tout selon l'arbre ï¿½tabli
 CBotFunction::CBotFunction()
 {
-	m_Param		 = NULL;			// liste des paramètres vide
+	m_Param		 = NULL;			// liste des paramï¿½tres vide
 	m_Block		 = NULL;			// le bloc d'instructions
-	m_next		 = NULL;			// les fonctions peuvent être chaînées
+	m_next		 = NULL;			// les fonctions peuvent ï¿½tre chaï¿½nï¿½es
 	m_bPublic	 = FALSE;			// fonction non publique
 	m_bExtern	 = FALSE;			// fonction non externe
 	m_nextpublic = NULL;
@@ -25,11 +25,11 @@ CBotFunction* CBotFunction::m_listPublic = NULL;
 
 CBotFunction::~CBotFunction()
 {
-	delete	m_Param;				// liste des paramètres vide
+	delete	m_Param;				// liste des paramï¿½tres vide
 	delete	m_Block;				// le bloc d'instructions
 	delete	m_next;
 
-	// enlève de la liste publique s'il y a lieu
+	// enlï¿½ve de la liste publique s'il y a lieu
 	if ( m_bPublic )
 	{
 		if ( m_nextpublic != NULL )
@@ -42,7 +42,7 @@ CBotFunction::~CBotFunction()
 		}
 		else
 		{
-			// si prev = next = null peut ne pas être dans la liste !
+			// si prev = next = null peut ne pas ï¿½tre dans la liste !
 			if ( m_listPublic == this ) m_listPublic = m_nextpublic;
 		}
 	}
@@ -142,9 +142,9 @@ CBotTypResult	TypeParam(CBotToken* &p, CBotCStack* pile)
 		if ( pClass != NULL)
 		{
 			p = p->GivNext();
-			return ArrayType(p, pile, 
-							 pClass->IsIntrinsic() ? 
-							 CBotTypResult( CBotTypIntrinsic, pClass ) : 
+			return ArrayType(p, pile,  
+							 pClass->IsIntrinsic() ?  
+							 CBotTypResult( CBotTypIntrinsic, pClass ) :  
 							 CBotTypResult( CBotTypPointer,   pClass ) );
 		}
 	}
@@ -152,8 +152,8 @@ CBotTypResult	TypeParam(CBotToken* &p, CBotCStack* pile)
 }
 
 // compile une nouvelle fonction
-// bLocal permet de mettre la déclaration des paramètres au même niveau
-// que le éléments appartenant à la classe pour les méthodes
+// bLocal permet de mettre la dï¿½claration des paramï¿½tres au mï¿½me niveau
+// que le ï¿½lï¿½ments appartenant ï¿½ la classe pour les mï¿½thodes
 CBotFunction* CBotFunction::Compile(CBotToken* &p, CBotCStack* pStack, CBotFunction* finput, BOOL bLocal)
 {
 	CBotToken*		pp;
@@ -184,7 +184,7 @@ CBotFunction* CBotFunction::Compile(CBotToken* &p, CBotCStack* pStack, CBotFunct
 
 	func->m_retToken = *p;
 //	CBotClass*	pClass;
-	func->m_retTyp = TypeParam(p, pStack);		// type du résultat
+	func->m_retTyp = TypeParam(p, pStack);		// type du rï¿½sultat
 
 	if (func->m_retTyp.GivType() >= 0)
 	{
@@ -197,10 +197,10 @@ CBotFunction* CBotFunction::Compile(CBotToken* &p, CBotCStack* pStack, CBotFunct
 			func->m_token = d;
 		}
 
-		// un nom de fonction est-il là ?
+		// un nom de fonction est-il lï¿½ ?
 		if (IsOfType(p, TokenTypVar))
 		{
-			if ( IsOfType( p, ID_DBLDOTS ) )		// méthode pour une classe
+			if ( IsOfType( p, ID_DBLDOTS ) )		// mï¿½thode pour une classe
 			{
 				func->m_MasterClass = pp->GivString();
 				CBotClass* pClass = CBotClass::Find(pp);
@@ -228,8 +228,8 @@ CBotFunction* CBotFunction::Compile(CBotToken* &p, CBotCStack* pStack, CBotFunct
 					pStk->AddVar(pThis);
 
 					// initialise les variables selon This
-					// n'enregistre que le pointeur à la première, 
-					// le reste est chainé
+					// n'enregistre que le pointeur ï¿½ la premiï¿½re,  
+					// le reste est chainï¿½
 					CBotVar* pv = pThis->GivItemList();
 					int num = 1;
 					while (pv != NULL)
@@ -266,7 +266,7 @@ bad:
 	return pStack->ReturnFunc(NULL, pStk);
 }
 
-// pré-compile une nouvelle fonction
+// prï¿½-compile une nouvelle fonction
 CBotFunction* CBotFunction::Compile1(CBotToken* &p, CBotCStack* pStack, CBotClass*	pClass)
 {
  	CBotFunction* func = new CBotFunction();
@@ -290,16 +290,16 @@ CBotFunction* CBotFunction::Compile1(CBotToken* &p, CBotCStack* pStack, CBotClas
 	}
 
 	func->m_retToken = *p;
-	func->m_retTyp = TypeParam(p, pStack);		// type du résultat
+	func->m_retTyp = TypeParam(p, pStack);		// type du rï¿½sultat
 
 	if (func->m_retTyp.GivType() >= 0)
 	{
 		CBotToken*	pp = p;
 		func->m_token = *p;
-		// un nom de fonction est-il là ?
+		// un nom de fonction est-il lï¿½ ?
 		if (IsOfType(p, TokenTypVar))
 		{
-			if ( IsOfType( p, ID_DBLDOTS ) )		// méthode pour une classe
+			if ( IsOfType( p, ID_DBLDOTS ) )		// mï¿½thode pour une classe
 			{
 				func->m_MasterClass = pp->GivString();
 				CBotClass* pClass = CBotClass::Find(pp);
@@ -355,14 +355,14 @@ static int xx = 0;
 
 BOOL CBotFunction::Execute(CBotVar** ppVars, CBotStack* &pj, CBotVar* pInstance)
 {
-	CBotStack*	pile = pj->AddStack(this, 2);				// un bout de pile local à cette fonction
+	CBotStack*	pile = pj->AddStack(this, 2);				// un bout de pile local ï¿½ cette fonction
 //	if ( pile == EOX ) return TRUE;
 
 	pile->SetBotCall(m_pProg);								// bases pour les routines
 
 	if ( pile->GivState() == 0 )
 	{
-		if ( !m_Param->Execute(ppVars, pile) ) return FALSE;	// défini les paramètres
+		if ( !m_Param->Execute(ppVars, pile) ) return FALSE;	// dï¿½fini les paramï¿½tres
 		pile->IncState();
 	}
 
@@ -405,7 +405,7 @@ BOOL CBotFunction::Execute(CBotVar** ppVars, CBotStack* &pj, CBotVar* pInstance)
 
 void CBotFunction::RestoreState(CBotVar** ppVars, CBotStack* &pj, CBotVar* pInstance)
 {
-	CBotStack*	pile = pj->RestoreStack(this);			// un bout de pile local à cette fonction
+	CBotStack*	pile = pj->RestoreStack(this);			// un bout de pile local ï¿½ cette fonction
 	if ( pile == NULL ) return;
 	CBotStack*	pile2 = pile;
 
@@ -413,13 +413,13 @@ void CBotFunction::RestoreState(CBotVar** ppVars, CBotStack* &pj, CBotVar* pInst
 
 	if ( pile->GivBlock() < 2 )
 	{
-		CBotStack*	pile2 = pile->RestoreStack(NULL);		// un bout de pile local à cette fonction
+		CBotStack*	pile2 = pile->RestoreStack(NULL);		// un bout de pile local ï¿½ cette fonction
 		if ( pile2 == NULL ) return;
 		pile->SetState(pile->GivState() + pile2->GivState());
 		pile2->Delete();
 	}
 
-	m_Param->RestoreState(pile2, TRUE);					// les paramètres
+	m_Param->RestoreState(pile2, TRUE);					// les paramï¿½tres
 
 	if ( !m_MasterClass.IsEmpty() )
 	{
@@ -451,7 +451,7 @@ CBotTypResult CBotFunction::CompileCall(const char* name, CBotVar** ppVars, long
 
 
 // trouve une fonction selon son identificateur unique
-// si l'identificateur n'est pas trouvé, cherche selon le nom et les paramètres
+// si l'identificateur n'est pas trouvï¿½, cherche selon le nom et les paramï¿½tres
 
 CBotFunction* CBotFunction::FindLocalOrPublic(long& nIdent, const char* name, CBotVar** ppVars, CBotTypResult& TypeOrError, BOOL bPublic)
 {
@@ -484,7 +484,7 @@ CBotFunction* CBotFunction::FindLocalOrPublic(long& nIdent, const char* name, CB
 	if ( name == NULL ) return NULL;
 
 	int		delta	= 99999;				// cherche la signature la plus faible
-	CBotFunction*	pFunc = NULL;			// la meilleure fonction trouvée
+	CBotFunction*	pFunc = NULL;			// la meilleure fonction trouvï¿½e
 
 	if ( this != NULL )
 	{
@@ -493,10 +493,10 @@ CBotFunction* CBotFunction::FindLocalOrPublic(long& nIdent, const char* name, CB
 			if ( pt->m_token.GivString() == name )
 			{
 				int	i = 0;
-				int	alpha = 0;							// signature des paramètres
-				// les paramètres sont-ils compatibles ?
-				CBotDefParam* pv = pt->m_Param;			// liste des paramètres attendus
-				CBotVar* pw = ppVars[i++];				// liste des paramètres fournis
+				int	alpha = 0;							// signature des paramï¿½tres
+				// les paramï¿½tres sont-ils compatibles ?
+				CBotDefParam* pv = pt->m_Param;			// liste des paramï¿½tres attendus
+				CBotVar* pw = ppVars[i++];				// liste des paramï¿½tres fournis
 				while ( pv != NULL && pw != NULL)
 				{
 					if (!TypesCompatibles(pv->GivTypResult(), pw->GivTypResult()))
@@ -505,24 +505,24 @@ CBotFunction* CBotFunction::FindLocalOrPublic(long& nIdent, const char* name, CB
 						break;
 					}
 					int d = pv->GivType() - pw->GivType(2);
-					alpha += d>0 ? d : -10*d;		// perte de qualité, 10 fois plus cher !!
+					alpha += d>0 ? d : -10*d;		// perte de qualitï¿½, 10 fois plus cher !!
 
 					pv = pv->GivNext();
 					pw = ppVars[i++];
 				}
-				if ( pw != NULL ) 
+				if ( pw != NULL )  
 				{
 					if ( pFunc != NULL ) continue;
 					if ( TypeOrError.Eq(TX_LOWPARAM) ) TypeOrError.SetType(TX_NUMPARAM);
 					if ( TypeOrError.Eq(TX_UNDEFCALL)) TypeOrError.SetType(TX_OVERPARAM);
-					continue;					// trop de paramètres
+					continue;					// trop de paramï¿½tres
 				}
 				if ( pv != NULL )
 				{
 					if ( pFunc != NULL ) continue;
 					if ( TypeOrError.Eq(TX_OVERPARAM) ) TypeOrError.SetType(TX_NUMPARAM);
 					if ( TypeOrError.Eq(TX_UNDEFCALL) ) TypeOrError.SetType(TX_LOWPARAM);
-					continue;					// pas assez de paramètres
+					continue;					// pas assez de paramï¿½tres
 				}
 
 				if (alpha == 0)					// signature parfaite
@@ -548,10 +548,10 @@ CBotFunction* CBotFunction::FindLocalOrPublic(long& nIdent, const char* name, CB
 			if ( pt->m_token.GivString() == name )
 			{
 				int	i = 0;
-				int	alpha = 0;							// signature des paramètres
-				// les paramètres sont-ils compatibles ?
-				CBotDefParam* pv = pt->m_Param;			// liste des paramètres attendus
-				CBotVar* pw = ppVars[i++];				// liste des paramètres fournis
+				int	alpha = 0;							// signature des paramï¿½tres
+				// les paramï¿½tres sont-ils compatibles ?
+				CBotDefParam* pv = pt->m_Param;			// liste des paramï¿½tres attendus
+				CBotVar* pw = ppVars[i++];				// liste des paramï¿½tres fournis
 				while ( pv != NULL && pw != NULL)
 				{
 					if (!TypesCompatibles(pv->GivTypResult(), pw->GivTypResult()))
@@ -560,24 +560,24 @@ CBotFunction* CBotFunction::FindLocalOrPublic(long& nIdent, const char* name, CB
 						break;
 					}
 					int d = pv->GivType() - pw->GivType(2);
-					alpha += d>0 ? d : -10*d;		// perte de qualité, 10 fois plus cher !!
+					alpha += d>0 ? d : -10*d;		// perte de qualitï¿½, 10 fois plus cher !!
 
 					pv = pv->GivNext();
 					pw = ppVars[i++];
 				}
-				if ( pw != NULL ) 
+				if ( pw != NULL )  
 				{
 					if ( pFunc != NULL ) continue;
 					if ( TypeOrError.Eq(TX_LOWPARAM) ) TypeOrError.SetType(TX_NUMPARAM);
 					if ( TypeOrError.Eq(TX_UNDEFCALL)) TypeOrError.SetType(TX_OVERPARAM);
-					continue;					// trop de paramètres
+					continue;					// trop de paramï¿½tres
 				}
 				if ( pv != NULL )
 				{
 					if ( pFunc != NULL ) continue;
 					if ( TypeOrError.Eq(TX_OVERPARAM) ) TypeOrError.SetType(TX_NUMPARAM);
 					if ( TypeOrError.Eq(TX_UNDEFCALL) ) TypeOrError.SetType(TX_LOWPARAM);
-					continue;					// pas assez de paramètres
+					continue;					// pas assez de paramï¿½tres
 				}
 
 				if (alpha == 0)					// signature parfaite
@@ -606,7 +606,7 @@ CBotFunction* CBotFunction::FindLocalOrPublic(long& nIdent, const char* name, CB
 }
 
 
-// fait un appel à une fonction
+// fait un appel ï¿½ une fonction
 
 int CBotFunction::DoCall(long& nIdent, const char* name, CBotVar** ppVars, CBotStack* pStack, CBotToken* pToken)
 {
@@ -620,13 +620,13 @@ int CBotFunction::DoCall(long& nIdent, const char* name, CBotVar** ppVars, CBotS
 		CBotStack*	pStk1 = pStack->AddStack(pt, 2);	// pour mettre "this"
 //		if ( pStk1 == EOX ) return TRUE;
 
-		pStk1->SetBotCall(pt->m_pProg);					// on a peut-être changé de module
+		pStk1->SetBotCall(pt->m_pProg);					// on a peut-ï¿½tre changï¿½ de module
 
 		if ( pStk1->IfStep() ) return FALSE;
 
-		CBotStack*	pStk3 = pStk1->AddStack(NULL, TRUE);	// paramètres
+		CBotStack*	pStk3 = pStk1->AddStack(NULL, TRUE);	// paramï¿½tres
 
-		// prépare les paramètres sur la pile
+		// prï¿½pare les paramï¿½tres sur la pile
 
 		if ( pStk1->GivState() == 0 )
 		{
@@ -652,15 +652,15 @@ int CBotFunction::DoCall(long& nIdent, const char* name, CBotVar** ppVars, CBotS
 
 			}
 
-			// initialise les variables selon paramètres
-			pt->m_Param->Execute(ppVars, pStk3);			// ne peut pas être interrompu
+			// initialise les variables selon paramï¿½tres
+			pt->m_Param->Execute(ppVars, pStk3);			// ne peut pas ï¿½tre interrompu
 
 			pStk1->IncState();
 		}
 
-		// finalement exécute la fonction trouvée
+		// finalement exï¿½cute la fonction trouvï¿½e
 
-		if ( !pStk3->GivRetVar(						// remet le résultat sur la pile
+		if ( !pStk3->GivRetVar(						// remet le rï¿½sultat sur la pile
 			pt->m_Block->Execute(pStk3) ))			// GivRetVar dit si c'est interrompu
 		{
 			if ( !pStk3->IsOk() && pt->m_pProg != m_pProg )
@@ -668,7 +668,7 @@ int CBotFunction::DoCall(long& nIdent, const char* name, CBotVar** ppVars, CBotS
 #ifdef _DEBUG
 				if ( m_pProg->GivFunctions()->GivName() == "LaCommande" ) return FALSE;
 #endif
-				pStk3->SetPosError(pToken);			// indique l'erreur sur l'appel de procédure
+				pStk3->SetPosError(pToken);			// indique l'erreur sur l'appel de procï¿½dure
 			}
 			return FALSE;	// interrompu !
 		}
@@ -694,11 +694,11 @@ void CBotFunction::RestoreCall(long& nIdent, const char* name, CBotVar** ppVars,
 		pStk1 = pStack->RestoreStack(pt);
 		if ( pStk1 == NULL ) return;
 
-		pStk1->SetBotCall(pt->m_pProg);					// on a peut-être changé de module
+		pStk1->SetBotCall(pt->m_pProg);					// on a peut-ï¿½tre changï¿½ de module
 
 		if ( pStk1->GivBlock() < 2 )
 		{
-			CBotStack* pStk2 = pStk1->RestoreStack(NULL); // plus utilisé
+			CBotStack* pStk2 = pStk1->RestoreStack(NULL); // plus utilisï¿½
 			if ( pStk2 == NULL ) return;
 			pStk3 = pStk2->RestoreStack(NULL);
 			if ( pStk3 == NULL ) return;
@@ -709,7 +709,7 @@ void CBotFunction::RestoreCall(long& nIdent, const char* name, CBotVar** ppVars,
 			if ( pStk3 == NULL ) return;
 		}
 
-		// prépare les paramètres sur la pile
+		// prï¿½pare les paramï¿½tres sur la pile
 
 		{
 			if ( !pt->m_MasterClass.IsEmpty() )
@@ -728,7 +728,7 @@ void CBotFunction::RestoreCall(long& nIdent, const char* name, CBotVar** ppVars,
 			return;
 		}
 
-		// initialise les variables selon paramètres
+		// initialise les variables selon paramï¿½tres
 		pt->m_Param->RestoreState(pStk3, FALSE);
 		pt->m_Block->RestoreState(pStk3, TRUE);
 	}
@@ -736,8 +736,8 @@ void CBotFunction::RestoreCall(long& nIdent, const char* name, CBotVar** ppVars,
 
 
 
-// fait un appel d'une méthode
-// note : this est déjà sur la pile, le pointeur pThis est juste là pour simplifier
+// fait un appel d'une mï¿½thode
+// note : this est dï¿½jï¿½ sur la pile, le pointeur pThis est juste lï¿½ pour simplifier
 
 int CBotFunction::DoCall(long& nIdent, const char* name, CBotVar* pThis, CBotVar** ppVars, CBotStack* pStack, CBotToken* pToken, CBotClass* pClass)
 {
@@ -753,21 +753,21 @@ int CBotFunction::DoCall(long& nIdent, const char* name, CBotVar* pThis, CBotVar
 		CBotStack*	pStk = pStack->AddStack(pt, 2);
 //		if ( pStk == EOX ) return TRUE;
 
-		pStk->SetBotCall(pt->m_pProg);					// on a peut-être changé de module
-		CBotStack*	pStk3 = pStk->AddStack(NULL, TRUE); // pour mettre les paramètres passés
+		pStk->SetBotCall(pt->m_pProg);					// on a peut-ï¿½tre changï¿½ de module
+		CBotStack*	pStk3 = pStk->AddStack(NULL, TRUE); // pour mettre les paramï¿½tres passï¿½s
 
-		// prépare les paramètres sur la pile
+		// prï¿½pare les paramï¿½tres sur la pile
 
 		if ( pStk->GivState() == 0 )
 		{
 			// met la variable "this" sur la pile
 			CBotVar* pthis = CBotVar::Create("this", CBotTypNullPointer);
 			pthis->Copy(pThis, FALSE);
-			pthis->SetUniqNum(-2);		// valeur spéciale
+			pthis->SetUniqNum(-2);		// valeur spï¿½ciale
 			pStk->AddVar(pthis);
 
-			// initialise les variables selon paramètres
-			pt->m_Param->Execute(ppVars, pStk3);			// ne peut pas être interrompu
+			// initialise les variables selon paramï¿½tres
+			pt->m_Param->Execute(ppVars, pStk3);			// ne peut pas ï¿½tre interrompu
 			pStk->IncState();
 		}
 
@@ -780,21 +780,21 @@ int CBotFunction::DoCall(long& nIdent, const char* name, CBotVar* pThis, CBotVar
 			}
 			pStk->IncState();
 		}
-		// finalement appelle la fonction trouvée
+		// finalement appelle la fonction trouvï¿½e
 
-		if ( !pStk3->GivRetVar(							// remet le résultat sur la pile
+		if ( !pStk3->GivRetVar(							// remet le rï¿½sultat sur la pile
 			pt->m_Block->Execute(pStk3) ))			// GivRetVar dit si c'est interrompu
 		{
 			if ( !pStk3->IsOk() )
 			{
 				if ( pt->m_bSynchro )
 				{
-					pClass->Unlock();					// libère la fonction
+					pClass->Unlock();					// libï¿½re la fonction
 				}
 
 				if ( pt->m_pProg != pProgCurrent )
 				{
-					pStk3->SetPosError(pToken);			// indique l'erreur sur l'appel de procédure
+					pStk3->SetPosError(pToken);			// indique l'erreur sur l'appel de procï¿½dure
 				}
 			}
 			return FALSE;	// interrompu !
@@ -802,7 +802,7 @@ int CBotFunction::DoCall(long& nIdent, const char* name, CBotVar* pThis, CBotVar
 
 		if ( pt->m_bSynchro )
 		{
-			pClass->Unlock();							// libère la fonction
+			pClass->Unlock();							// libï¿½re la fonction
 		}
 
 		return pStack->Return( pStk3 );
@@ -819,30 +819,30 @@ void CBotFunction::RestoreCall(long& nIdent, const char* name, CBotVar* pThis, C
 	{
 		CBotStack*	pStk = pStack->RestoreStack(pt);
 		if ( pStk == NULL ) return;
-		pStk->SetBotCall(pt->m_pProg);					// on a peut-être changé de module
+		pStk->SetBotCall(pt->m_pProg);					// on a peut-ï¿½tre changï¿½ de module
 
 		CBotVar*	pthis = pStk->FindVar("this");
 		pthis->SetUniqNum(-2);
 
-		CBotStack*	pStk3 = pStk->RestoreStack(NULL);	// pour mettre les paramètres passés
+		CBotStack*	pStk3 = pStk->RestoreStack(NULL);	// pour mettre les paramï¿½tres passï¿½s
 		if ( pStk3 == NULL ) return;
 
-		pt->m_Param->RestoreState(pStk3, TRUE);					// les paramètres
+		pt->m_Param->RestoreState(pStk3, TRUE);					// les paramï¿½tres
 
-		if ( pStk->GivState() > 1 &&						// vérouillage est effectif ?
+		if ( pStk->GivState() > 1 &&						// vï¿½rouillage est effectif ?
 			 pt->m_bSynchro )
 			{
 				CBotProgram* pProgBase = pStk->GivBotCall(TRUE);
-				pClass->Lock(pProgBase);					// vérouille la classe
+				pClass->Lock(pProgBase);					// vï¿½rouille la classe
 			}
 
-		// finalement appelle la fonction trouvée
+		// finalement appelle la fonction trouvï¿½e
 
 		pt->m_Block->RestoreState(pStk3, TRUE);					// interrompu !
 	}
 }
 
-// regarde si la "signature" des paramètres est identique
+// regarde si la "signature" des paramï¿½tres est identique
 BOOL CBotFunction::CheckParam(CBotDefParam* pParam)
 {
 	CBotDefParam*	pp = m_Param;
@@ -867,7 +867,7 @@ CBotString CBotFunction::GivParams()
 	if ( m_Param == NULL ) return CBotString("()");
 
 	CBotString		params = "( ";
-	CBotDefParam*	p = m_Param;		// liste des paramètres
+	CBotDefParam*	p = m_Param;		// liste des paramï¿½tres
 
 	while (p != NULL)
 	{
@@ -898,7 +898,7 @@ void CBotFunction::AddPublic(CBotFunction* func)
 
 
 /////////////////////////////////////////////////////////////////////////
-// gestion des paramètres
+// gestion des paramï¿½tres
 
 
 CBotDefParam::CBotDefParam()
@@ -913,11 +913,11 @@ CBotDefParam::~CBotDefParam()
 }
 
 
-// compile une liste de paramètres
+// compile une liste de paramï¿½tres
 CBotDefParam* CBotDefParam::Compile(CBotToken* &p, CBotCStack* pStack)
 {
 	// surtout pas de pStack->TokenStack ici
-	// les variables déclarées doivent rester visibles par la suite
+	// les variables dï¿½clarï¿½es doivent rester visibles par la suite
 
 	pStack->SetStartError(p->GivStart());
 
@@ -929,12 +929,12 @@ CBotDefParam* CBotDefParam::Compile(CBotToken* &p, CBotCStack* pStack)
 		{
 		 	CBotDefParam* param = new CBotDefParam();
 			if (list == NULL) list = param;
-			else list->AddNext(param);			// ajoute à la liste
+			else list->AddNext(param);			// ajoute ï¿½ la liste
 
 			CBotClass*	pClass = NULL;//= CBotClass::Find(p);
 			param->m_typename = p->GivString();
 			CBotTypResult type = param->m_type = TypeParam(p, pStack);
-//			if ( type == CBotTypPointer ) type = CBotTypClass;			// il faut créer un nouvel objet
+//			if ( type == CBotTypPointer ) type = CBotTypClass;			// il faut crï¿½er un nouvel objet
 
 			if (param->m_type.GivType() > 0)
 			{
@@ -943,7 +943,7 @@ CBotDefParam* CBotDefParam::Compile(CBotToken* &p, CBotCStack* pStack)
 				if (pStack->IsOk() && IsOfType(p, TokenTypVar) )
 				{
 
-					// variable déjà déclarée ?
+					// variable dï¿½jï¿½ dï¿½clarï¿½e ?
 					if (pStack->CheckVarLocal(pp))
 					{
 						pStack->SetError(TX_REDEFVAR, pp);
@@ -951,9 +951,9 @@ CBotDefParam* CBotDefParam::Compile(CBotToken* &p, CBotCStack* pStack)
 					}
 
 					if ( type.Eq(CBotTypArrayPointer) ) type.SetType(CBotTypArrayBody);
-					CBotVar*	var = CBotVar::Create(pp->GivString(), type);		// crée la variable 
+					CBotVar*	var = CBotVar::Create(pp->GivString(), type);		// crï¿½e la variable  
 //					if ( pClass ) var->SetClass(pClass);
-					var->SetInit(2);									// la marque initialisée
+					var->SetInit(2);									// la marque initialisï¿½e
 					param->m_nIdent = CBotVar::NextUniqNum();
 					var->SetUniqNum(param->m_nIdent);
 					pStack->AddVar(var);								// la place sur la pile
@@ -989,10 +989,10 @@ BOOL CBotDefParam::Execute(CBotVar** ppVars, CBotStack* &pj)
 
 	while ( p != NULL )
 	{
-		// crée une variable locale sur la pile
+		// crï¿½e une variable locale sur la pile
 		CBotVar*	newvar = CBotVar::Create(p->m_token.GivString(), p->m_type);
 
-		// procède ainsi pour faire la transformation des types :
+		// procï¿½de ainsi pour faire la transformation des types :
 		if ( ppVars != NULL && ppVars[i] != NULL )
 		{
 			switch (p->m_type.GivType())
@@ -1019,7 +1019,7 @@ BOOL CBotDefParam::Execute(CBotVar** ppVars, CBotStack* &pj)
 				}
 				break;
 			default:
-				__asm int 3;
+				/*debug break removed*/;
 			}
 		}
 		newvar->SetUniqNum(p->m_nIdent);
@@ -1038,7 +1038,7 @@ void CBotDefParam::RestoreState(CBotStack* &pj, BOOL bMain)
 
 	while ( p != NULL )
 	{
-		// crée une variable locale sur la pile
+		// crï¿½e une variable locale sur la pile
 		CBotVar*	var = pj->FindVar(p->m_token.GivString());
 		var->SetUniqNum(p->m_nIdent);
 		p = p->m_next;
@@ -1074,7 +1074,7 @@ CBotString CBotDefParam::GivParamString()
 
 
 //////////////////////////////////////////////////////////////////////////
-// retour des paramètres 
+// retour des paramï¿½tres  
 
 CBotReturn::CBotReturn()
 {
@@ -1093,7 +1093,7 @@ CBotInstr* CBotReturn::Compile(CBotToken* &p, CBotCStack* pStack)
 
 	if (!IsOfType(p, ID_RETURN)) return NULL;	// ne devrait jamais arriver
 
-	CBotReturn*	inst = new CBotReturn();		// crée l'objet
+	CBotReturn*	inst = new CBotReturn();		// crï¿½e l'objet
 	inst->SetToken( pp );
 
 	CBotTypResult	type = pStack->GivRetType();
@@ -1109,7 +1109,7 @@ CBotInstr* CBotReturn::Compile(CBotToken* &p, CBotCStack* pStack)
 	if ( pStack->IsOk() )
 	{
 		CBotTypResult	retType = pStack->GivTypResult(2);
-		if (TypeCompatible(retType, type, ID_ASS)) 
+		if (TypeCompatible(retType, type, ID_ASS))  
 		{
 			if ( IsOfType( p, ID_SEP ) )
 				return inst;
@@ -1130,8 +1130,8 @@ BOOL CBotReturn::Execute(CBotStack* &pj)
 
 	if ( pile->GivState() == 0 )
 	{
-		if ( m_Instr != NULL && !m_Instr->Execute(pile) ) return FALSE;	// évalue le résultat
-		// le résultat est sur la pile 
+		if ( m_Instr != NULL && !m_Instr->Execute(pile) ) return FALSE;	// ï¿½value le rï¿½sultat
+		// le rï¿½sultat est sur la pile  
 		pile->IncState();
 	}
 
@@ -1149,13 +1149,13 @@ void CBotReturn::RestoreState(CBotStack* &pj, BOOL bMain)
 
 	if ( pile->GivState() == 0 )
 	{
-		if ( m_Instr != NULL ) m_Instr->RestoreState(pile, bMain);	// évalue le résultat
+		if ( m_Instr != NULL ) m_Instr->RestoreState(pile, bMain);	// ï¿½value le rï¿½sultat
 		return;
 	}
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// Les appels à ces fonctions
+// Les appels ï¿½ ces fonctions
 
 CBotInstrCall::CBotInstrCall()
 {
@@ -1175,7 +1175,7 @@ CBotInstr* CBotInstrCall::Compile(CBotToken* &p, CBotCStack* pStack)
 
 	int			i = 0;
 
-	CBotToken*	pp = p; 
+	CBotToken*	pp = p;  
 	p = p->GivNext();
 
 	pStack->SetStartError(p->GivStart());
@@ -1187,11 +1187,11 @@ CBotInstr* CBotInstrCall::Compile(CBotToken* &p, CBotCStack* pStack)
 		CBotInstrCall* inst = new CBotInstrCall();
 		inst->SetToken(pp);
 
-		// compile la liste des paramètres
+		// compile la liste des paramï¿½tres
 		if (!IsOfType(p, ID_CLOSEPAR)) while (TRUE)
 		{
 			start = p->GivStart();
-			pile = pile->TokenStack();						// garde les résultats sur la pile
+			pile = pile->TokenStack();						// garde les rï¿½sultats sur la pile
 
 			CBotInstr*	param = CBotExpression::Compile(p, pile);
 			end	  = p->GivStart();
@@ -1244,7 +1244,7 @@ CBotInstr* CBotInstrCall::Compile(CBotToken* &p, CBotCStack* pStack)
 		if ( inst->m_typRes.GivType() > 0 )
 		{
 			CBotVar* pRes = CBotVar::Create("", inst->m_typRes);
-			pStack->SetVar(pRes);	// pour connaître le type du résultat
+			pStack->SetVar(pRes);	// pour connaï¿½tre le type du rï¿½sultat
 		}
 		else pStack->SetVar(NULL);			// routine retourne void
 
@@ -1266,16 +1266,16 @@ BOOL CBotInstrCall::Execute(CBotStack* &pj)
 	int		i = 0;
 
 	CBotInstr*	p = m_Parameters;
-	// évalue les paramètres
+	// ï¿½value les paramï¿½tres
 	// et place les valeurs sur la pile
-	// pour pouvoir être interrompu n'importe quand
+	// pour pouvoir ï¿½tre interrompu n'importe quand
 	if ( p != NULL) while ( TRUE )
 	{
-		pile = pile->AddStack();						// de la place sur la pile pour les résultats
+		pile = pile->AddStack();						// de la place sur la pile pour les rï¿½sultats
 		if ( pile->GivState() == 0 )
 		{
 			if (!p->Execute(pile)) return FALSE;		// interrompu ici ?
-			pile->SetState(1);							// marque spéciale pour reconnaîre les paramètres
+			pile->SetState(1);							// marque spï¿½ciale pour reconnaï¿½re les paramï¿½tres
 		}
 		ppVars[i++] = pile->GivVar();
 		p = p->GivNext();
@@ -1288,7 +1288,7 @@ BOOL CBotInstrCall::Execute(CBotStack* &pj)
 
 	if ( !pile2->ExecuteCall(m_nFuncIdent, GivToken(), ppVars, m_typRes)) return FALSE;	// interrompu
 
-	return pj->Return(pile2);	// libère toute la pile
+	return pj->Return(pile2);	// libï¿½re toute la pile
 }
 
 void CBotInstrCall::RestoreState(CBotStack* &pj, BOOL bMain)
@@ -1303,19 +1303,19 @@ void CBotInstrCall::RestoreState(CBotStack* &pj, BOOL bMain)
 	int			i = 0;
 	CBotVar*	ppVars[1000];
 	CBotInstr*	p = m_Parameters;
-	// évalue les paramètres
+	// ï¿½value les paramï¿½tres
 	// et place les valeurs sur la pile
-	// pour pouvoir être interrompu n'importe quand
+	// pour pouvoir ï¿½tre interrompu n'importe quand
 	if ( p != NULL) while ( TRUE )
 	{
-		pile = pile->RestoreStack();						// de la place sur la pile pour les résultats
+		pile = pile->RestoreStack();						// de la place sur la pile pour les rï¿½sultats
 		if ( pile == NULL ) return;
 		if ( pile->GivState() == 0 )
 		{
 			p->RestoreState(pile, bMain);					// interrompu ici !
 			return;
 		}
-		ppVars[i++] = pile->GivVar();				// construit la liste des paramètres
+		ppVars[i++] = pile->GivVar();				// construit la liste des paramï¿½tres
 		p = p->GivNext();
 		if ( p == NULL) break;
 	}
@@ -1328,10 +1328,10 @@ void CBotInstrCall::RestoreState(CBotStack* &pj, BOOL bMain)
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// déclaration des classes par l'utilisateur
+// dï¿½claration des classes par l'utilisateur
 
-// pré-compile une nouvelle class
-// l'analyse est complète à l'execption du corps des routines
+// prï¿½-compile une nouvelle class
+// l'analyse est complï¿½te ï¿½ l'execption du corps des routines
 
 CBotClass* CBotClass::Compile1(CBotToken* &p, CBotCStack* pStack)
 {
@@ -1352,12 +1352,12 @@ CBotClass* CBotClass::Compile1(CBotToken* &p, CBotCStack* pStack)
 		return NULL;
 	}
 
-	// un nom pour la classe est-il là ?
+	// un nom pour la classe est-il lï¿½ ?
 	if (IsOfType(p, TokenTypVar))
 	{
 		CBotClass* classe = (pOld == NULL) ? new CBotClass(name, NULL) : pOld;
-		classe->Purge();							// vide les anciennes définitions
-		classe->m_IsDef = FALSE;					// définition en cours
+		classe->Purge();							// vide les anciennes dï¿½finitions
+		classe->m_IsDef = FALSE;					// dï¿½finition en cours
 
 		if ( !IsOfType( p, ID_OPBLK) )
 		{
@@ -1397,7 +1397,7 @@ BOOL CBotClass::CompileDefItem(CBotToken* &p, CBotCStack* pStack, BOOL bSecond)
 	if ( IsOfType(p, ID_STATIC) ) bStatic = TRUE;
 
 //	CBotClass* pClass = NULL;
-	type = TypeParam(p, pStack);		// type du résultat
+	type = TypeParam(p, pStack);		// type du rï¿½sultat
 
 	if ( type.Eq(-1) )
 	{
@@ -1405,10 +1405,10 @@ BOOL CBotClass::CompileDefItem(CBotToken* &p, CBotCStack* pStack, BOOL bSecond)
 		return FALSE;
 	}
 
-	while (pStack->IsOk()) 
+	while (pStack->IsOk())  
 	{
 		CBotToken*	pp = p;
-		IsOfType(p, ID_NOT);	// saute le ~ éventuel (destructeur)
+		IsOfType(p, ID_NOT);	// saute le ~ ï¿½ventuel (destructeur)
 
 		if (IsOfType(p, TokenTypVar))
 		{
@@ -1420,7 +1420,7 @@ BOOL CBotClass::CompileDefItem(CBotToken* &p, CBotCStack* pStack, BOOL bSecond)
 				if ( p->GivType() != ID_CLBRK )
 					i = CBotExpression::Compile( p, pStack );			// expression pour la valeur
 				else
-					i = new CBotEmpty();							// spécial si pas de formule
+					i = new CBotEmpty();							// spï¿½cial si pas de formule
 
 				type = CBotTypResult(CBotTypArrayPointer, type);
 
@@ -1446,7 +1446,7 @@ BOOL CBotClass::CompileDefItem(CBotToken* &p, CBotCStack* pStack, BOOL bSecond)
 				if ( !bSecond )
 				{
 					p = pBase;
-					CBotFunction* f = 
+					CBotFunction* f =  
 					CBotFunction::Compile1(p, pStack, this);
 
 					if ( f == NULL ) return FALSE;
@@ -1456,10 +1456,10 @@ BOOL CBotClass::CompileDefItem(CBotToken* &p, CBotCStack* pStack, BOOL bSecond)
 				}
 				else
 				{
-					// retrouve la méthode précompilée en passe 1
+					// retrouve la mï¿½thode prï¿½compilï¿½e en passe 1
 					CBotFunction*	pf = m_pMethod;
 					CBotFunction*	prev = NULL;
-					while ( pf != NULL ) 
+					while ( pf != NULL )  
 					{
 						if (pf->GivName() == pp->GivString()) break;
 						prev = pf;
@@ -1486,16 +1486,16 @@ BOOL CBotClass::CompileDefItem(CBotToken* &p, CBotCStack* pStack, BOOL bSecond)
 						pv = pv->GivNext();
 					}
 
-					// compile une méthode
+					// compile une mï¿½thode
 					p = pBase;
-					CBotFunction* f = 
+					CBotFunction* f =  
 					CBotFunction::Compile(p, pStack, NULL/*, FALSE*/);
 
 					if ( f != NULL )
 					{
 						f->m_pProg = pStack->GivBotCall();
 						f->m_bSynchro = bSynchro;
-						// remplace l'élément dans la chaîne
+						// remplace l'ï¿½lï¿½ment dans la chaï¿½ne
 						f->m_next = pf->m_next;
 						pf->m_next = NULL;
 						delete pf;
@@ -1508,7 +1508,7 @@ BOOL CBotClass::CompileDefItem(CBotToken* &p, CBotCStack* pStack, BOOL bSecond)
 				return pStack->IsOk();
 			}
 
-			// définition d'un élément
+			// dï¿½finition d'un ï¿½lï¿½ment
 			if (type.Eq(0))
 			{
 				pStack->SetError(TX_ENDOF, p);
@@ -1524,7 +1524,7 @@ BOOL CBotClass::CompileDefItem(CBotToken* &p, CBotCStack* pStack, BOOL bSecond)
 				}
 				else
 				{
-					// il y a une assignation à calculer
+					// il y a une assignation ï¿½ calculer
 					i = CBotTwoOpExpr::Compile(p, pStack);
 				}
 				if ( !pStack->IsOk() ) return FALSE;
@@ -1546,8 +1546,8 @@ BOOL CBotClass::CompileDefItem(CBotToken* &p, CBotCStack* pStack, BOOL bSecond)
 
 				if ( pv->IsStatic() && pv->m_InitExpr != NULL )
 				{
-					CBotStack* pile = CBotStack::FirstStack();				// une pile indépendante
-					while(pile->IsOk() && !pv->m_InitExpr->Execute(pile));	// évalue l'expression sans timer
+					CBotStack* pile = CBotStack::FirstStack();				// une pile indï¿½pendante
+					while(pile->IsOk() && !pv->m_InitExpr->Execute(pile));	// ï¿½value l'expression sans timer
 					pv->SetVal( pile->GivVar() ) ;
 					pile->Delete();
 				}
@@ -1571,19 +1571,19 @@ CBotClass* CBotClass::Compile(CBotToken* &p, CBotCStack* pStack)
 
 	CBotString name = p->GivString();
 
-	// un nom pour la classe est-il là ?
+	// un nom pour la classe est-il lï¿½ ?
 	if (IsOfType(p, TokenTypVar))
 	{
-		// la classe à été créée par Compile1
+		// la classe ï¿½ ï¿½tï¿½ crï¿½ï¿½e par Compile1
 		CBotClass* pOld = CBotClass::Find(name);
-		IsOfType( p, ID_OPBLK);	// forcément
+		IsOfType( p, ID_OPBLK);	// forcï¿½ment
 
 		while ( pStack->IsOk() && !IsOfType( p, ID_CLBLK ) )
 		{
 			pOld->CompileDefItem(p, pStack, TRUE);
 		}
 
-		pOld->m_IsDef = TRUE;			// définition terminée
+		pOld->m_IsDef = TRUE;			// dï¿½finition terminï¿½e
 		if (pStack->IsOk())	return pOld;
 	}
 	pStack->SetError(TX_ENDOF, p);

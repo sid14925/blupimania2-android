@@ -3343,7 +3343,7 @@ void CParticule::DrawParticuleSphere(int i)
 	// Generate the group of rings for the sphere.
 	j = 0;
 	for ( ring=0 ; ring<numRings ; ring++ )
-	{	 
+	{	  
 		r0   = sinf((ring+0)*deltaRingAngle);
 		r1   = sinf((ring+1)*deltaRingAngle);
 		v0.y = cosf((ring+0)*deltaRingAngle);

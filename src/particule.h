@@ -15,7 +15,7 @@ class CWater;
 class CObject;
 class CSound;
 
-enum Sound;
+enum Sound : int;
 
 
 #define MAXPARTICULE	1000
@@ -38,7 +38,7 @@ enum Sound;
 // type == 4	->	text     (fond blanc)
 
 
-enum ParticuleType
+enum ParticuleType : int
 {
 	PARTIEXPLOT		= 1,		// explosion technique
 	PARTIEXPLOO		= 2,		// explosion organique

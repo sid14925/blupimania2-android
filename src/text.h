@@ -17,7 +17,7 @@ class CD3DEngine;
 
 
 
-enum FontType
+enum FontType : int
 {
 	FONT_COLOBOT	= 0,
 	FONT_HILITE		= 1,

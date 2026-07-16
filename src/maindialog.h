@@ -17,9 +17,9 @@ class CCamera;
 class CSound;
 class CGamerFile;
 
-enum Phase;
-enum CameraType;
-enum Phase;
+enum Phase : int;
+enum CameraType : int;
+enum Phase : int;
 
 
 #define LISTMAX			200
@@ -45,10 +45,10 @@ enum Phase;
 
 typedef struct
 {
-	int				total;			// nb de voitures achetées
+	int				total;			// nb de voitures achetï¿½es
 	int				buyable;		// nb de voitures achetables
 	int				bonus;			// nb de voitures dispo en bonus
-	int				level;			// niveau de difficulté (1..3)
+	int				level;			// niveau de difficultï¿½ (1..3)
 }
 GamerPerso;
 
@@ -172,22 +172,22 @@ protected:
 	Phase			m_phase;			// copie de CRobotMain
 	Phase			m_phaseSetup;		// onglet choisi
 	Phase			m_phaseTerm;		// phase trainer/scene/proto
-	Phase			m_phaseFadeIn;		// phase après le fade in
+	Phase			m_phaseFadeIn;		// phase aprï¿½s le fade in
 	float			m_phaseTime;
 
 	GamerPerso		m_perso;			// perso: description
 
-	char			m_sceneDir[_MAX_FNAME];		// dossier scene\ 
-	char			m_savegameDir[_MAX_FNAME];	// dossier savegame\ 
-	char			m_defiDir[_MAX_FNAME];		// dossier defi\ 
-	char			m_publicDir[_MAX_FNAME];	// dossier program\ 
-	char			m_filesDir[_MAX_FNAME];		// dossier files\ 
+	char			m_sceneDir[_MAX_FNAME];		// dossier scene
+	char			m_savegameDir[_MAX_FNAME];	// dossier savegame
+	char			m_defiDir[_MAX_FNAME];		// dossier defi
+	char			m_publicDir[_MAX_FNAME];	// dossier program
+	char			m_filesDir[_MAX_FNAME];		// dossier files
 
 	int				m_index;			// INDEX_*
 	int				m_sel;				// mission choisie (0..n)
 	int				m_list;				// offset dans m_listBuffer
-	char			m_sceneName[20];	// nom de la scène à jouer
-	BOOL			m_bSimulSetup;		// réglages pendant le jeu
+	char			m_sceneName[20];	// nom de la scï¿½ne ï¿½ jouer
+	BOOL			m_bSimulSetup;		// rï¿½glages pendant le jeu
 	BOOL			m_bDeleteGamer;
 	BOOL			m_bEdit;
 	BOOL			m_bTest;
@@ -199,14 +199,14 @@ protected:
 	float			m_fadeOutProgress;
 
 	int				m_shotDelay;		// nb de frames avant copie
-	char			m_shotName[100];	// nom du fichier à générer
+	char			m_shotName[100];	// nom du fichier ï¿½ gï¿½nï¿½rer
 
 	int				m_setupSelDevice;
 	int				m_setupSelMode;
 	BOOL			m_setupFull;
 
 	BOOL			m_bRain;			// pluie dans l'interface ?
-	BOOL			m_bAgain;			// joue après clic "Recommencer"
+	BOOL			m_bAgain;			// joue aprï¿½s clic "Recommencer"
 	BOOL			m_bPlayEnable;
 
 	FPOINT			m_glintMouse;
@@ -214,7 +214,7 @@ protected:
 
 	int				m_loadingCounter;
 
-	BOOL			m_bDialog;			// dialogue présent ?
+	BOOL			m_bDialog;			// dialogue prï¿½sent ?
 	BOOL			m_bDialogFire;		// cadre en feu ?
 	int				m_dialogType;		// type du dialogue en cours
 	BOOL			m_bWriteFile;

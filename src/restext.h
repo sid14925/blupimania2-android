@@ -9,7 +9,7 @@
 
 
 
-enum KeyRank;
+enum KeyRank : int;
 
 
 // Types possibles pour les ressources texte.

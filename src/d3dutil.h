@@ -41,8 +41,8 @@ VOID D3DUtil_InitLight( D3DLIGHT7& light, D3DLIGHTTYPE ltType,
 //-----------------------------------------------------------------------------
 // D3D Matrix functions. For performance reasons, some functions are inline.
 //-----------------------------------------------------------------------------
-HRESULT D3DUtil_SetViewMatrix( D3DMATRIX& mat, D3DVECTOR& vFrom,
-                               D3DVECTOR& vAt, D3DVECTOR& vUp );
+HRESULT D3DUtil_SetViewMatrix( D3DMATRIX& mat, const D3DVECTOR& vFrom,
+                               const D3DVECTOR& vAt, const D3DVECTOR& vUp );
 HRESULT D3DUtil_SetProjectionMatrix( D3DMATRIX& mat, FLOAT fFOV = 1.570795f,
                                      FLOAT fAspect = 1.0f,
                                      FLOAT fNearPlane = 1.0f,

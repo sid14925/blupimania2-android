@@ -92,7 +92,7 @@ protected:
 	int				m_pass;				// rang de la passe (0..1)
 	int				m_secondNeed;		// nb requis pour 2ème passe év.
 	int				m_listGoalx;		// objectif (0..n)
-	int				m_listGoaly;		// 
+	int				m_listGoaly;		//  
 	int				m_listTotal;		// nb item dans m_listTable
 	ListItem*		m_listTable;		// cases visitées
 	char*			m_listFlags;		// bitmap

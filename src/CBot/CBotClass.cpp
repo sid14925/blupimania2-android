@@ -87,7 +87,7 @@ BOOL CBotClass::Lock(CBotProgram* p)
 		m_ProgInLock[0] = p;
 		return TRUE;
 	}
-	if ( p == m_ProgInLock[0] ) 
+	if ( p == m_ProgInLock[0] )  
 	{
 		m_cptOne++;
 		m_cptLock--;								// a déjà été compté
@@ -137,14 +137,14 @@ void CBotClass::FreeLock(CBotProgram* p)
 
 	while ( pClass != NULL )
 	{
-		if ( p == pClass->m_ProgInLock[0] ) 
+		if ( p == pClass->m_ProgInLock[0] )  
 		{
 			pClass->m_cptLock -= pClass->m_cptOne;
 			pClass->m_cptOne = 0;
 		}
 
 		for ( int j = 1; j < 5 ; j++ )
-			if ( p == pClass->m_ProgInLock[j] ) 
+			if ( p == pClass->m_ProgInLock[j] )  
 				pClass->m_cptLock--;
 
 		pClass = pClass->m_ExNext;
@@ -242,8 +242,8 @@ CBotClass* CBotClass::Find(const char* name)
 	return NULL;
 }
 
-BOOL CBotClass::AddFunction(const char* name, 
-								BOOL rExec (CBotVar* pThis, CBotVar* pVar, CBotVar* pResult, int& Exception), 
+BOOL CBotClass::AddFunction(const char* name,  
+								BOOL rExec (CBotVar* pThis, CBotVar* pVar, CBotVar* pResult, int& Exception),  
 								CBotTypResult rCompile (CBotVar* pThis, CBotVar* &pVar))
 {
 	// mémorise les pointeurs aux deux fonctions
@@ -280,8 +280,8 @@ BOOL CBotClass::AddUpdateFunc( void rMaj ( CBotVar* pThis, void* pUser ) )
 // compile une méthode associée à une instance de classe
 // la méthode peut être déclarée par AddFunction ou par l'utilisateur
 
-CBotTypResult CBotClass::CompileMethode(const char* name, 
-										CBotVar* pThis, CBotVar** ppParams, 
+CBotTypResult CBotClass::CompileMethode(const char* name,  
+										CBotVar* pThis, CBotVar** ppParams,  
 										CBotCStack* pStack, long& nIdent)
 {
 	nIdent = 0;	// oublie le précédent s'il y a lieu
@@ -299,8 +299,8 @@ CBotTypResult CBotClass::CompileMethode(const char* name,
 
 // exécute une méthode
 
-BOOL CBotClass::ExecuteMethode(long& nIdent, const char* name, 
-							   CBotVar* pThis, CBotVar** ppParams, 
+BOOL CBotClass::ExecuteMethode(long& nIdent, const char* name,  
+							   CBotVar* pThis, CBotVar** ppParams,  
 							   CBotVar* &pResult, CBotStack* &pStack,
 							   CBotToken* pToken)
 {
@@ -551,7 +551,7 @@ CBotInstr* CBotClassInst::Compile(CBotToken* &p, CBotCStack* pStack, CBotClass* 
 		{
 			// crée l'objet sur le "tas"
 			// avec un pointeur sur cet objet
-			if ( !bIntrinsic ) 
+			if ( !bIntrinsic )  
 			{
 				CBotVar* pvar = CBotVar::Create("", pClass);
 				var->SetPointer( pvar );					// var déjà déclarée pointe l'instance
@@ -693,8 +693,8 @@ BOOL CBotClassInst::Execute(CBotStack* &pj)
 			// crée une variable pour le résultat
 			CBotVar*	pResult = NULL;		// constructeurs toujours void
 
-			if ( !pClass->ExecuteMethode(m_nMethodeIdent, pClass->GivName(), 
-										 pThis, ppVars, 
+			if ( !pClass->ExecuteMethode(m_nMethodeIdent, pClass->GivName(),  
+										 pThis, ppVars,  
 										 pResult, pile2, GivToken())) return FALSE;	// interrompu
 
 			pThis->SetInit(TRUE);

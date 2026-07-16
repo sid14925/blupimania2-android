@@ -10,10 +10,10 @@ class CTerrain;
 class CWater;
 class CObject;
 class CRobotMain;
-enum D3DMouse;
+enum D3DMouse : int;
 
 
-enum CameraType
+enum CameraType : int
 {
 	CAMERA_NULL		= 0,	// caméra indéfinie
 	CAMERA_FREE		= 1,	// caméra libre (toujours en principe)

@@ -20,11 +20,11 @@ class CMainUndo;
 class CBotVar;
 class CScript;
 
-enum CameraType;
-enum Sound;
-enum D3DShadowType;
-enum TaskOrder;
-enum LockZone;
+enum CameraType : int;
+enum Sound : int;
+enum D3DShadowType : int;
+enum TaskOrder : int;
+enum LockZone : int;
 
 
 
@@ -42,7 +42,7 @@ enum LockZone;
 
 
 
-enum ObjectType
+enum ObjectType : int
 {
 	OBJECT_NULL			= 0,	// objet détruit
 	OBJECT_FIX			= 1,	// décor fixe
@@ -255,13 +255,13 @@ enum ObjectType
 	OBJECT_BOX11		= 510,	// caisse x-x
 	OBJECT_BOX12		= 511,	// caisse z-z
 	OBJECT_BOX13		= 512,	// caisse à coussins d'air (cca)
-	OBJECT_BOX14		= 513,	// 
-	OBJECT_BOX15		= 514,	// 
-	OBJECT_BOX16		= 515,	// 
-	OBJECT_BOX17		= 516,	// 
-	OBJECT_BOX18		= 517,	// 
-	OBJECT_BOX19		= 518,	// 
-	OBJECT_BOX20		= 519,	// 
+	OBJECT_BOX14		= 513,	//  
+	OBJECT_BOX15		= 514,	//  
+	OBJECT_BOX16		= 515,	//  
+	OBJECT_BOX17		= 516,	//  
+	OBJECT_BOX18		= 517,	//  
+	OBJECT_BOX19		= 518,	//  
+	OBJECT_BOX20		= 519,	//  
 	OBJECT_STONE1		= 530,	// pierre
 	OBJECT_STONE2		= 531,	// pierre
 	OBJECT_STONE3		= 532,	// pierre

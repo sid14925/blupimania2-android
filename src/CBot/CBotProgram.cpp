@@ -81,7 +81,7 @@ BOOL CBotProgram::Compile( const char* program, CBotStringArray& ListFonctions, 
 	{
 		if ( IsOfType(p, ID_SEP) ) continue;				// des point-virgules qui trainent
 
-		if ( p->GivType() == ID_CLASS || 
+		if ( p->GivType() == ID_CLASS ||  
 			( p->GivType() == ID_PUBLIC && p->GivNext()->GivType() == ID_CLASS ))
 		{
 			CBotClass*	nxt = CBotClass::Compile1(p, pStack);
@@ -97,7 +97,7 @@ BOOL CBotProgram::Compile( const char* program, CBotStringArray& ListFonctions, 
 	}
 	if ( !pStack->IsOk() )
 	{
-		m_ErrorCode = pStack->GivError(m_ErrorStart, m_ErrorEnd); 
+		m_ErrorCode = pStack->GivError(m_ErrorStart, m_ErrorEnd);  
 		delete m_Prog;
 		m_Prog = NULL;
 		delete pBaseToken;
@@ -113,7 +113,7 @@ BOOL CBotProgram::Compile( const char* program, CBotStringArray& ListFonctions, 
 	{
 		if ( IsOfType(p, ID_SEP) ) continue;				// des point-virgules qui trainent
 
-		if ( p->GivType() == ID_CLASS || 
+		if ( p->GivType() == ID_CLASS ||  
 			( p->GivType() == ID_PUBLIC && p->GivNext()->GivType() == ID_CLASS ))
 		{
 			m_bCompileClass = TRUE;
@@ -134,7 +134,7 @@ BOOL CBotProgram::Compile( const char* program, CBotStringArray& ListFonctions, 
 
 	if ( !pStack->IsOk() )
 	{
-		m_ErrorCode = pStack->GivError(m_ErrorStart, m_ErrorEnd); 
+		m_ErrorCode = pStack->GivError(m_ErrorStart, m_ErrorEnd);  
 		delete m_Prog;
 		m_Prog = NULL;
 	}
@@ -212,7 +212,7 @@ BOOL CBotProgram::Run(void* pUser, int timer)
 #if	STACKRUN
 	// reprend l'exécution sur le haut de la pile
 	ok = m_pStack->Execute();
-	if ( ok ) 
+	if ( ok )  
 	{
 #ifdef	_DEBUG
 		CBotVar*	ppVar[3];
@@ -344,8 +344,8 @@ CBotFunction* CBotProgram::GivFunctions()
 	return	m_Prog;
 }
 
-BOOL CBotProgram::AddFunction(const char* name, 
-							  BOOL rExec (CBotVar* pVar, CBotVar* pResult, int& Exception, void* pUser), 
+BOOL CBotProgram::AddFunction(const char* name,  
+							  BOOL rExec (CBotVar* pVar, CBotVar* pResult, int& Exception, void* pUser),  
 							  CBotTypResult rCompile (CBotVar* &pVar, void* pUser))
 {
 	// mémorise les pointeurs aux deux fonctions
@@ -359,7 +359,7 @@ BOOL WriteWord(FILE* pf, WORD w)
 
 	lg = fwrite(&w, sizeof( WORD ), 1, pf );
 
-	return (lg == 1);     
+	return (lg == 1);      
 }
 
 BOOL ReadWord(FILE* pf, WORD& w)
@@ -377,7 +377,7 @@ BOOL WriteFloat(FILE* pf, float w)
 
 	lg = fwrite(&w, sizeof( float ), 1, pf );
 
-	return (lg == 1);     
+	return (lg == 1);      
 }
 
 BOOL ReadFloat(FILE* pf, float& w)
@@ -395,7 +395,7 @@ BOOL WriteLong(FILE* pf, long w)
 
 	lg = fwrite(&w, sizeof( long ), 1, pf );
 
-	return (lg == 1);     
+	return (lg == 1);      
 }
 
 BOOL ReadLong(FILE* pf, long& w)
@@ -415,7 +415,7 @@ BOOL WriteString(FILE* pf, CBotString s)
 	if (!WriteWord(pf, lg1)) return FALSE;
 
 	lg2 = fwrite(s, 1, lg1, pf );
-	return (lg1 == lg2);     
+	return (lg1 == lg2);      
 }
 
 BOOL ReadString(FILE* pf, CBotString& s)
@@ -500,7 +500,7 @@ BOOL CBotProgram::SaveState(FILE* pf)
 		if (!WriteString( pf, m_pRun->GivName() )) return FALSE;
 		if (!m_pStack->SaveState(pf)) return FALSE;
 	}
-	else 
+	else  
 	{
 		if (!WriteWord( pf, 0)) return FALSE;
 	}
@@ -551,8 +551,8 @@ int CBotProgram::GivVersion()
 
 CBotCall* CBotCall::m_ListCalls = NULL;
 	
-CBotCall::CBotCall(const char* name, 
-				   BOOL rExec (CBotVar* pVar, CBotVar* pResult, int& Exception, void* pUser), 
+CBotCall::CBotCall(const char* name,  
+				   BOOL rExec (CBotVar* pVar, CBotVar* pResult, int& Exception, void* pUser),  
 				   CBotTypResult rCompile (CBotVar* &pVar, void* pUser))
 {
 	m_name		 = name;
@@ -573,8 +573,8 @@ void CBotCall::Free()
 	delete CBotCall::m_ListCalls;
 }
 
-BOOL CBotCall::AddFunction(const char* name, 
-						   BOOL rExec (CBotVar* pVar, CBotVar* pResult, int& Exception, void* pUser), 
+BOOL CBotCall::AddFunction(const char* name,  
+						   BOOL rExec (CBotVar* pVar, CBotVar* pResult, int& Exception, void* pUser),  
 						   CBotTypResult rCompile (CBotVar* &pVar, void* pUser))
 {
 	CBotCall*	p = m_ListCalls;
@@ -848,8 +848,8 @@ BOOL CBotCall::Run(CBotStack* pStack)
 
 ///////////////////////////////////////////////////////////////////////////////////////
 
-CBotCallMethode::CBotCallMethode(const char* name, 
-				   BOOL rExec (CBotVar* pThis, CBotVar* pVar, CBotVar* pResult, int& Exception), 
+CBotCallMethode::CBotCallMethode(const char* name,  
+				   BOOL rExec (CBotVar* pThis, CBotVar* pVar, CBotVar* pResult, int& Exception),  
 				   CBotTypResult rCompile (CBotVar* pThis, CBotVar* &pVar))
 {
 	m_name		 = name;
@@ -868,7 +868,7 @@ CBotCallMethode::~CBotCallMethode()
 // trouve un appel acceptable selon le nom de la procédure
 // et les paramètres donnés
 
-CBotTypResult CBotCallMethode::CompileCall(const char* name, CBotVar* pThis, 
+CBotTypResult CBotCallMethode::CompileCall(const char* name, CBotVar* pThis,  
 										   CBotVar** ppVar, CBotCStack* pStack,
 										   long& nIdent)
 {
@@ -997,7 +997,7 @@ BOOL rSizeOf( CBotVar* pVar, CBotVar* pResult, int& ex, void* pUser )
 
 	while ( pVar != NULL )
 	{
-		i++; 
+		i++;  
 		pVar = pVar->GivNext();
 	}
 
@@ -1095,7 +1095,7 @@ void CBotProgram::Init()
 
 void CBotProgram::Free()
 {
-	CBotToken::Free() ; 
+	CBotToken::Free() ;  
 	CBotCall ::Free() ;
 	CBotClass::Free() ;
 }

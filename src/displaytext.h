@@ -25,7 +25,7 @@ enum TextType
 	TT_START	= 5,
 };
 
-enum Sound;
+enum Sound : int;
 
 #define MAXDTLINE	1
 

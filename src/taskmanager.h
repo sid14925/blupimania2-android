@@ -7,9 +7,9 @@
 class CInstanceManager;
 class CTask;
 
-enum TaskGotoGoal;
-enum TaskGotoCrash;
-enum ObjectType;
+enum TaskGotoGoal : int;
+enum TaskGotoCrash : int;
+enum ObjectType : int;
 
 
 

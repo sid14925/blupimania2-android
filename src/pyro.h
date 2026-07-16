@@ -17,7 +17,7 @@ class CSound;
 
 
 
-enum PyroType
+enum PyroType : int
 {
 	PT_NULL		= 0,
 	PT_FRAGT	= 10,		// fragmentation objet technique
@@ -38,8 +38,8 @@ enum PyroType
 };
 
 
-enum ObjectType;
-enum Error;
+enum ObjectType : int;
+enum Error : int;
 
 
 typedef struct

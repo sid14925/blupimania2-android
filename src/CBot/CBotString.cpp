@@ -1,13 +1,13 @@
 /////////////////////////////////////////////////////
 // gestion de chaine
-// basé sur le CString de MFC
+// basï¿½ sur le CString de MFC
 // mais moins complet
 
 #include "CBot.h"
 
 #include <string.h>
 
-HINSTANCE CBotString::m_hInstance = (HINSTANCE)LoadLibrary("Cbot.dll");	// comment le récupérer autrement ??
+HINSTANCE CBotString::m_hInstance = NULL;   // no resource DLL in the port	// comment le rï¿½cupï¿½rer autrement ??
 
 
 CBotString::CBotString()
@@ -52,7 +52,7 @@ CBotString::CBotString(const CBotString& srcString)
 int CBotString::GivLength()
 {
 	if ( m_ptr == NULL ) return 0;
-	return lstrlen( m_ptr ); 
+	return lstrlen( m_ptr );  
 }
 
 
@@ -78,7 +78,8 @@ CBotString CBotString::Right(int nCount) const
 	int		i = m_lg - nCount;
 	if ( i < 0 ) i = 0;
 
-	for ( int j = 0; i < m_lg && i < 1999; i++)
+	int j = 0;
+	for ( ; i < m_lg && i < 1999; i++)
 	{
 		chaine[j++] = m_ptr[i];
 	}
@@ -218,7 +219,7 @@ BOOL CBotString::LoadString(UINT id)
 {
 	char	buffer[MAXSTRING];
 
-	m_lg = ::LoadString( m_hInstance, id, buffer, MAXSTRING ); 
+	m_lg = ::LoadString( m_hInstance, id, buffer, MAXSTRING );  
 
 	if (m_ptr != NULL) free(m_ptr);
 
@@ -231,13 +232,13 @@ BOOL CBotString::LoadString(UINT id)
 	}
 	return FALSE;
 }
- 
+  
 
 const CBotString& CBotString::operator=(const CBotString& stringSrc)
 {
 	if (m_ptr != NULL) free(m_ptr);
 
-	m_lg = stringSrc.m_lg; 
+	m_lg = stringSrc.m_lg;  
 	m_ptr = NULL;
 
 	if (m_lg > 0)
@@ -275,7 +276,7 @@ const CBotString& CBotString::operator=(const char ch)
 {
 	if (m_ptr != NULL) free(m_ptr);
 
-	m_lg = 1; 
+	m_lg = 1;  
 
 	m_ptr = (char*)malloc(2);
 	m_ptr[0] = ch;
@@ -291,7 +292,7 @@ const CBotString& CBotString::operator=(const char* pString)
 
 	if ( pString != NULL )
 	{
-		m_lg = lstrlen(pString); 
+		m_lg = lstrlen(pString);  
 
 		if (m_lg != 0)
 		{
@@ -422,7 +423,7 @@ int CBotString::Compare(LPCTSTR lpsz) const
 	char*	p = m_ptr;
 	if (lpsz  == NULL) lpsz = nilstring;
 	if (m_ptr == NULL) p = nilstring;
-	return strcmp(p, lpsz);	// wcscmp 
+	return strcmp(p, lpsz);	// wcscmp  
 }
 
 
@@ -438,7 +439,7 @@ CBotStringArray::CBotStringArray()
 
 CBotStringArray::~CBotStringArray()
 {
-	SetSize(0);					// détruit les données !
+	SetSize(0);					// dï¿½truit les donnï¿½es !
 }
 
 
@@ -503,7 +504,7 @@ static void CopyElements(CBotString* pDest, CBotString* pSrc, int nCount)
 
 
 
-// sélect la taille du tableau
+// sï¿½lect la taille du tableau
 
 void CBotStringArray::SetSize(int nNewSize)
 {

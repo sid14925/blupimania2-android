@@ -29,7 +29,7 @@ class CProgress;
 class CMenu;
 class CCamera;
 
-enum D3DMouse;
+enum D3DMouse : int;
 
 
 #define MAXCONTROL	100

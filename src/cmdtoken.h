@@ -5,10 +5,10 @@
 
 
 
-enum ObjectType;
-enum WaterType;
-enum PyroType;
-enum CameraType;
+enum ObjectType : int;
+enum WaterType : int;
+enum PyroType : int;
+enum CameraType : int;
 
 
 

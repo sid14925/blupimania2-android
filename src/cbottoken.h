@@ -5,7 +5,7 @@
 
 
 
-enum ObjectType;
+enum ObjectType : int;
 
 
 

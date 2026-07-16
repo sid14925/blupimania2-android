@@ -20,7 +20,7 @@ class CSound;
 class CButton;
 class CMenu;
 
-enum ObjectType;
+enum ObjectType : int;
 
 
 

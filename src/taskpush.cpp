@@ -920,7 +920,7 @@ BOOL CTaskPush::Stop()
 
 
 // Vérifie si les caisses à pousser sont compatibles avec le pousseur.
- 
+  
 BOOL CTaskPush::IsPusherAdhoc()
 {
 	ObjectType	type;

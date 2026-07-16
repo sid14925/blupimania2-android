@@ -1831,7 +1831,7 @@ BOOL CD3DEngine::AddTextureMapping(int objRank,
 //	[p] = distance dans l'univers 3D
 //	[t] = position dans la texture (pixels)
 
-//  ^ y         5 
+//  ^ y         5  
 //  |   6  o---------o  4
 //  |    /             \
 //  |   o               o
@@ -6555,7 +6555,7 @@ float CD3DEngine::RetFocus()
 	return m_focus;
 }
 
-// 
+//  
 
 void CD3DEngine::UpdateMatProj()
 {
@@ -6765,7 +6765,7 @@ HRESULT CD3DEngine::FinalCleanup()
 }
 
 
-// Overrrides the main WndProc, so the sample can do custom message 
+// Overrrides the main WndProc, so the sample can do custom message  
 // handling (e.g. processing mouse, keyboard, or menu commands).
 
 LRESULT CD3DEngine::MsgProc( HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam )

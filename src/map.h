@@ -13,7 +13,7 @@ class CWater;
 class CObject;
 class CRobotMain;
 
-enum ObjectType;
+enum ObjectType : int;
 
 
 

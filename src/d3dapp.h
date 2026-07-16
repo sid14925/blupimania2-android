@@ -20,8 +20,8 @@ class CD3DEngine;
 class CRobotMain;
 class CSound;
 
-enum D3DMouse;
-enum Error;
+enum D3DMouse : int;
+enum Error : int;
 
 
 
@@ -98,7 +98,7 @@ protected:
 	VOID		ShowStats();
 	VOID		OutputText( DWORD x, DWORD y, TCHAR* str );
 
-protected:
+public:	// the SDL platform layer (port/sdl/sdlapp.cpp) drives these directly
 	CInstanceManager*		m_iMan;
 	CEvent*					m_event;
 
@@ -144,7 +144,7 @@ public:
 	float			m_axeKeyX;		// avancer/reculer
 	float			m_axeKeyY;		// tourner
 	float			m_axeKeyZ;		// monter/descendre
-	float			m_axeKeyW;		// frain à main
+	float			m_axeKeyW;		// frain ï¿½ main
 	D3DVECTOR		m_axeKey;
 	D3DVECTOR		m_axeJoy;
 	BOOL			m_bJoyButton[32];

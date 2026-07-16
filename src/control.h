@@ -11,7 +11,7 @@ class CRobotMain;
 class CParticule;
 class CSound;
 
-enum FontType;
+enum FontType : int;
 
 
 #define STATE_ENABLE	(1<<0)	// actif

@@ -27,14 +27,14 @@ CBotTwoOpExpr::~CBotTwoOpExpr()
 #define		CLASSE		(1<<CBotTypClass)
 
 // liste des opérations (précéance)
-static int	ListOp[] = 
+static int	ListOp[] =  
 {
 	BOOLEEN,				ID_LOG_OR, 0,
 	BOOLEEN,				ID_LOG_AND, 0,
 	BOOLEEN|ENTIER,			ID_OR, 0,
 	ENTIER,					ID_XOR, 0,
 	BOOLEEN|ENTIER,			ID_AND, 0,
-	BOOLEEN|ENTIER|FLOTANT,	ID_EQ, 
+	BOOLEEN|ENTIER|FLOTANT,	ID_EQ,  
 	BOOLEEN|ENTIER|FLOTANT,	ID_NE, 0,
 	ENTIER|FLOTANT,			ID_HI,
 	ENTIER|FLOTANT,			ID_LO,
@@ -45,8 +45,8 @@ static int	ListOp[] =
 	ENTIER,					ID_ASR, 0,
 	ENTIER|FLOTANT|CHAINE,	ID_ADD,
 	ENTIER|FLOTANT,			ID_SUB, 0,
-	ENTIER|FLOTANT,			ID_MUL, 
-	ENTIER|FLOTANT,			ID_DIV, 
+	ENTIER|FLOTANT,			ID_MUL,  
+	ENTIER|FLOTANT,			ID_DIV,  
 	ENTIER|FLOTANT,			ID_MODULO, 0,
 	0,
 };
@@ -90,7 +90,7 @@ CBotInstr* CBotTwoOpExpr::Compile(CBotToken* &p, CBotCStack* pStack, int* pOpera
 
 	CBotToken*	pp = p;
 	int	TypeOp = pp->GetType();									// type d'opération
-	p = p->Next();												// saute le token de l'opération 
+	p = p->Next();												// saute le token de l'opération  
 
 	// cherche des instructions qui peuvent convenir à droite
 
