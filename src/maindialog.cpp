@@ -54,14 +54,14 @@
 
 
 
-#define KEY_VISIBLE		6		// nb de touches redéfinissables visibles
-#define KEY_TOTAL		8		// nb total de touches redéfinissables
+#define KEY_VISIBLE		6		// nb de touches redï¿½finissables visibles
+#define KEY_TOTAL		8		// nb total de touches redï¿½finissables
 #define WELCOME_LENGTH	6.0f
 
 
 
 
-// Construit la clé d'un puzzle "officiel" pour CGamerFile.
+// Construit la clï¿½ d'un puzzle "officiel" pour CGamerFile.
 // On utilise un nom de fichier "bizarre" que l'utilisateur
 // ne risque pas trop d'utiliser !
 
@@ -174,7 +174,7 @@ CMainDialog::~CMainDialog()
 }
 
 
-// Indique si les boutons défi/atelier sont accessibles.
+// Indique si les boutons dï¿½fi/atelier sont accessibles.
 
 BOOL CMainDialog::IsAccessibleDefiUser()
 {
@@ -648,11 +648,11 @@ void CMainDialog::ChangePhase(Phase phase, Phase fadeIn)
 		pa = pw->CreateArray(pos, ddim, 0, EVENT_INTERFACE_LIST);
 		pa->SetState(STATE_DEFAULT);
 		pa->SetState(STATE_SHADOW);
-		pa->SetState(STATE_EXTEND);  // x/v tout à droite
+		pa->SetState(STATE_EXTEND);  // x/v tout ï¿½ droite
 		pa->SetTabs(0, 110.0f/640.0f, 1, FONT_COLOBOT);  // filename
 		pa->SetTabs(1,  70.0f/640.0f, 1, FONT_COLOBOT);  // univers
 		pa->SetTabs(2,  70.0f/640.0f, 1, FONT_COLOBOT);  // auteur
-		pa->SetTabs(3, 145.0f/640.0f, 1, FONT_COLOBOT);  // resumé
+		pa->SetTabs(3, 145.0f/640.0f, 1, FONT_COLOBOT);  // resumï¿½
 		pa->SetSelectCap(TRUE);
 		pa->SetFontSize(9.0f);
 		UpdateSceneList(m_sel);
@@ -798,8 +798,8 @@ void CMainDialog::ChangePhase(Phase phase, Phase fadeIn)
 		pa->SetState(STATE_SHADOW);
 		pa->SetTabs(0, 110.0f/640.0f, 1, FONT_COLOBOT);  // filename
 		pa->SetTabs(1,  70.0f/640.0f, 1, FONT_COLOBOT);  // univers
-		pa->SetTabs(2,  45.0f/640.0f, 1, FONT_COLOBOT);  // testé
-		pa->SetTabs(3, 190.0f/640.0f, 1, FONT_COLOBOT);  // resumé
+		pa->SetTabs(2,  45.0f/640.0f, 1, FONT_COLOBOT);  // testï¿½
+		pa->SetTabs(3, 190.0f/640.0f, 1, FONT_COLOBOT);  // resumï¿½
 		pa->SetSelectCap(TRUE);
 		pa->SetFontSize(9.0f);
 		UpdateSceneList(m_sel);
@@ -1649,8 +1649,8 @@ void CMainDialog::ChangePhase(Phase phase, Phase fadeIn)
 }
 
 
-// Traite un événement.
-// Retourne FALSE si l'événement a été traîté complètement.
+// Traite un ï¿½vï¿½nement.
+// Retourne FALSE si l'ï¿½vï¿½nement a ï¿½tï¿½ traï¿½tï¿½ complï¿½tement.
 
 BOOL CMainDialog::EventProcess(const Event &event)
 {
@@ -1726,7 +1726,19 @@ BOOL CMainDialog::EventProcess(const Event &event)
 			return TRUE;
 		}
 
-		if ( m_shotDelay > 0 && !m_bDialog )  // copie d'écran à faire ?
+		// Port: l'ï¿½cran d'adieu (PHASE_GENERIC1) se ferme tout seul aprï¿½s
+		// quelques secondes, sans qu'il faille cliquer.
+#if !_DEMO & !_SE
+		if ( m_phase == PHASE_GENERIC1 && m_phaseTime >= 4.0f )
+		{
+			Event	quitEvent;
+			m_event->MakeEvent(quitEvent, EVENT_QUIT);
+			m_event->AddEvent(quitEvent);
+			return TRUE;
+		}
+#endif
+
+		if ( m_shotDelay > 0 && !m_bDialog )  // copie d'ï¿½cran ï¿½ faire ?
 		{
 			m_shotDelay --;
 			if ( m_shotDelay == 0 )
@@ -1795,7 +1807,7 @@ BOOL CMainDialog::EventProcess(const Event &event)
 
 //?		FrameParticule(event.rTime);
 
-		if ( m_bDialog )  // dialogue présent ?
+		if ( m_bDialog )  // dialogue prï¿½sent ?
 		{
 			FrameDialog(event.rTime);
 		}
@@ -1838,7 +1850,7 @@ BOOL CMainDialog::EventProcess(const Event &event)
 		{
 			window = EVENT_WINDOW4;
 		}
-		if ( m_bDialog )  // dialogue présent ?
+		if ( m_bDialog )  // dialogue prï¿½sent ?
 		{
 			window = EVENT_WINDOW9;
 			bUpDown = TRUE;
@@ -1864,7 +1876,7 @@ BOOL CMainDialog::EventProcess(const Event &event)
 		}
 	}
 
-	if ( m_bDialog )  // dialogue présent ?
+	if ( m_bDialog )  // dialogue prï¿½sent ?
 	{
 		m_interface->EventProcess(event);
 
@@ -2334,12 +2346,12 @@ BOOL CMainDialog::EventProcess(const Event &event)
 				if ( pl == 0 )  break;
 				if ( pc->TestState(STATE_CHECK) )
 				{
-					pc->ClearState(STATE_CHECK);  // fenêtré
+					pc->ClearState(STATE_CHECK);  // fenï¿½trï¿½
 					pl->ClearState(STATE_ENABLE);
 				}
 				else
 				{
-					pc->SetState(STATE_CHECK);  // plein écran
+					pc->SetState(STATE_CHECK);  // plein ï¿½cran
 					pl->SetState(STATE_ENABLE);
 				}
 				UpdateApply();
@@ -2876,7 +2888,7 @@ void CMainDialog::FrameMove(float rTime)
 			 m_moveButton == 0 )  return;
 	}
 
-	if ( m_movePhase == 1 )  // début ?
+	if ( m_movePhase == 1 )  // dï¿½but ?
 	{
 		m_engine->SetInterfaceMat(m_moveCenter, m_moveZoom, m_moveAngle);
 		m_sound->Play(SOUND_OPEN);
@@ -2908,7 +2920,7 @@ void CMainDialog::FrameMove(float rTime)
 		}
 	}
 
-	if ( m_movePhase == 3 )  // zoom arrière ?
+	if ( m_movePhase == 3 )  // zoom arriï¿½re ?
 	{
 		m_moveProgress += rTime*(1.0f/0.4f);
 		progress = Norm(m_moveProgress);
@@ -2926,7 +2938,7 @@ void CMainDialog::FrameMove(float rTime)
 		}
 	}
 
-	if ( m_movePhase == 10 )  // écran monte ?
+	if ( m_movePhase == 10 )  // ï¿½cran monte ?
 	{
 		m_engine->SetInterfaceMat(m_moveCenter, m_moveZoom, m_moveAngle);
 		m_sound->Play(SOUND_OPEN);
@@ -2936,7 +2948,7 @@ void CMainDialog::FrameMove(float rTime)
 		m_moveProgress = 0.0f;
 	}
 
-	if ( m_movePhase == 11 )  // écran monte ?
+	if ( m_movePhase == 11 )  // ï¿½cran monte ?
 	{
 		m_moveProgress += rTime*(1.0f/2.0f);
 		progress = Norm(m_moveProgress);
@@ -3035,7 +3047,7 @@ void CMainDialog::ChangeTabOrder(EventMsg window, int dir, int param)
 	pn->SetFocus(TRUE);
 }
 
-// Débute une mission.
+// Dï¿½bute une mission.
 
 void CMainDialog::LaunchSimul(BOOL bEdit, BOOL bTest)
 {
@@ -3203,7 +3215,7 @@ D3DVECTOR SoundPos(FPOINT pos)
 	return s;
 }
 
-// Retourne une position aléatoire pour un son.
+// Retourne une position alï¿½atoire pour un son.
 
 D3DVECTOR SoundRand()
 {
@@ -3216,7 +3228,7 @@ D3DVECTOR SoundRand()
 	return s;
 }
 
-// Fait évoluer qq jolies particules.
+// Fait ï¿½voluer qq jolies particules.
 
 void CMainDialog::FrameParticule(float rTime)
 {
@@ -3229,18 +3241,18 @@ void CMainDialog::FrameParticule(float rTime)
 	static float partiPosInit[1+5*12] =
 	{ //  x       x      t2    t2   type
 		 12.0f,
-		607.0f, 164.0f, 0.2f, 0.8f, 1.0f,  // câble sup.
-		604.0f, 205.0f, 0.1f, 0.3f, 1.0f,  // câble mid.
-		603.0f, 247.0f, 0.1f, 0.3f, 1.0f,  // câble inf.
+		607.0f, 164.0f, 0.2f, 0.8f, 1.0f,  // cï¿½ble sup.
+		604.0f, 205.0f, 0.1f, 0.3f, 1.0f,  // cï¿½ble mid.
+		603.0f, 247.0f, 0.1f, 0.3f, 1.0f,  // cï¿½ble inf.
 		119.0f, 155.0f, 0.2f, 0.4f, 2.0f,  // tuyau gauche
 		366.0f,  23.0f, 0.5f, 1.5f, 4.0f,  // tuyau sup.
 		560.0f, 414.0f, 0.1f, 0.1f, 1.0f,  // bouton inf/droite
 		 20.0f, 413.0f, 0.1f, 0.1f, 2.0f,  // bouton inf/gauche
 		 39.0f,  78.0f, 0.1f, 0.2f, 1.0f,  // pot gauche
 		 39.0f,  78.0f, 0.5f, 0.9f, 1.0f,  // pot gauche
-		170.0f, 229.0f, 0.5f, 0.5f, 3.0f,  // fumée gauche
-		170.0f, 229.0f, 0.5f, 0.5f, 3.0f,  // fumée gauche
-		474.0f, 229.0f, 0.5f, 0.5f, 3.0f,  // fumée droite
+		170.0f, 229.0f, 0.5f, 0.5f, 3.0f,  // fumï¿½e gauche
+		170.0f, 229.0f, 0.5f, 0.5f, 3.0f,  // fumï¿½e gauche
+		474.0f, 229.0f, 0.5f, 0.5f, 3.0f,  // fumï¿½e droite
 	};
 
 	static float glintPosInit[1+2*14] =
@@ -3265,12 +3277,12 @@ void CMainDialog::FrameParticule(float rTime)
 	static float partiPosBig[1+5*12] =
 	{ //  x       x      t2    t2   type
 		 12.0f,
-		607.0f, 164.0f, 0.2f, 0.8f, 1.0f,  // câble sup.
-		604.0f, 205.0f, 0.1f, 0.3f, 1.0f,  // câble mid.
-		603.0f, 247.0f, 0.1f, 0.3f, 1.0f,  // câble inf.
-		 64.0f, 444.0f, 0.2f, 0.8f, 1.0f,  // câble bas gauche
-		113.0f, 449.0f, 0.1f, 0.3f, 1.0f,  // câble bas gauche
-		340.0f, 463.0f, 0.2f, 0.8f, 1.0f,  // câble bas milieu
+		607.0f, 164.0f, 0.2f, 0.8f, 1.0f,  // cï¿½ble sup.
+		604.0f, 205.0f, 0.1f, 0.3f, 1.0f,  // cï¿½ble mid.
+		603.0f, 247.0f, 0.1f, 0.3f, 1.0f,  // cï¿½ble inf.
+		 64.0f, 444.0f, 0.2f, 0.8f, 1.0f,  // cï¿½ble bas gauche
+		113.0f, 449.0f, 0.1f, 0.3f, 1.0f,  // cï¿½ble bas gauche
+		340.0f, 463.0f, 0.2f, 0.8f, 1.0f,  // cï¿½ble bas milieu
 		 36.0f, 155.0f, 0.2f, 0.4f, 2.0f,  // tuyau gauche
 		366.0f,  23.0f, 0.5f, 1.5f, 4.0f,  // tuyau sup.
 		612.0f, 414.0f, 0.1f, 0.1f, 1.0f,  // bouton inf/droite
@@ -3365,12 +3377,12 @@ void CMainDialog::FrameParticule(float rTime)
 			}
 		}
 
-		if ( m_partiPhase[i] != 0 )  // génère ?
+		if ( m_partiPhase[i] != 0 )  // gï¿½nï¿½re ?
 		{
 			m_partiTime[i] -= rTime;
 			if ( m_partiTime[i] > 0.0f )
 			{
-				if ( m_partiPhase[i] == 1 )  // étincelles ?
+				if ( m_partiPhase[i] == 1 )  // ï¿½tincelles ?
 				{
 					pos.x = m_partiPos[i].x;
 					pos.y = m_partiPos[i].y;
@@ -3398,7 +3410,7 @@ void CMainDialog::FrameParticule(float rTime)
 												 Rand()*0.5f+0.5f, 2.0f,
 												 SH_INTERFACE);
 				}
-				if ( m_partiPhase[i] == 2 )  // étincelles ?
+				if ( m_partiPhase[i] == 2 )  // ï¿½tincelles ?
 				{
 					pos.x = m_partiPos[i].x;
 					pos.y = m_partiPos[i].y;
@@ -3425,7 +3437,7 @@ void CMainDialog::FrameParticule(float rTime)
 												 Rand()*0.5f+0.5f, 2.0f,
 												 SH_INTERFACE);
 				}
-				if ( m_partiPhase[i] == 3 )  // fumée ?
+				if ( m_partiPhase[i] == 3 )  // fumï¿½e ?
 				{
 					pos.x = m_partiPos[i].x;
 					pos.y = m_partiPos[i].y;
@@ -3557,7 +3569,7 @@ void CMainDialog::BuildSceneName(char *filename)
 	}
 }
 
-// Retourne le nom du dossier où mettre les fichiers.
+// Retourne le nom du dossier oï¿½ mettre les fichiers.
 
 char* CMainDialog::RetFilesDir()
 {
@@ -3565,7 +3577,7 @@ char* CMainDialog::RetFilesDir()
 }
 
 
-// Met à jour la liste des joueurs d'après les dossiers sur disque.
+// Met ï¿½ jour la liste des joueurs d'aprï¿½s les dossiers sur disque.
 
 void CMainDialog::ReadNameList()
 {
@@ -3635,7 +3647,7 @@ void CMainDialog::ReadNameList()
 	pl->SetSelect(-1);
 }
 
-// Met à jour les contrôles des joueurs.
+// Met ï¿½ jour les contrï¿½les des joueurs.
 
 void CMainDialog::UpdateNameControl()
 {
@@ -3670,7 +3682,7 @@ void CMainDialog::UpdateNameControl()
 	}
 }
 
-// Sélectionne un joueur.
+// Sï¿½lectionne un joueur.
 
 BOOL CMainDialog::NameSelect()
 {
@@ -3692,7 +3704,7 @@ BOOL CMainDialog::NameSelect()
 	return TRUE;
 }
 
-// Crée un nouveau joueur.
+// Crï¿½e un nouveau joueur.
 
 BOOL CMainDialog::NameCreate()
 {
@@ -3865,24 +3877,24 @@ void CMainDialog::NameDelete()
 }
 
 
-// Indique le niveau de difficulté.
+// Indique le niveau de difficultï¿½.
 
 int CMainDialog::RetLevel()
 {
 	return m_perso.level;
 }
 
-// Initialise le personnage de base lors de la création d'un joueur.
+// Initialise le personnage de base lors de la crï¿½ation d'un joueur.
 
 void CMainDialog::FlushPerso()
 {
 	ZeroMemory(&m_perso, sizeof(GamerPerso));
 	m_perso.total = 1;
 	m_perso.bonus = 1;
-	m_perso.level = 3;  // niveau intermédiaire (costaud)
+	m_perso.level = 3;  // niveau intermï¿½diaire (costaud)
 }
 
-// Met à jour les listes selon le cheat code.
+// Met ï¿½ jour les listes selon le cheat code.
 
 void CMainDialog::AllMissionUpdate()
 {
@@ -3892,7 +3904,7 @@ void CMainDialog::AllMissionUpdate()
 	}
 }
 
-// Lit les caractéristiques d'un fichier.
+// Lit les caractï¿½ristiques d'un fichier.
 
 BOOL CMainDialog::ReadScene(char *filename, char *univers, char *resume,
 							char *author, BOOL &bSolved, int &environment)
@@ -3977,7 +3989,7 @@ BOOL CMainDialog::ReadScene(char *filename, char *univers, char *resume,
 	return TRUE;
 }
 
-// Indique si un défi est accessible.
+// Indique si un dï¿½fi est accessible.
 
 BOOL CMainDialog::IsAccessibleDefi(int environment)
 {
@@ -3994,7 +4006,7 @@ BOOL CMainDialog::IsAccessibleDefi(int environment)
 	return TRUE;
 }
 
-// Met à jour la liste des missions.
+// Met ï¿½ jour la liste des missions.
 
 void CMainDialog::UpdateSceneList(int &sel)
 {
@@ -4053,7 +4065,7 @@ void CMainDialog::UpdateSceneList(int &sel)
 	m_listTotal = i;
 
 	GetResource(RES_TEXT, (m_phase==PHASE_DEFI)?RT_DEFI_HEADER:RT_USER_HEADER, name);
-	pa->SetName(-1, name);  // texte de la légende
+	pa->SetName(-1, name);  // texte de la lï¿½gende
 
 	sel = -1;
 	for ( i=0 ; i<m_listTotal ; i++ )
@@ -4117,12 +4129,12 @@ void CMainDialog::UpdateSceneList(int &sel)
 	}
 	if ( m_listTotal == 0 )  sel = -1;
 
-	pa->SetSelect(sel);  // sélectionne comme précédemment
+	pa->SetSelect(sel);  // sï¿½lectionne comme prï¿½cï¿½demment
 	pa->Sort();
 	pa->ShowSelect();  // montre
 }
 
-// Met à jour les boutons selon la liste.
+// Met ï¿½ jour les boutons selon la liste.
 
 void CMainDialog::UpdateButtonList()
 {
@@ -4200,7 +4212,7 @@ void CMainDialog::UpdateButtonList()
 	}
 }
 
-// Met à jour les boutons selon l'ascenseur.
+// Met ï¿½ jour les boutons selon l'ascenseur.
 
 void CMainDialog::UpdatePuzzleScroll()
 {
@@ -4247,7 +4259,7 @@ void CMainDialog::UpdatePuzzleScroll()
 	}
 }
 
-// Met à jour les boutons des puzzles.
+// Met ï¿½ jour les boutons des puzzles.
 
 void CMainDialog::UpdatePuzzleButtons(BOOL bInit)
 {
@@ -4369,7 +4381,7 @@ void CMainDialog::UpdatePuzzleButtons(BOOL bInit)
 						{
 							if ( m_movePhase != 20 )
 							{
-								if ( group == 0 && level == 0 )  // nouvel étage ?
+								if ( group == 0 && level == 0 )  // nouvel ï¿½tage ?
 								{
 									m_moveCenter.x =  0.5f;
 //?									m_moveCenter.y =  1.5f;
@@ -4425,7 +4437,7 @@ void CMainDialog::UpdatePuzzleButtons(BOOL bInit)
 	pl->SetPoints(src, dst, bGreen);
 }
 
-// Met à jour la liste des devices.
+// Met ï¿½ jour la liste des devices.
 
 void CMainDialog::UpdateDisplayDevice()
 {
@@ -4460,7 +4472,7 @@ void CMainDialog::UpdateDisplayDevice()
 	m_setupSelDevice = selectDevices;
 }
 
-// Met à jour la liste des modes.
+// Met ï¿½ jour la liste des modes.
 
 void CMainDialog::UpdateDisplayMode()
 {
@@ -4534,7 +4546,7 @@ void CMainDialog::ChangeDisplay()
 }
 
 
-// Met à jour le bouton "appliquer".
+// Met ï¿½ jour le bouton "appliquer".
 
 void CMainDialog::UpdateApply()
 {
@@ -4576,7 +4588,7 @@ void CMainDialog::UpdateApply()
 	}
 }
 
-// Met à jour les boutons pendant la phase de setup.
+// Met ï¿½ jour les boutons pendant la phase de setup.
 
 void CMainDialog::UpdateSetupButtons()
 {
@@ -4738,7 +4750,7 @@ void CMainDialog::UpdateSetupButtons()
 	}
 }
 
-// Met à jour le moteur en fonction des boutons après la phase de setup.
+// Met ï¿½ jour le moteur en fonction des boutons aprï¿½s la phase de setup.
 
 void CMainDialog::ChangeSetupButtons()
 {
@@ -4780,7 +4792,7 @@ void CMainDialog::ChangeSetupButtons()
 }
 
 
-// Mémorise tous les réglages.
+// Mï¿½morise tous les rï¿½glages.
 
 void CMainDialog::SetupMemorize()
 {
@@ -4824,7 +4836,7 @@ void CMainDialog::SetupMemorize()
 	m_engine->WriteProfile();
 }
 
-// Rappelle tous les réglages.
+// Rappelle tous les rï¿½glages.
 
 void CMainDialog::SetupRecall()
 {
@@ -4893,7 +4905,7 @@ void CMainDialog::SetupRecall()
 }
 
 
-// Change le niveau général de qualité.
+// Change le niveau gï¿½nï¿½ral de qualitï¿½.
 
 void CMainDialog::ChangeSetupQuality(int quality)
 {
@@ -4914,7 +4926,7 @@ void CMainDialog::ChangeSetupQuality(int quality)
 }
 
 
-// Touches redéfinissables :
+// Touches redï¿½finissables :
 
 static int key_table[KEY_TOTAL] =
 {
@@ -4940,7 +4952,7 @@ static EventMsg key_event[KEY_TOTAL] =
 	EVENT_INTERFACE_KHELP,
 };
 
-// Met à jour la liste des touches.
+// Met ï¿½ jour la liste des touches.
 
 void CMainDialog::UpdateKey()
 {
@@ -5131,7 +5143,7 @@ void CMainDialog::StartAbort()
 	}
 }
 
-// Création d'un nouveau joueur.
+// Crï¿½ation d'un nouveau joueur.
 
 void CMainDialog::StartCreateGamer()
 {
@@ -5176,7 +5188,7 @@ void CMainDialog::StartCreateGamer()
 	pb->SetName(name);
 }
 
-// Voulez-vous détruire le joueur ?
+// Voulez-vous dï¿½truire le joueur ?
 
 void CMainDialog::StartDeleteGamer(char *gamer)
 {
@@ -5212,7 +5224,7 @@ void CMainDialog::StartDeleteGamer(char *gamer)
 	pb->SetName(name);
 }
 
-// Voulez-vous détruire le puzzle ?
+// Voulez-vous dï¿½truire le puzzle ?
 
 void CMainDialog::StartDeletePuzzle()
 {
@@ -5256,7 +5268,7 @@ void CMainDialog::StartDeletePuzzle()
 	pb->SetName(name);
 }
 
-// Voulez-vous créer un nouveau puzzle ?
+// Voulez-vous crï¿½er un nouveau puzzle ?
 
 void CMainDialog::StartNewPuzzle()
 {
@@ -5375,7 +5387,7 @@ void CMainDialog::StartNewPuzzle()
 	pb->SetName(name);
 }
 
-// Met à jour le dialogue pour créer un nouveau puzzle.
+// Met ï¿½ jour le dialogue pour crï¿½er un nouveau puzzle.
 
 void CMainDialog::UpdateNewPuzzle()
 {
@@ -5466,7 +5478,7 @@ void CMainDialog::UpdateNewPuzzle()
 	}
 }
 
-// Informations complémentaires sur le puzzle.
+// Informations complï¿½mentaires sur le puzzle.
 
 void CMainDialog::StartInfoPuzzle()
 {
@@ -5676,7 +5688,7 @@ void CMainDialog::StartExportPuzzle()
 	pb->SetName(name);
 }
 
-// Met à jour le type d'exportation.
+// Met ï¿½ jour le type d'exportation.
 
 void CMainDialog::UpdateExportType()
 {
@@ -5734,7 +5746,7 @@ void CMainDialog::StartImportPuzzle()
 	pa->SetTabs(0, 110.0f/640.0f, 1, FONT_COLOBOT);  // filename
 	pa->SetTabs(1,  70.0f/640.0f, 1, FONT_COLOBOT);  // univers
 	pa->SetTabs(2,  70.0f/640.0f, 1, FONT_COLOBOT);  // auteur
-	pa->SetTabs(3, 180.0f/640.0f, 1, FONT_COLOBOT);  // resumé
+	pa->SetTabs(3, 180.0f/640.0f, 1, FONT_COLOBOT);  // resumï¿½
 	pa->SetSelectCap(TRUE);
 	pa->SetFontSize(9.0f);
 	UpdateImportPuzzle(pa);
@@ -5751,7 +5763,7 @@ void CMainDialog::StartImportPuzzle()
 	pb->SetName(name);
 }
 
-// Met à jour la liste des puzzles à importer.
+// Met ï¿½ jour la liste des puzzles ï¿½ importer.
 
 void CMainDialog::UpdateImportPuzzle(CArray *pa)
 {
@@ -5799,7 +5811,7 @@ void CMainDialog::UpdateImportPuzzle(CArray *pa)
 	m_importTotal = i;
 
 	GetResource(RES_TEXT, RT_IMPORT_HEADER, name);
-	pa->SetName(-1, name);  // texte de la légende
+	pa->SetName(-1, name);  // texte de la lï¿½gende
 
 	for ( i=0 ; i<m_importTotal ; i++ )
 	{
@@ -5894,7 +5906,7 @@ void CMainDialog::StartQuit()
 	pb->SetName(name);
 }
 
-// Début de l'affichage d'un dialogue.
+// Dï¿½but de l'affichage d'un dialogue.
 
 void CMainDialog::StartDialog(FPOINT dim, BOOL bFire, BOOL bOK, BOOL bCancel)
 {
@@ -6202,13 +6214,13 @@ void CMainDialog::StartSuspend()
 	m_main->ClearInterface();
 	m_bInitPause = m_engine->RetPause();
 	m_engine->SetPause(TRUE);
-	m_engine->SetOverFront(FALSE);  // over plane derrière
+	m_engine->SetOverFront(FALSE);  // over plane derriï¿½re
 	m_main->StartSuspend();
 	m_initCamera = m_camera->RetType();
 	m_camera->SetType(CAMERA_DIALOG);
 }
 
-// Reprend la simulation après une phase de dialogue.
+// Reprend la simulation aprï¿½s une phase de dialogue.
 
 void CMainDialog::StopSuspend()
 {
@@ -6221,7 +6233,7 @@ void CMainDialog::StopSuspend()
 }
 
 
-// Indique si un dialogue est affiché.
+// Indique si un dialogue est affichï¿½.
 
 BOOL CMainDialog::IsDialog()
 {
@@ -6244,7 +6256,7 @@ char* CMainDialog::RetPublicDir()
 }
 
 
-// Indique si l'on édite un puzzle.
+// Indique si l'on ï¿½dite un puzzle.
 
 BOOL CMainDialog::RetEdit()
 {
@@ -6258,7 +6270,7 @@ BOOL CMainDialog::RetTest()
 	return m_bTest;
 }
 
-// Indique si l'on édite un puzzle.
+// Indique si l'on ï¿½dite un puzzle.
 
 BOOL CMainDialog::RetProto()
 {
@@ -6339,7 +6351,7 @@ void CMainDialog::IncGamerInfoTry()
 	}
 }
 
-// Mémorise le temps joué.
+// Mï¿½morise le temps jouï¿½.
 
 void CMainDialog::SetGamerTotalTime(float time)
 {
@@ -6358,7 +6370,7 @@ void CMainDialog::SetGamerTotalTime(float time)
 	}
 }
 
-// Retourne le temps total joué.
+// Retourne le temps total jouï¿½.
 
 float CMainDialog::RetGamerTotalTime()
 {
@@ -6379,7 +6391,7 @@ float CMainDialog::RetGamerTotalTime()
 	return 0.0f;
 }
 
-// Signal la mission comme réussie.
+// Signal la mission comme rï¿½ussie.
 
 void CMainDialog::SetGamerInfoPassed()
 {
@@ -6409,7 +6421,7 @@ void CMainDialog::SetGamerInfoPassed()
 	}
 }
 
-// Indique si la mission est réussie.
+// Indique si la mission est rï¿½ussie.
 
 BOOL CMainDialog::RetGamerInfoPassed(int rank)
 {
@@ -6431,7 +6443,7 @@ BOOL CMainDialog::RetGamerInfoPassed(int rank)
 }
 
 
-// Cherche la mission suivante par défaut à effectuer.
+// Cherche la mission suivante par dï¿½faut ï¿½ effectuer.
 
 void CMainDialog::NextMission()
 {
@@ -6480,7 +6492,7 @@ void CMainDialog::NextMission()
 		}
 	}
 
-	// Cherche dans tout l'étage de 16 une pas faite.
+	// Cherche dans tout l'ï¿½tage de 16 une pas faite.
 	first = (m_sel/16)*16;
 	for ( i=first ; i<first+16 ; i++ )
 	{
@@ -6504,7 +6516,7 @@ void CMainDialog::NextMission()
 		return;
 	}
 
-	// Cherche dans l'étage suivant une pas faite.
+	// Cherche dans l'ï¿½tage suivant une pas faite.
 	first = (m_sel/16)*16+16;
 	for ( i=first ; i<first+16 ; i++ )
 	{
@@ -6526,7 +6538,7 @@ void CMainDialog::NextMission()
 	}
 }
 
-// Indique s'il faut écrire le fichier.
+// Indique s'il faut ï¿½crire le fichier.
 
 BOOL CMainDialog::RetWriteFile()
 {
@@ -6534,7 +6546,7 @@ BOOL CMainDialog::RetWriteFile()
 }
 
 
-// Crée un nouveau puzzle sur la base d'un fichier modèle.
+// Crï¿½e un nouveau puzzle sur la base d'un fichier modï¿½le.
 
 BOOL CMainDialog::CreateNewPuzzle(int environment, char *filename)
 {
@@ -6588,7 +6600,7 @@ BOOL CMainDialog::CreateNewPuzzle(int environment, char *filename)
 	return TRUE;
 }
 
-// Supprime le puzzle sélectionné dans la liste.
+// Supprime le puzzle sï¿½lectionnï¿½ dans la liste.
 
 BOOL CMainDialog::DeletePuzzle(int i)
 {
@@ -6616,7 +6628,7 @@ BOOL CMainDialog::DeletePuzzle(int i)
 	return TRUE;
 }
 
-// Supprime un fichier des défis pour tous les joueurs.
+// Supprime un fichier des dï¿½fis pour tous les joueurs.
 
 void CMainDialog::DeleteGamerFile(char *puzzle)
 {
@@ -6650,7 +6662,7 @@ void CMainDialog::DeleteGamerFile(char *puzzle)
 	ReadGamerMission();
 }
 
-// Renomme le puzzle sélectionné dans la liste.
+// Renomme le puzzle sï¿½lectionnï¿½ dans la liste.
 
 BOOL CMainDialog::RenamePuzzle(int i, char *newName)
 {
@@ -6669,7 +6681,7 @@ BOOL CMainDialog::RenamePuzzle(int i, char *newName)
 	return TRUE;
 }
 
-// Exporte le puzzle sélectionné dans la liste.
+// Exporte le puzzle sï¿½lectionnï¿½ dans la liste.
 
 BOOL CMainDialog::ExportPuzzle(int i)
 {
@@ -6681,7 +6693,7 @@ BOOL CMainDialog::ExportPuzzle(int i)
 								m_savegameDir, m_main->RetGamerName(),
 								m_listBuffer[i].filename);
 
-	if ( m_exportType == 0 )  // exporte dans les défis ?
+	if ( m_exportType == 0 )  // exporte dans les dï¿½fis ?
 	{
 		sprintf(filenameDst, "%s\\", m_defiDir);
 	}
@@ -6702,7 +6714,7 @@ BOOL CMainDialog::ExportPuzzle(int i)
 
 	if ( !CopyFile(filenameSrc, filenameDst) )  return FALSE;
 
-	if ( m_exportType == 0 )  // exporte dans les défis ?
+	if ( m_exportType == 0 )  // exporte dans les dï¿½fis ?
 	{
 		DeleteGamerFile(m_listBuffer[i].filename);
 	}
@@ -6742,7 +6754,7 @@ BOOL CMainDialog::ImportPuzzle(int i)
 	return TRUE;
 }
 
-// Cherche un nom inutilisé.
+// Cherche un nom inutilisï¿½.
 
 BOOL CMainDialog::SearchNewName(char *dir, char *base,
 								char *filename, char *quick)
@@ -6789,7 +6801,7 @@ BOOL CMainDialog::CopyFile(char *filenameSrc, char *filenameDst)
 	return TRUE;
 }
 
-// Ajoute dans un puzzle la commande indiquant s'il a été solutionné.
+// Ajoute dans un puzzle la commande indiquant s'il a ï¿½tï¿½ solutionnï¿½.
 
 BOOL CMainDialog::SolvedPuzzle(int i, BOOL bSolved, int totalManip)
 {
