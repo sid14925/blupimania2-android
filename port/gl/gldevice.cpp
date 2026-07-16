@@ -172,7 +172,7 @@ static const char* VS_SRC =
 "uniform vec4 u_lightAmbient[4];\n"
 "uniform vec4 u_lightAtten[4];\n"    // a0, a1, a2, range
 "uniform vec2 u_lightSpot[4];\n"     // cos(theta/2), falloff-unused
-"uniform int  u_fogEnable;\n"
+"uniform lowp int u_fogEnable;\n"    // shared with the fragment shader: precision must match on GLES
 "uniform vec2 u_fogRange;\n"         // start, end (view-space z)
 "uniform mat4 u_view;\n"
 "attribute vec3 a_pos;\n"
@@ -264,7 +264,7 @@ static const char* FS_SRC =
 "uniform vec4 u_tfactor;\n"
 "uniform int  u_alphaTest;\n"       // 0 off; else D3DCMP value
 "uniform float u_alphaRef;\n"
-"uniform int  u_fogEnable;\n"
+"uniform lowp int u_fogEnable;\n"
 "uniform vec4 u_fogColor;\n"
 "varying vec4 v_color;\n"
 "varying vec2 v_uv0;\n"

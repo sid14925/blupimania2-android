@@ -78,6 +78,10 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
         -fms-extensions
         -Wno-error=address-of-temporary
         -Wno-address-of-temporary
+        # legacy string handling trips _FORTIFY_SOURCE aborts (e.g. .MOD
+        # texture names are not always NUL-terminated); keep 2001 semantics
+        -U_FORTIFY_SOURCE
+        -D_FORTIFY_SOURCE=0
     )
 elseif(CMAKE_CXX_COMPILER_ID MATCHES "GNU")
     target_compile_options(blupimania2 PRIVATE

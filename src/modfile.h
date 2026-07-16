@@ -11,8 +11,8 @@ class CD3DEngine;
 
 typedef struct
 {
-	char			bUsed;		// TRUE -> utilisé
-	char			bSelect;	// TRUE -> sélectionné
+	char			bUsed;		// TRUE -> utilisï¿½
+	char			bSelect;	// TRUE -> sï¿½lectionnï¿½
 	D3DVERTEX2		p1;
 	D3DVERTEX2		p2;
 	D3DVERTEX2		p3;
@@ -20,7 +20,7 @@ typedef struct
 	char			texName[20];
 	float			min;
 	float			max;
-	long			state;
+	int				state;		// 'long' is 8 bytes on LP64 (Android) and would break the 208-byte .MOD file layout
 	short			texNum2;
 	short			reserve2;
 	short			reserve3;

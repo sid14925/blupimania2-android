@@ -271,6 +271,9 @@ HRESULT CD3DApplication::Create(HINSTANCE hInst, TCHAR* strCmdLine)
     m_instance = hInst;
 
     fprintf(stderr, "[port] SDL_Init...\n"); fflush(stderr);
+#ifdef __ANDROID__
+    SDL_SetHint(SDL_HINT_ORIENTATIONS, "LandscapeLeft LandscapeRight");
+#endif
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_JOYSTICK) != 0)
     {
         SDL_Log("SDL_Init failed: %s", SDL_GetError());
