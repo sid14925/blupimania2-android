@@ -19,6 +19,9 @@
 #include "text.h"
 #include "edit.h"
 
+// Port: shows/hides the platform on-screen keyboard (Android IME).
+extern "C" void PortShowKeyboard(int bShow);
+
 
 #define MARGX			(5.0f/640.0f)
 #define MARGY			(5.0f/480.0f)
@@ -107,6 +110,8 @@ CEdit::CEdit(CInstanceManager* iMan) : CControl(iMan)
 CEdit::~CEdit()
 {
 	int		i;
+
+	if ( m_bEdit && m_bFocus )  PortShowKeyboard(0);	// dialog closed while focused
 
 	FreeImage();
 
@@ -220,6 +225,18 @@ void CEdit::MoveAdjust()
 
 
 // Gestion d'un �v�nement.
+
+// Prend/rend le focus; ouvre le clavier virtuel sur les plateformes tactiles.
+
+void CEdit::SetFocus(BOOL bFocus)
+{
+	if ( m_bEdit )
+	{
+		if ( bFocus && !m_bFocus )  PortShowKeyboard(1);
+		if ( !bFocus && m_bFocus )  PortShowKeyboard(0);
+	}
+	m_bFocus = bFocus;
+}
 
 BOOL CEdit::EventProcess(const Event &event)
 {
@@ -435,11 +452,11 @@ BOOL CEdit::EventProcess(const Event &event)
 	{
 		if ( event.param == m_eventMsg )
 		{
-			m_bFocus = TRUE;
+			SetFocus(TRUE);
 		}
 		else
 		{
-			m_bFocus = FALSE;
+			SetFocus(FALSE);
 		}
 	}
 
@@ -454,11 +471,11 @@ BOOL CEdit::EventProcess(const Event &event)
 				MouseClick(event.pos);
 				if ( m_bEdit || m_bHilite )  m_bCapture = TRUE;
 			}
-			m_bFocus = TRUE;
+			SetFocus(TRUE);
 		}
 		else
 		{
-			m_bFocus = FALSE;
+			SetFocus(FALSE);
 		}
 	}
 

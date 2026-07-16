@@ -1108,6 +1108,23 @@ static void PortLogToStderr(void* userdata, int category, SDL_LogPriority priori
 extern "C" void PortAndroidBootstrap(void);
 #endif
 
+// called by CEdit when an editable field gains/loses keyboard focus
+extern "C" void PortShowKeyboard(int bShow)
+{
+#ifdef __ANDROID__
+    if (bShow)
+    {
+        SDL_StartTextInput();
+    }
+    else
+    {
+        SDL_StopTextInput();
+    }
+#else
+    (void)bShow;    // desktop: text input is always active
+#endif
+}
+
 extern "C" int main(int argc, char* argv[])
 {
 #ifndef __ANDROID__
