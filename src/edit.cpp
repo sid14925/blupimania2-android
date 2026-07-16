@@ -20,7 +20,8 @@
 #include "edit.h"
 
 // Port: shows/hides the platform on-screen keyboard (Android IME).
-extern "C" void PortShowKeyboard(int bShow);
+// The rectangle (interface coords 0..1) lets Android pan the field into view.
+extern "C" void PortShowKeyboard(int bShow, float x, float y, float w, float h);
 
 
 #define MARGX			(5.0f/640.0f)
@@ -111,7 +112,7 @@ CEdit::~CEdit()
 {
 	int		i;
 
-	if ( m_bEdit && m_bFocus )  PortShowKeyboard(0);	// dialog closed while focused
+	if ( m_bEdit && m_bFocus )  PortShowKeyboard(0, 0.0f, 0.0f, 0.0f, 0.0f);	// dialog closed while focused
 
 	FreeImage();
 
@@ -232,8 +233,8 @@ void CEdit::SetFocus(BOOL bFocus)
 {
 	if ( m_bEdit )
 	{
-		if ( bFocus && !m_bFocus )  PortShowKeyboard(1);
-		if ( !bFocus && m_bFocus )  PortShowKeyboard(0);
+		if ( bFocus && !m_bFocus )  PortShowKeyboard(1, m_pos.x, m_pos.y, m_dim.x, m_dim.y);
+		if ( !bFocus && m_bFocus )  PortShowKeyboard(0, 0.0f, 0.0f, 0.0f, 0.0f);
 	}
 	m_bFocus = bFocus;
 }

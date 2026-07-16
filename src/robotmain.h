@@ -101,6 +101,7 @@ public:
 
 	BOOL		EventProcess(const Event &event);
 	void		ChangePhase(Phase phase, Phase fadeIn=(Phase)0);
+	Phase		RetPhase();
 
 	void		SetMovieLock(BOOL bLock, BOOL bFinal);
 	BOOL		RetMovieLock();
@@ -333,8 +334,8 @@ protected:
 	D3DCOLORVALUE	m_colorNewWater;
 	float			m_colorShiftWater;
 
-	int				m_repeat;			// 1 -> répétition d'une mission
-	char			m_lastFilename[100]; // dernière mission jouée
+	int				m_repeat;			// 1 -> rï¿½pï¿½tition d'une mission
+	char			m_lastFilename[100]; // derniï¿½re mission jouï¿½e
 
 	int				m_additionalTotal;
 	int				m_additional[10][10];	// accessoires

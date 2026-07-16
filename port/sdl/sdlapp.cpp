@@ -54,6 +54,14 @@ static BOOL             g_bPinching = FALSE;
 static float            g_gestureLastX = -1.0f;
 static float            g_gesturePanAcc = 0.0f;
 
+// in-game one-finger gesture: tap = left click, drag = camera pan (RMB drag)
+#define TAP_SLOP        0.02f       // movement below this (normalized) = tap
+static BOOL             g_bTapCandidate = FALSE;    // finger down, undecided
+static BOOL             g_bCameraPan = FALSE;       // drag promoted to RMB pan
+static BOOL             g_bMenuPress = FALSE;       // menu mode: classic LMB held
+static float            g_fingerStartX = 0.0f;
+static float            g_fingerStartY = 0.0f;
+
 static float AxeLimit(float value)
 {
     if (value < -1.0f) value = -1.0f;
@@ -608,19 +616,44 @@ static void HandleSDLEvent(const SDL_Event& e)
             {
                 g_bFinger0Down = TRUE;
                 g_finger0 = e.tfinger.fingerId;
+                g_fingerStartX = e.tfinger.x;
+                g_fingerStartY = e.tfinger.y;
                 LPARAM lp = MakeMousePos(e.tfinger.x, e.tfinger.y);
                 DispatchGameMsg(WM_MOUSEMOVE, 0, lp);
-                DispatchGameMsg(WM_LBUTTONDOWN, 0, lp);
+
+                BOOL bSimul = (app->m_pRobotMain != 0 &&
+                               app->m_pRobotMain->RetPhase() == PHASE_SIMUL);
+                if (bSimul)
+                {
+                    // wait: tap becomes a click, drag becomes a camera pan
+                    g_bTapCandidate = TRUE;
+                    g_bCameraPan = FALSE;
+                    g_bMenuPress = FALSE;
+                }
+                else
+                {
+                    // menus: classic press-and-hold (sliders, lists...)
+                    g_bMenuPress = TRUE;
+                    g_bTapCandidate = FALSE;
+                    g_bCameraPan = FALSE;
+                    DispatchGameMsg(WM_LBUTTONDOWN, 0, lp);
+                }
             }
             else if (g_fingerCount == 2)
             {
-                // second finger cancels the left press -> becomes a gesture
-                if (g_bFinger0Down)
+                // second finger cancels the single-finger action
+                LPARAM lp = MakeMousePos(e.tfinger.x, e.tfinger.y);
+                if (g_bMenuPress)
                 {
-                    LPARAM lp = MakeMousePos(e.tfinger.x, e.tfinger.y);
                     DispatchGameMsg(WM_LBUTTONUP, 0, lp);
-                    g_bFinger0Down = FALSE;
+                    g_bMenuPress = FALSE;
                 }
+                if (g_bCameraPan)
+                {
+                    DispatchGameMsg(WM_RBUTTONUP, 0, lp);
+                    g_bCameraPan = FALSE;
+                }
+                g_bTapCandidate = FALSE;
                 g_bPinching = TRUE;
                 g_pinchDist = 0.0f;
             }
@@ -633,8 +666,24 @@ static void HandleSDLEvent(const SDL_Event& e)
             if (e.tfinger.fingerId == g_finger0 && g_bFinger0Down)
             {
                 LPARAM lp = MakeMousePos(e.tfinger.x, e.tfinger.y);
-                DispatchGameMsg(WM_LBUTTONUP, 0, lp);
+                if (g_bCameraPan)
+                {
+                    DispatchGameMsg(WM_RBUTTONUP, 0, lp);      // ScrollEnd
+                }
+                else if (g_bTapCandidate)
+                {
+                    // a clean tap: click at the finger position
+                    DispatchGameMsg(WM_LBUTTONDOWN, 0, lp);
+                    DispatchGameMsg(WM_LBUTTONUP, 0, lp);
+                }
+                else if (g_bMenuPress)
+                {
+                    DispatchGameMsg(WM_LBUTTONUP, 0, lp);
+                }
                 g_bFinger0Down = FALSE;
+                g_bTapCandidate = FALSE;
+                g_bCameraPan = FALSE;
+                g_bMenuPress = FALSE;
             }
             if (g_fingerCount < 2)
             {
@@ -650,7 +699,22 @@ static void HandleSDLEvent(const SDL_Event& e)
         {
             if (g_bFinger0Down && e.tfinger.fingerId == g_finger0)
             {
-                DispatchGameMsg(WM_MOUSEMOVE, 0, MakeMousePos(e.tfinger.x, e.tfinger.y));
+                LPARAM lp = MakeMousePos(e.tfinger.x, e.tfinger.y);
+
+                if (g_bTapCandidate)
+                {
+                    float dx = e.tfinger.x - g_fingerStartX;
+                    float dy = e.tfinger.y - g_fingerStartY;
+                    if (dx*dx + dy*dy > TAP_SLOP*TAP_SLOP)
+                    {
+                        // promote to camera pan: right-button drag
+                        g_bTapCandidate = FALSE;
+                        g_bCameraPan = TRUE;
+                        DispatchGameMsg(WM_RBUTTONDOWN, 0,
+                                        MakeMousePos(g_fingerStartX, g_fingerStartY));
+                    }
+                }
+                DispatchGameMsg(WM_MOUSEMOVE, 0, lp);
             }
             break;
         }
@@ -1108,12 +1172,20 @@ static void PortLogToStderr(void* userdata, int category, SDL_LogPriority priori
 extern "C" void PortAndroidBootstrap(void);
 #endif
 
-// called by CEdit when an editable field gains/loses keyboard focus
-extern "C" void PortShowKeyboard(int bShow)
+// called by CEdit when an editable field gains/loses keyboard focus;
+// x/y/w/h = the field's rectangle in interface coords (0..1, y bottom-up)
+extern "C" void PortShowKeyboard(int bShow, float x, float y, float w, float h)
 {
 #ifdef __ANDROID__
     if (bShow)
     {
+        // tell Android where the field is so adjustPan scrolls it into view
+        SDL_Rect rect;
+        rect.x = (int)(x * g_winWidth);
+        rect.y = (int)((1.0f - y - h) * g_winHeight);
+        rect.w = (int)(w * g_winWidth);
+        rect.h = (int)(h * g_winHeight);
+        SDL_SetTextInputRect(&rect);
         SDL_StartTextInput();
     }
     else
@@ -1121,7 +1193,7 @@ extern "C" void PortShowKeyboard(int bShow)
         SDL_StopTextInput();
     }
 #else
-    (void)bShow;    // desktop: text input is always active
+    (void)bShow; (void)x; (void)y; (void)w; (void)h;
 #endif
 }
 

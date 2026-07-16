@@ -99,6 +99,13 @@ void IDirectDrawSurface7::InvalidateGL()
     m_bDirty = TRUE;
 }
 
+static int NextPow2(int v)
+{
+    int p = 1;
+    while (p < v && p < 4096) p <<= 1;
+    return p;
+}
+
 unsigned int IDirectDrawSurface7::BindGL()
 {
     if (m_glTexture == 0)
@@ -121,11 +128,52 @@ unsigned int IDirectDrawSurface7::BindGL()
             rgba[i*4+2] = (unsigned char)(p & 0xff);
             rgba[i*4+3] = (unsigned char)((p >> 24) & 0xff);
         }
+
+        // GLES2 cannot sample NPOT textures with REPEAT wrap or mipmaps
+        // ("incomplete texture" = solid black — this is what killed the
+        // water on real devices). Resample NPOT images to power-of-two.
+        int upW = m_width, upH = m_height;
+        unsigned char* upload = rgba;
+        if (!IsPow2(m_width) || !IsPow2(m_height))
+        {
+            upW = NextPow2(m_width);
+            upH = NextPow2(m_height);
+            unsigned char* scaled = (unsigned char*)malloc((size_t)upW*upH*4);
+            for (int y = 0; y < upH; y++)
+            {
+                // bilinear resample
+                float fy = (float)y * (float)(m_height-1) / (float)(upH-1 > 0 ? upH-1 : 1);
+                int   y0 = (int)fy;
+                int   y1 = (y0+1 < m_height) ? y0+1 : y0;
+                float wy = fy - y0;
+                for (int x = 0; x < upW; x++)
+                {
+                    float fx = (float)x * (float)(m_width-1) / (float)(upW-1 > 0 ? upW-1 : 1);
+                    int   x0 = (int)fx;
+                    int   x1 = (x0+1 < m_width) ? x0+1 : x0;
+                    float wx = fx - x0;
+                    unsigned char* d = scaled + ((size_t)y*upW + x)*4;
+                    const unsigned char* s00 = rgba + ((size_t)y0*m_width + x0)*4;
+                    const unsigned char* s10 = rgba + ((size_t)y0*m_width + x1)*4;
+                    const unsigned char* s01 = rgba + ((size_t)y1*m_width + x0)*4;
+                    const unsigned char* s11 = rgba + ((size_t)y1*m_width + x1)*4;
+                    for (int c = 0; c < 4; c++)
+                    {
+                        float top = s00[c] + (s10[c]-s00[c])*wx;
+                        float bot = s01[c] + (s11[c]-s01[c])*wx;
+                        d[c] = (unsigned char)(top + (bot-top)*wy + 0.5f);
+                    }
+                }
+            }
+            upload = scaled;
+            SDL_Log("texture resampled NPOT %dx%d -> %dx%d", m_width, m_height, upW, upH);
+        }
+
         glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_width, m_height, 0,
-                     GL_RGBA, GL_UNSIGNED_BYTE, rgba);
-        if (IsPow2(m_width) && IsPow2(m_height))
-            glGenerateMipmap(GL_TEXTURE_2D);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, upW, upH, 0,
+                     GL_RGBA, GL_UNSIGNED_BYTE, upload);
+        glGenerateMipmap(GL_TEXTURE_2D);
+        if (upload != rgba) free(upload);
         free(rgba);
         m_bDirty = FALSE;
     }
@@ -248,7 +296,11 @@ static const char* VS_SRC =
 
 static const char* FS_SRC =
 "#ifdef GL_ES\n"
+"#ifdef GL_FRAGMENT_PRECISION_HIGH\n"
+"precision highp float;\n"
+"#else\n"
 "precision mediump float;\n"
+"#endif\n"
 "#endif\n"
 "uniform sampler2D u_tex0;\n"
 "uniform sampler2D u_tex1;\n"
@@ -803,11 +855,10 @@ static void ApplyTexParams(const TexStage& s)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, wrap);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,
                     (s.magFilter == D3DTFG_POINT) ? GL_NEAREST : GL_LINEAR);
-    BOOL bMip = IsPow2(s.texture->Width()) && IsPow2(s.texture->Height());
+    // every texture is uploaded as power-of-two with mipmaps (see BindGL)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,
-                    bMip ? ((s.minFilter == D3DTFN_POINT) ? GL_NEAREST_MIPMAP_NEAREST
-                                                          : GL_LINEAR_MIPMAP_LINEAR)
-                         : ((s.minFilter == D3DTFN_POINT) ? GL_NEAREST : GL_LINEAR));
+                    (s.minFilter == D3DTFN_POINT) ? GL_NEAREST_MIPMAP_NEAREST
+                                                  : GL_LINEAR_MIPMAP_LINEAR);
 }
 
 void IDirect3DDevice7::ApplyState(DWORD fvf)

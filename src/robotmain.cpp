@@ -68,8 +68,8 @@
 // Variables globales.
 
 long	g_id;				// identificateur unique
-long	g_build;			// bâtiments constructibles
-long	g_researchDone;		// recherches effectuées
+long	g_build;			// bï¿½timents constructibles
+long	g_researchDone;		// recherches effectuï¿½es
 long	g_researchEnable;	// recherches accessibles
 
 
@@ -85,19 +85,19 @@ CBotTypResult cPoint(CBotVar* pThis, CBotVar* &var)
 {
 	if ( !pThis->IsElemOfClass("point") )  return CBotTypResult(CBotErrBadNum);
 
-	if ( var == NULL )  return CBotTypResult(0);  // ok si aucun paramètre
+	if ( var == NULL )  return CBotTypResult(0);  // ok si aucun paramï¿½tre
 
-	// Premier paramètre (x) :
+	// Premier paramï¿½tre (x) :
 	if ( var->GivType() > CBotTypDouble )  return CBotTypResult(CBotErrBadNum);
 	var = var->GivNext();
 
-	// Deuxième paramètre (y) :
+	// Deuxiï¿½me paramï¿½tre (y) :
 	if ( var == NULL )  return CBotTypResult(CBotErrLowParam);
 	if ( var->GivType() > CBotTypDouble )  return CBotTypResult(CBotErrBadNum);
 	var = var->GivNext();
 
-	// Troisième paramètre (z) :
-	if ( var == NULL )  // seulement 2 paramètres ?
+	// Troisiï¿½me paramï¿½tre (z) :
+	if ( var == NULL )  // seulement 2 paramï¿½tres ?
 	{
 		return CBotTypResult(0);  // cette fonction retourne void
 	}
@@ -109,13 +109,13 @@ CBotTypResult cPoint(CBotVar* pThis, CBotVar* &var)
 	return CBotTypResult(0);  // cette fonction retourne void
 }
 
-// Exécution de la classe "point".
+// Exï¿½cution de la classe "point".
 
 BOOL rPoint(CBotVar* pThis, CBotVar* var, CBotVar* pResult, int& Exception)
 {
 	CBotVar		*pX, *pY, *pZ;
 
-	if ( var == NULL )  return TRUE;  // constructeur sans paramètres est ok
+	if ( var == NULL )  return TRUE;  // constructeur sans paramï¿½tres est ok
 
 	if ( var->GivType() > CBotTypDouble )
 	{
@@ -150,7 +150,7 @@ BOOL rPoint(CBotVar* pThis, CBotVar* var, CBotVar* pResult, int& Exception)
 
 	if ( var == NULL )
 	{
-		return TRUE;  // ok avec seulement 2 paramètres
+		return TRUE;  // ok avec seulement 2 paramï¿½tres
 	}
 
 	pZ = pThis->GivItem("z");
@@ -275,7 +275,7 @@ CRobotMain::CRobotMain(CInstanceManager* iMan)
 
 	g_id = 0;
 	g_build = 0;
-	g_researchDone = 0;  // aucune recherche effectuée
+	g_researchDone = 0;  // aucune recherche effectuï¿½e
 	g_researchEnable = 0;
 
 	m_repeat = 0;
@@ -314,7 +314,7 @@ CRobotMain::CRobotMain(CInstanceManager* iMan)
 
 	// Ajoute la classe Point.
 	CBotClass* bc;
-	bc = new CBotClass("point", NULL, TRUE);  // classe intrinsèque
+	bc = new CBotClass("point", NULL, TRUE);  // classe intrinsï¿½que
 	bc->AddItem("x", CBotTypFloat);
 	bc->AddItem("y", CBotTypFloat);
 	bc->AddItem("z", CBotTypFloat);
@@ -354,7 +354,7 @@ CRobotMain::~CRobotMain()
 }
 
 
-// Crée le fichier blupimania.ini la première fois.
+// Crï¿½e le fichier blupimania.ini la premiï¿½re fois.
 
 void CRobotMain::CreateIni()
 {
@@ -369,6 +369,13 @@ void CRobotMain::CreateIni()
 
 
 // Change de phase.
+
+// Retourne la phase courante (utilisï¿½ par la couche tactile du port).
+
+Phase CRobotMain::RetPhase()
+{
+	return m_phase;
+}
 
 void CRobotMain::ChangePhase(Phase phase, Phase fadeIn)
 {
@@ -440,7 +447,7 @@ void CRobotMain::ChangePhase(Phase phase, Phase fadeIn)
 	{
 		m_phase = PHASE_LOST;
 
-		DeselectAll();  // désélectionne la voiture
+		DeselectAll();  // dï¿½sï¿½lectionne la voiture
 //?		m_camera->StartVisit(m_engine->RetLookatPt(), 200.0f);
 		m_camera->StartVisit(D3DVECTOR(0.0f, 0.0f, 0.0f), 200.0f);
 		m_particule->SetSunbeamIntensity(0.0f);
@@ -468,7 +475,7 @@ void CRobotMain::ChangePhase(Phase phase, Phase fadeIn)
 		pb->SetState(STATE_SHADOW);
 		pb->SetTabOrder(1);
 
-		return;  // conserve la scène en cours !
+		return;  // conserve la scï¿½ne en cours !
 	}
 
 	if ( m_lastPhase == PHASE_SIMUL )  // termine une simulation ?
@@ -511,7 +518,7 @@ void CRobotMain::ChangePhase(Phase phase, Phase fadeIn)
 
 	if ( m_scene != oldScene )
 	{
-		DeleteAllObjects();  // supprime toute la scène 3D actuelle
+		DeleteAllObjects();  // supprime toute la scï¿½ne 3D actuelle
 
 		ChangePause(FALSE);
 		m_engine->SetRankView(0);
@@ -545,7 +552,7 @@ void CRobotMain::ChangePhase(Phase phase, Phase fadeIn)
 	m_terrainSpritePos = D3DVECTOR(NAN, NAN, NAN);
 	m_terrainSpriteChannel = -1;
 
-	// Crée et cache la console de commande.
+	// Crï¿½e et cache la console de commande.
 	pos.x = 100.0f/640.0f;
 	pos.y = 452.0f/480.0f;
 	dim.x = 200.0f/640.0f;
@@ -553,9 +560,9 @@ void CRobotMain::ChangePhase(Phase phase, Phase fadeIn)
 	pe = m_interface->CreateEdit(pos, dim, 0, EVENT_CMD);
 	if ( pe == 0 )  return;
 	pe->ClearState(STATE_VISIBLE);
-	m_bCmdEdit = FALSE;  // caché pour l'instant
+	m_bCmdEdit = FALSE;  // cachï¿½ pour l'instant
 
-	// Crée l'indicateur de vitesse.
+	// Crï¿½e l'indicateur de vitesse.
 	pos.x =   0.0f/640.0f;
 	pos.y = 460.0f/480.0f;
 	dim.x =  30.0f/640.0f;
@@ -565,7 +572,7 @@ void CRobotMain::ChangePhase(Phase phase, Phase fadeIn)
 	pb->SetState(STATE_SIMPLY);
 	pb->ClearState(STATE_VISIBLE);
 
-	// Crée l'indicateur de pause.
+	// Crï¿½e l'indicateur de pause.
 	pos.x =  20.0f/640.0f;
 	pos.y = 420.0f/480.0f;
 	dim.x =  40.0f/640.0f;
@@ -648,7 +655,7 @@ void CRobotMain::ChangePhase(Phase phase, Phase fadeIn)
 
 		if ( bCreate )
 		{
-			CreateScene(FALSE);  // scène interractive
+			CreateScene(FALSE);  // scï¿½ne interractive
 		}
 
 		if ( RetEdit() )
@@ -656,7 +663,7 @@ void CRobotMain::ChangePhase(Phase phase, Phase fadeIn)
 			m_edit->Open();
 		}
 
-		// Crée les boutons.
+		// Crï¿½e les boutons.
 		pos.x = 620.0f/640.0f;
 		pos.y = 460.0f/480.0f;
 		dim.x =  20.0f/640.0f;
@@ -696,7 +703,7 @@ void CRobotMain::ChangePhase(Phase phase, Phase fadeIn)
 
 	if ( m_scene == SCENE_FIX && oldScene != SCENE_FIX )
 	{
-		CreateScene(TRUE);  // scène fixe
+		CreateScene(TRUE);  // scï¿½ne fixe
 	}
 
 	if ( m_phase == PHASE_WIN )
@@ -732,7 +739,7 @@ void CRobotMain::ChangePhase(Phase phase, Phase fadeIn)
 }
 
 
-// Traite un événement.
+// Traite un ï¿½vï¿½nement.
 
 BOOL CRobotMain::EventProcess(const Event &event)
 {
@@ -1189,7 +1196,7 @@ BOOL CRobotMain::EventProcess(const Event &event)
 	return TRUE;
 }
 
-// Lit l'état des touches super-shift.
+// Lit l'ï¿½tat des touches super-shift.
 
 void CRobotMain::ReadSuperShift()
 {
@@ -1216,7 +1223,7 @@ void CRobotMain::ReadSuperShift()
 	}
 }
 
-// Indique quelle est la touche super-shift 1..9 pressée.
+// Indique quelle est la touche super-shift 1..9 pressï¿½e.
 
 int CRobotMain::RetSuperShift19()
 {
@@ -1256,7 +1263,7 @@ void CRobotMain::ChangeTabOrder(int dir, int param)
 }
 
 
-// Exécute une commande.
+// Exï¿½cute une commande.
 
 void CRobotMain::ExecuteCmd(char *cmd)
 {
@@ -1269,7 +1276,7 @@ void CRobotMain::ExecuteCmd(char *cmd)
 			Event		newEvent;
 			m_event->MakeEvent(newEvent, EVENT_WIN);
 			m_event->AddEvent(newEvent);
-			m_bCheatUsed = TRUE;  // gagné en trichant
+			m_bCheatUsed = TRUE;  // gagnï¿½ en trichant
 			return;
 		}
 
@@ -1477,13 +1484,13 @@ void CRobotMain::ExecuteCmd(char *cmd)
 	{
 		Crypt("scene", TRUE);
 		Crypt("defi", TRUE);
-		m_displayText->DisplayText("Cryptage terminé");
+		m_displayText->DisplayText("Cryptage terminï¿½");
 	}
 	if ( strcmp(cmd, "decrypt") == 0 )
 	{
 		Crypt("scene", FALSE);
 		Crypt("defi", FALSE);
-		m_displayText->DisplayText("Décryptage terminé");
+		m_displayText->DisplayText("Dï¿½cryptage terminï¿½");
 	}
 
 	if ( m_phase == PHASE_SIMUL )
@@ -1494,7 +1501,7 @@ void CRobotMain::ExecuteCmd(char *cmd)
 }
 
 
-// Crypte ou décrypte tous les fichiers.
+// Crypte ou dï¿½crypte tous les fichiers.
 
 void CRobotMain::Crypt(char *dir, BOOL bCrypt)
 {
@@ -1522,7 +1529,7 @@ void CRobotMain::Crypt(char *dir, BOOL bCrypt)
 	}
 }
 
-// Crypte ou décrypte un fichier.
+// Crypte ou dï¿½crypte un fichier.
 
 BOOL CRobotMain::CryptFile(char *filename, BOOL bCrypt)
 {
@@ -1561,7 +1568,7 @@ BOOL CRobotMain::CryptFile(char *filename, BOOL bCrypt)
 }
 
 
-// Stoppe l'action en cours dès que possible.
+// Stoppe l'action en cours dï¿½s que possible.
 
 void CRobotMain::StopAction()
 {
@@ -1575,7 +1582,7 @@ void CRobotMain::StopAction()
 	pTaskList->Stop();
 }
 
-// Met à jour l'état de tous les boutons de l'interface.
+// Met ï¿½ jour l'ï¿½tat de tous les boutons de l'interface.
 
 void CRobotMain::UpdateInterface()
 {
@@ -1688,7 +1695,7 @@ BOOL CRobotMain::FilterMousePos(FPOINT pos)
 }
 
 
-// Début de l'affichage des indices.
+// Dï¿½but de l'affichage des indices.
 
 void CRobotMain::StartDisplaySign()
 {
@@ -1709,7 +1716,7 @@ void CRobotMain::StartDisplaySign()
 	m_terrain->SignMarkShow(TRUE);
 }
 
-// Début de l'affichage des instructions.
+// Dï¿½but de l'affichage des instructions.
 
 void CRobotMain::StartDisplayInfo(char *text)
 {
@@ -1811,12 +1818,12 @@ void CRobotMain::StopDisplayInfo()
 }
 
 
-// Début d'un dialogue pendant le jeu,
+// Dï¿½but d'un dialogue pendant le jeu,
 
 void CRobotMain::StartSuspend()
 {
 	m_map->ShowMap(FALSE);
-	m_infoObject = DeselectAll();  // enlève les boutons de commande
+	m_infoObject = DeselectAll();  // enlï¿½ve les boutons de commande
 	m_displayText->HideText(TRUE);
 	m_bSuspend = TRUE;
 }
@@ -1849,7 +1856,7 @@ float CRobotMain::RetGameTime()
 }
 
 
-// Gestion de la taille des caractères par défaut.
+// Gestion de la taille des caractï¿½res par dï¿½faut.
 
 void CRobotMain::SetFontSize(float size)
 {
@@ -1862,7 +1869,7 @@ float CRobotMain::RetFontSize()
 	return m_fontSize;
 }
 
-// Gestion de la taille de la fenêtre par défaut.
+// Gestion de la taille de la fenï¿½tre par dï¿½faut.
 
 void CRobotMain::SetWindowPos(FPOINT pos)
 {
@@ -1890,7 +1897,7 @@ FPOINT CRobotMain::RetWindowDim()
 
 
 
-// Début d'une sélection.
+// Dï¿½but d'une sï¿½lection.
 
 void CRobotMain::SelectBegin(FPOINT mouse)
 {
@@ -1898,7 +1905,7 @@ void CRobotMain::SelectBegin(FPOINT mouse)
 	m_selectBegin = mouse;
 }
 
-// Déplacement pendant une sélection.
+// Dï¿½placement pendant une sï¿½lection.
 
 void CRobotMain::SelectMove(FPOINT mouse)
 {
@@ -1906,7 +1913,7 @@ void CRobotMain::SelectMove(FPOINT mouse)
 //?	m_engine->SetSelect(m_selectBegin, m_selectEnd, TRUE);
 }
 
-// Fin d'une sélection.
+// Fin d'une sï¿½lection.
 
 void CRobotMain::SelectEnd(FPOINT mouse)
 {
@@ -1916,7 +1923,7 @@ void CRobotMain::SelectEnd(FPOINT mouse)
 	GroupOper(mouse);
 }
 
-// Début d'un scroll.
+// Dï¿½but d'un scroll.
 
 void CRobotMain::ScrollBegin(FPOINT mouse)
 {
@@ -1925,7 +1932,7 @@ void CRobotMain::ScrollBegin(FPOINT mouse)
 	m_scrollQuantity = 0;
 }
 
-// Déplacement pendant un scroll.
+// Dï¿½placement pendant un scroll.
 
 void CRobotMain::ScrollMove(FPOINT mouse)
 {
@@ -1966,7 +1973,7 @@ BOOL CRobotMain::ScrollEnd(FPOINT mouse)
 	}
 }
 
-// Opération sur le groupe d'objets sélectionnés.
+// Opï¿½ration sur le groupe d'objets sï¿½lectionnï¿½s.
 
 void CRobotMain::GroupOper(FPOINT mouse)
 {
@@ -1988,13 +1995,13 @@ void CRobotMain::GroupOper(FPOINT mouse)
 		return;
 	}
 
-	if ( RetSelect() == 0 )  return;  // rien de sélectionné
+	if ( RetSelect() == 0 )  return;  // rien de sï¿½lectionnï¿½
 
 	if ( pTarget == 0 )
 	{
 		ppos = pos;
 		ppos.y = m_edit->RetGridHeight();
-		m_particule->CreateGoto(ppos);  // montre la position d'arrivée
+		m_particule->CreateGoto(ppos);  // montre la position d'arrivï¿½e
 	}
 
 	if ( pTarget != 0 && !pTarget->RetActif() )  return;
@@ -2005,7 +2012,7 @@ void CRobotMain::GroupOper(FPOINT mouse)
 		if ( pObj == 0 )  break;
 
 		if ( !pObj->RetSelect() )  continue;
-		if ( pObj->RetLock() )  continue;  // par ex. soulevé par dock
+		if ( pObj->RetLock() )  continue;  // par ex. soulevï¿½ par dock
 
 		if ( pTarget == 0 )  type = OBJECT_NULL;
 		else                 type = pTarget->RetType();
@@ -2126,7 +2133,7 @@ void CRobotMain::GroupOper(FPOINT mouse)
 }
 
 
-// Retourne l'objet sélectionné.
+// Retourne l'objet sï¿½lectionnï¿½.
 
 CObject* CRobotMain::RetSelect()
 {
@@ -2134,7 +2141,7 @@ CObject* CRobotMain::RetSelect()
 	return m_selectObject;
 }
 
-// Sélectionne un objet donné.
+// Sï¿½lectionne un objet donnï¿½.
 
 void CRobotMain::SetSelect(CObject* pSel)
 {
@@ -2160,7 +2167,7 @@ void CRobotMain::SetSelect(CObject* pSel)
 	}
 }
 
-// Sélectionne un autre blupi.
+// Sï¿½lectionne un autre blupi.
 
 void CRobotMain::SelectOther(CObject* pSel)
 {
@@ -2188,7 +2195,7 @@ void CRobotMain::SelectOther(CObject* pSel)
 	}
 }
 
-// Désélectionne tout, et retourne l'objet qui était sélectionné.
+// Dï¿½sï¿½lectionne tout, et retourne l'objet qui ï¿½tait sï¿½lectionnï¿½.
 
 CObject* CRobotMain::DeselectAll()
 {
@@ -2210,7 +2217,7 @@ CObject* CRobotMain::DeselectAll()
 	return pPrev;
 }
 
-// Sélectionne l'objet visé par la souris.
+// Sï¿½lectionne l'objet visï¿½ par la souris.
 
 BOOL CRobotMain::SelectObject(CObject* pObj, BOOL bDisplayError)
 {
@@ -2225,7 +2232,7 @@ BOOL CRobotMain::SelectObject(CObject* pObj, BOOL bDisplayError)
 	return TRUE;
 }
 
-// Sélectionne un objet, sans s'occuper de désélectionner le reste.
+// Sï¿½lectionne un objet, sans s'occuper de dï¿½sï¿½lectionner le reste.
 
 void CRobotMain::SelectOneObject(CObject* pObj, BOOL bDisplayError)
 {
@@ -2233,7 +2240,7 @@ void CRobotMain::SelectOneObject(CObject* pObj, BOOL bDisplayError)
 	m_selectObject = pObj;
 }
 
-// Désélectionne l'objet sélectionné.
+// Dï¿½sï¿½lectionne l'objet sï¿½lectionnï¿½.
 
 BOOL CRobotMain::DeselectObject()
 {
@@ -2263,13 +2270,13 @@ void CRobotMain::DeleteAllObjects()
 		pObj = (CObject*)m_iMan->SearchInstance(CLASS_OBJECT, 0);
 		if ( pObj == 0 )  break;
 
-		pObj->DeleteObject(TRUE);  // détruit rapidement
+		pObj->DeleteObject(TRUE);  // dï¿½truit rapidement
 		delete pObj;
 	}
 }
 
 
-// Détecte une position au sol ou un objet.
+// Dï¿½tecte une position au sol ou un objet.
 
 BOOL CRobotMain::MagicDetect(FPOINT mouse, D3DVECTOR &pos,
 							 CObject* &pObj, int &part)
@@ -2296,7 +2303,7 @@ BOOL CRobotMain::MagicDetect(FPOINT mouse, D3DVECTOR &pos,
 				 type == OBJECT_CATAPULT  ||
 				 type == OBJECT_BARRIER24 ||  // tunnel ?
 				 type == OBJECT_BARRIER57 ||  // tunnel ?
-				 type == OBJECT_BARRIER65 )   // barrière ?
+				 type == OBJECT_BARRIER65 )   // barriï¿½re ?
 			{
 				pObj = 0;
 			}
@@ -2310,28 +2317,28 @@ BOOL CRobotMain::MagicDetect(FPOINT mouse, D3DVECTOR &pos,
 	return FALSE;
 }
 
-// Détecte l'objet visé par la souris.
+// Dï¿½tecte l'objet visï¿½ par la souris.
 
 BOOL CRobotMain::DetectObject(FPOINT pos, CObject* &pObj, int &part)
 {
 	CObject*	pObjBase;
 	int			partBase;
 
-	// Détecte tous les objets.
+	// Dï¿½tecte tous les objets.
 	if ( !DetectObject(pos, FALSE, pObj, part) )  return FALSE;
 
 	pObjBase = pObj;
 	partBase = part;
-	// Détecte seulement les boutons-actions.
+	// Dï¿½tecte seulement les boutons-actions.
 	if ( DetectObject(pos, TRUE, pObj, part) )  return TRUE;
 
-	// Si pas trouvé un bouton-action, rend l'objet de base.
+	// Si pas trouvï¿½ un bouton-action, rend l'objet de base.
 	pObj = pObjBase;
 	part = partBase;
 	return TRUE;
 }
 
-// Détecte l'objet visé par la souris.
+// Dï¿½tecte l'objet visï¿½ par la souris.
 
 BOOL CRobotMain::DetectObject(FPOINT pos, BOOL bAction, CObject* &pObj, int &part)
 {
@@ -2352,8 +2359,8 @@ BOOL CRobotMain::DetectObject(FPOINT pos, BOOL bAction, CObject* &pObj, int &par
 		if ( pObj == 0 )  break;
 
 		if ( !pObj->RetActif() )  continue;
-		// Il faut détecter une caisse "lock" (poussée), sinon
-		// on va tenter un "goto" à cet endroit !
+		// Il faut dï¿½tecter une caisse "lock" (poussï¿½e), sinon
+		// on va tenter un "goto" ï¿½ cet endroit !
 
 		if ( !pObj->RetEnable() )  continue;
 
@@ -2374,7 +2381,7 @@ BOOL CRobotMain::DetectObject(FPOINT pos, BOOL bAction, CObject* &pObj, int &par
 	return FALSE;
 }
 
-// Indique si un objet est sélectionnable.
+// Indique si un objet est sï¿½lectionnable.
 
 BOOL CRobotMain::IsSelectable(CObject* pObj)
 {
@@ -2392,7 +2399,7 @@ BOOL CRobotMain::IsSelectable(CObject* pObj)
 }
 
 
-// Supprime l'objet sélectionné.
+// Supprime l'objet sï¿½lectionnï¿½.
 
 BOOL CRobotMain::DeleteObject()
 {
@@ -2405,14 +2412,14 @@ BOOL CRobotMain::DeleteObject()
 	pyro = new CPyro(m_iMan);
 	pyro->Create(PT_FRAGT, pObj);
 
-	pObj->SetSelect(FALSE);  // désélectionne l'objet
+	pObj->SetSelect(FALSE);  // dï¿½sï¿½lectionne l'objet
 	DeselectAll();
 
 	return TRUE;
 }
 
 
-// Enlève la mise en évidence de l'objet survolé par la souris.
+// Enlï¿½ve la mise en ï¿½vidence de l'objet survolï¿½ par la souris.
 
 void CRobotMain::HiliteClear()
 {
@@ -2420,12 +2427,12 @@ void CRobotMain::HiliteClear()
 	int			i;
 
 	ClearTooltip();
-	m_tooltipName[0] = 0;  // enlève vraiment le tooltip
+	m_tooltipName[0] = 0;  // enlï¿½ve vraiment le tooltip
 
 	if ( !m_bHilite )  return;
 
 	i = -1;
-	m_engine->SetHiliteRank(&i);  // plus rien de sélectionné
+	m_engine->SetHiliteRank(&i);  // plus rien de sï¿½lectionnï¿½
 
 	for ( i=0 ; i<1000000 ; i++ )
 	{
@@ -2438,7 +2445,7 @@ void CRobotMain::HiliteClear()
 	m_bHilite = FALSE;
 }
 
-// Met en évidence l'objet survolé par la souris.
+// Met en ï¿½vidence l'objet survolï¿½ par la souris.
 
 void CRobotMain::HiliteObject(FPOINT pos)
 {
@@ -2454,7 +2461,7 @@ void CRobotMain::HiliteObject(FPOINT pos)
 //?	if ( m_engine->RetPause() )  return;
 	if ( m_engine->RetMouseHide() )  return;
 
-	ClearInterface();  // enlève mise en évidence et tooltip
+	ClearInterface();  // enlï¿½ve mise en ï¿½vidence et tooltip
 
 	if ( m_engine->RetSetup(ST_TOOLTIPS) != 0.0f &&
 		 m_interface->GetTooltip(pos, name) )
@@ -2530,7 +2537,7 @@ void CRobotMain::HiliteObject(FPOINT pos)
 	}
 }
 
-// Efface certaines mises en évidence lorsque la souris a bougé.
+// Efface certaines mises en ï¿½vidence lorsque la souris a bougï¿½.
 
 void CRobotMain::MouseMoveClear()
 {
@@ -2541,7 +2548,7 @@ void CRobotMain::MouseMoveClear()
 	}
 }
 
-// Met en évidence l'objet survolé par la souris.
+// Met en ï¿½vidence l'objet survolï¿½ par la souris.
 
 void CRobotMain::HiliteFrame(float rTime)
 {
@@ -2558,7 +2565,7 @@ void CRobotMain::HiliteFrame(float rTime)
 	}
 }
 
-// Crée un tooltip.
+// Crï¿½e un tooltip.
 
 void CRobotMain::CreateTooltip(FPOINT pos, char* text)
 {
@@ -2604,7 +2611,7 @@ void CRobotMain::CreateTooltip(FPOINT pos, char* text)
 	}
 }
 
-// Efface le tooltip précédent.
+// Efface le tooltip prï¿½cï¿½dent.
 
 void CRobotMain::ClearTooltip()
 {
@@ -2638,7 +2645,7 @@ void CRobotMain::AbortMovie()
 
 
 
-// Met à jour le texte d'informations.
+// Met ï¿½ jour le texte d'informations.
 
 void CRobotMain::UpdateInfoText()
 {
@@ -2685,14 +2692,22 @@ void CRobotMain::InitEye()
 			lookat = D3DVECTOR(0.0f, 0.0f, 0.0f);
 			dirH =  0.0f*PI/180.0f;
 			dirV = 45.0f*PI/180.0f;
+#ifdef __ANDROID__
+			dist = 40.0f;	// touch: camï¿½ra plus proche (petits ï¿½crans)
+#else
 			dist = 60.0f;
+#endif
 		}
 		else
 		{
 			lookat = m_selectObject->RetPosition(0);
 			dirH = PI/2.0f-m_selectObject->RetAngleY(0);
 			dirV = 45.0f*PI/180.0f;
+#ifdef __ANDROID__
+			dist = 40.0f;	// touch: camï¿½ra plus proche (petits ï¿½crans)
+#else
 			dist = 60.0f;
+#endif
 		}
 		dirH += 10.0f*PI/180.0f;
 		m_camera->Init(lookat, dirH, dirV, dist);
@@ -2709,7 +2724,7 @@ void CRobotMain::InitEye()
 }
 
 
-// Fait progresser toute la scène.
+// Fait progresser toute la scï¿½ne.
 
 BOOL CRobotMain::EventFrame(const Event &event)
 {
@@ -2758,7 +2773,7 @@ BOOL CRobotMain::EventFrame(const Event &event)
 			type = pObj->RetType();
 			pObj->EventProcess(event);
 		}
-		// Fait progresser tous les objets transportés par les robots.
+		// Fait progresser tous les objets transportï¿½s par les robots.
 		for ( i=0 ; i<1000000 ; i++ )
 		{
 			pObj = (CObject*)m_iMan->SearchInstance(CLASS_OBJECT, i);
@@ -2782,8 +2797,8 @@ BOOL CRobotMain::EventFrame(const Event &event)
 		}
 	}
 
-	// Fait bouger la caméra après les objets, car sa position peut
-	// dépendre de l'objet sélectionné (CAMERA_ONBOARD ou CAMERA_BACK).
+	// Fait bouger la camï¿½ra aprï¿½s les objets, car sa position peut
+	// dï¿½pendre de l'objet sï¿½lectionnï¿½ (CAMERA_ONBOARD ou CAMERA_BACK).
 	if ( m_phase == PHASE_SIMUL )
 	{
 		m_camera->EventProcess(event);
@@ -2795,7 +2810,7 @@ BOOL CRobotMain::EventFrame(const Event &event)
 		m_camera->EventProcess(event);
 	}
 
-	// Fait progresser le modèle.
+	// Fait progresser le modï¿½le.
 	if ( m_phase == PHASE_MODELe ||
 		 m_phase == PHASE_MODELi )
 	{
@@ -2807,7 +2822,7 @@ BOOL CRobotMain::EventFrame(const Event &event)
 	HiliteFrame(event.rTime);
 
 	// Fait bouger l'indicateur de pause.
-	if ( m_bPause )  // édition en cours ?
+	if ( m_bPause )  // ï¿½dition en cours ?
 	{
 		CGroup*		pg;
 		FPOINT		pos, dim;
@@ -2848,7 +2863,7 @@ BOOL CRobotMain::EventFrame(const Event &event)
 				Event		newEvent;
 				m_event->MakeEvent(newEvent, EVENT_WIN);
 				m_event->AddEvent(newEvent);
-				m_bCheatUsed = FALSE;  // gagné sans tricher
+				m_bCheatUsed = FALSE;  // gagnï¿½ sans tricher
 			}
 		}
 
@@ -2867,7 +2882,7 @@ BOOL CRobotMain::EventFrame(const Event &event)
 	return S_OK;
 }
 
-// Donne l'événement à tous les robots.
+// Donne l'ï¿½vï¿½nement ï¿½ tous les robots.
 
 BOOL CRobotMain::EventObject(const Event &event)
 {
@@ -2888,7 +2903,7 @@ BOOL CRobotMain::EventObject(const Event &event)
 }
 
 
-// Crée toute la scène.
+// Crï¿½e toute la scï¿½ne.
 
 void CRobotMain::CreateScene(BOOL bFixScene)
 {
@@ -2923,7 +2938,7 @@ void CRobotMain::CreateScene(BOOL bFixScene)
 
 	g_id = 0;
 	g_build = 0;
-	g_researchDone = 0;  // aucune recherche effectuée
+	g_researchDone = 0;  // aucune recherche effectuï¿½e
 	g_researchEnable = 0;
 	m_selectObject = 0;
 
@@ -3495,7 +3510,7 @@ void CRobotMain::CreateScene(BOOL bFixScene)
 					pyro->Create(pType, pObj);
 				}
 
-				// Met les paramètres de la ligne de commande.
+				// Met les paramï¿½tres de la ligne de commande.
 				p = SearchOp(line, "cmdline");
 				for ( i=0 ; i<OBJECTMAXCMDLINE ; i++ )
 				{
@@ -3565,7 +3580,7 @@ void CRobotMain::CreateScene(BOOL bFixScene)
 					i = OpInt(line, "run", -1);
 					if ( i != -1 )
 					{
-						pAuto->Start(i);  // démarre le film
+						pAuto->Start(i);  // dï¿½marre le film
 					}
 				}
 			}
@@ -3805,10 +3820,10 @@ void CRobotMain::CreateScene(BOOL bFixScene)
 	}
 
 	InitEye();
-	StartLift();  // démarre les ascenseurs
+	StartLift();  // dï¿½marre les ascenseurs
 }
 
-// Crée un objet du décor mobile ou fixe.
+// Crï¿½e un objet du dï¿½cor mobile ou fixe.
 
 CObject* CRobotMain::CreateObject(D3DVECTOR pos, float angle, float zoom,
 								  float height, ObjectType type, int option,
@@ -3826,7 +3841,7 @@ CObject* CRobotMain::CreateObject(D3DVECTOR pos, float angle, float zoom,
 	return pObject;
 }
 
-// Limite la quantité d'un objet quelconque en détruisant qq objets.
+// Limite la quantitï¿½ d'un objet quelconque en dï¿½truisant qq objets.
 
 void CRobotMain::CreateLimit(ObjectType type, int max)
 {
@@ -3855,14 +3870,14 @@ void CRobotMain::CreateLimit(ObjectType type, int max)
 		}
 		while ( list[j] == 0 );
 
-		list[j]->DeleteObject(TRUE);  // détruit rapidement
+		list[j]->DeleteObject(TRUE);  // dï¿½truit rapidement
 		delete list[j];
 		list[j] = 0;
 	}
 }
 
 
-// Retourne un paramètre additionnel pour blupi.
+// Retourne un paramï¿½tre additionnel pour blupi.
 
 int CRobotMain::RetAdditional(int rank, int type)
 {
@@ -3875,7 +3890,7 @@ int CRobotMain::RetAdditional(int rank, int type)
 }
 
 
-// Vérifie si le puzzle est plausible.
+// Vï¿½rifie si le puzzle est plausible.
 
 int CRobotMain::CheckPuzzle()
 {
@@ -3907,7 +3922,7 @@ BOOL CRobotMain::WriteScene()
 	m_dialog->BuildSceneName(filename);
 	if ( !file.Open(filename, "w") )  return FALSE;
 
-	// Ecrit la préface.
+	// Ecrit la prï¿½face.
 	env = m_edit->RetEnvironment();
 	sprintf(line, "Environment type=%d\n", env);
 	file.PutLine(line);
@@ -3933,7 +3948,7 @@ BOOL CRobotMain::WriteScene()
 	}
 	file.PutLine("\n");
 
-	// Ecrit les tokens de l'en-tête.
+	// Ecrit les tokens de l'en-tï¿½te.
 	for ( i=0 ; i<100 ; i++ )
 	{
 		if ( !m_fileBuffer->GetLine(0, i, line) )  break;
@@ -3981,7 +3996,7 @@ BOOL CRobotMain::WriteScene()
 	}
 	file.PutLine("\n");
 
-	// Ecrit les tokens intermédiaires.
+	// Ecrit les tokens intermï¿½diaires.
 	for ( i=0 ; i<100 ; i++ )
 	{
 		if ( !m_fileBuffer->GetLine(1, i, line) )  break;
@@ -4078,14 +4093,14 @@ BOOL CRobotMain::WriteScene()
 }
 
 
-// Crée le modèle éditable.
+// Crï¿½e le modï¿½le ï¿½ditable.
 
 void CRobotMain::CreateModel(int type)
 {
 	D3DVECTOR		direction;
 	D3DCOLORVALUE	color;
 
-	if ( type == 0 )  // édite ?
+	if ( type == 0 )  // ï¿½dite ?
 	{
 		m_engine->SetAmbiantColor(RetColor(100,100,50));  // gris
 		m_engine->SetBackground("", 0x80808080, 0x80808080);
@@ -4127,7 +4142,7 @@ void CRobotMain::CreateModel(int type)
 		CreateLight(direction, color);
 	}
 
-	if ( type == 1 )  // icône ?
+	if ( type == 1 )  // icï¿½ne ?
 	{
 		m_engine->SetAmbiantColor(RetColor(100,100,50));  // gris
 		m_engine->SetBackground("", 0xffffffff, 0xffffffff);
@@ -4172,7 +4187,7 @@ void CRobotMain::CreateModel(int type)
 }
 
 
-// Crée les rayons de soleil.
+// Crï¿½e les rayons de soleil.
 
 void CRobotMain::CreateSunbeam(int total, float min, float max,
 							   float desym, ParticuleType type)
@@ -4217,7 +4232,7 @@ void CRobotMain::CreateSunbeam(int total, float min, float max,
 	}
 }
 
-// Crée une lumière directionnelle.
+// Crï¿½e une lumiï¿½re directionnelle.
 
 int CRobotMain::CreateLight(D3DVECTOR direction, D3DCOLORVALUE color)
 {
@@ -4243,7 +4258,7 @@ int CRobotMain::CreateLight(D3DVECTOR direction, D3DCOLORVALUE color)
 	return obj;
 }
 
-// Crée une lumière spot.
+// Crï¿½e une lumiï¿½re spot.
 
 int CRobotMain::CreateSpot(D3DVECTOR pos, D3DCOLORVALUE color)
 {
@@ -4318,8 +4333,8 @@ void CRobotMain::ChangeColor()
 }
 
 
-// Démarre tous les ascenseurs. Le premier ascenseur démarré va
-// s'occuper des mouvements de la caméra pour le film initial.
+// Dï¿½marre tous les ascenseurs. Le premier ascenseur dï¿½marrï¿½ va
+// s'occuper des mouvements de la camï¿½ra pour le film initial.
 
 void CRobotMain::StartLift()
 {
@@ -4362,7 +4377,7 @@ CObject* CRobotMain::SearchObject(D3DVECTOR center, float radius, BOOL bAll)
 		if ( pObj == 0 )  break;
 
 		if ( pObj->RetExplo() )  continue;
-		if ( pObj->RetLock() )  continue;  // déjà stoppé ?
+		if ( pObj->RetLock() )  continue;  // dï¿½jï¿½ stoppï¿½ ?
 		if ( !bAll && !pObj->RetEnable() )  continue;
 
 		type = pObj->RetType();
@@ -4380,7 +4395,7 @@ CObject* CRobotMain::SearchObject(D3DVECTOR center, float radius, BOOL bAll)
 }
 
 
-// Vérifie si la mission est terminée.
+// Vï¿½rifie si la mission est terminï¿½e.
 
 Error CRobotMain::CheckEndMission(BOOL bFrame)
 {
@@ -4420,7 +4435,7 @@ Error CRobotMain::CheckEndMission(BOOL bFrame)
 		}
 	}
 
-	nbGoal += nbWin;  // car les ballons ont été détruits !
+	nbGoal += nbWin;  // car les ballons ont ï¿½tï¿½ dï¿½truits !
 
 	if ( nbBlupi > nbGoal       ||  // plus assez de ballons ?
 		 nbBlupi < m_totalBlupi )   // plus assez de blupi ?
@@ -4432,12 +4447,12 @@ Error CRobotMain::CheckEndMission(BOOL bFrame)
 		return INFO_LOST;
 	}
 
-	if ( nbWin >= m_totalBlupi )  // tous les blupi ont trouvé les ballons ?
+	if ( nbWin >= m_totalBlupi )  // tous les blupi ont trouvï¿½ les ballons ?
 	{
-		m_winDelay  = 0.1f;  // gagné dans 0.1 seconde
+		m_winDelay  = 0.1f;  // gagnï¿½ dans 0.1 seconde
 		m_lostDelay = 0.0f;
 		m_displayText->SetEnable(FALSE);
-		return ERR_OK;  // mission terminée
+		return ERR_OK;  // mission terminï¿½e
 	}
 
 	return ERR_MISSION_NOTERM;
@@ -4445,14 +4460,14 @@ Error CRobotMain::CheckEndMission(BOOL bFrame)
 
 
 
-// Indique si la scène est fixe, sans interraction.
+// Indique si la scï¿½ne est fixe, sans interraction.
 
 BOOL CRobotMain::RetFixScene()
 {
 	return (m_scene == SCENE_FIX);
 }
 
-// Indique s'il faut utiliser toutes les poignées-actions.
+// Indique s'il faut utiliser toutes les poignï¿½es-actions.
 
 int CRobotMain::RetHandleMove()
 {
@@ -4460,21 +4475,21 @@ int CRobotMain::RetHandleMove()
 }
 
 
-// Retourne le résumé pour une langue donnée.
+// Retourne le rï¿½sumï¿½ pour une langue donnï¿½e.
 
 void CRobotMain::SetResume(int language, char *text)
 {
 	strcpy(m_resume[language-'A'], text);
 }
 
-// Retourne le résumé dans une langue donnée.
+// Retourne le rï¿½sumï¿½ dans une langue donnï¿½e.
 
 char* CRobotMain::RetResume(int language)
 {
 	return m_resume[language-'A'];
 }
 
-// Retourne le résumé dans la langue courante, ou dans une autre
+// Retourne le rï¿½sumï¿½ dans la langue courante, ou dans une autre
 // langue existante.
 
 char* CRobotMain::RetResume()
@@ -4502,21 +4517,21 @@ char* CRobotMain::RetResume()
 	return m_resume[0];
 }
 
-// Retourne le résumé pour une langue donnée.
+// Retourne le rï¿½sumï¿½ pour une langue donnï¿½e.
 
 void CRobotMain::SetSign(int language, char *text)
 {
 	strcpy(m_sign[language-'A'], text);
 }
 
-// Retourne le résumé dans une langue donnée.
+// Retourne le rï¿½sumï¿½ dans une langue donnï¿½e.
 
 char* CRobotMain::RetSign(int language)
 {
 	return m_sign[language-'A'];
 }
 
-// Retourne le résumé dans la langue courante, ou dans une autre
+// Retourne le rï¿½sumï¿½ dans la langue courante, ou dans une autre
 // langue existante.
 
 char* CRobotMain::RetSign()
@@ -4641,7 +4656,7 @@ void CRobotMain::IncTotalManip(int manip)
 	m_totalManip += manip;
 }
 
-// Spécifie le nombre de manipulations.
+// Spï¿½cifie le nombre de manipulations.
 
 void CRobotMain::SetTotalManip(int manip)
 {
@@ -4708,7 +4723,7 @@ float CRobotMain::RetSpeed()
 }
 
 
-// Met à jour la carte.
+// Met ï¿½ jour la carte.
 
 void CRobotMain::UpdateMap()
 {
@@ -4761,7 +4776,7 @@ BOOL CRobotMain::RetFriendAim()
 }
 
 
-// Débute la musique d'une mission.
+// Dï¿½bute la musique d'une mission.
 
 void CRobotMain::StartMusic()
 {
@@ -4772,12 +4787,12 @@ void CRobotMain::StartMusic()
 	}
 }
 
-// Enlève tooltip.
+// Enlï¿½ve tooltip.
 
 void CRobotMain::ClearInterface()
 {
-	HiliteClear();  // enlève la mise en évidence
-	m_tooltipName[0] = 0;  // enlève vraiment le tooltip
+	HiliteClear();  // enlï¿½ve la mise en ï¿½vidence
+	m_tooltipName[0] = 0;  // enlï¿½ve vraiment le tooltip
 }
 
 
