@@ -18,23 +18,27 @@ natively on Android with full touchscreen support.
 * Upstream source: the [`blupimania2`](https://github.com/colobot/colobot/tree/blupimania2)
   branch of the [Colobot](https://github.com/colobot/colobot) project, maintained by the
   TerranovaTeam / Colobot community.
-* **"Blupi" and "BlupiMania" are registered trademarks of Epsitec SA.**
-  Used with the express permission of Epsitec SA for this project.
+* **"Blupi" is a registered trademark in Switzerland held by Epsitec SA.**
 
 This port is **free of charge, non-commercial, contains no ads and no in-app purchases**.
-It is an unofficial, fan-made port released with the permission of the rights holder.
+It is an unofficial, fan-made port, published with the express written permission of
+Epsitec SA.
 
 ## License
 
-Epsitec SA opened the BlupiMania 2 sources to the free and open-source community with the
-stated intent that *"the code will use GPL3 like CoLoBoT"*
-([colobot/colobot#896](https://github.com/colobot/colobot/issues/896)).
-Accordingly, the changes in this repository are released under the **GNU General Public
-License v3** (see [LICENSE](LICENSE)).
+The original game code and assets are **Copyright (C) Epsitec SA / Daniel Roux** and are
+made available under the **GNU General Public License v3**. This port, including all
+changes in this repository, is likewise released under the **GPLv3** — see [LICENSE](LICENSE).
 
-The original game code remains **Copyright (C) Epsitec SA / Daniel Roux**. The upstream
-`blupimania2` branch does not yet carry a formal `LICENSE` file; a written confirmation of
-the licensing terms has been requested from Epsitec.
+Permission for this port was granted in writing by **Pierre Arnaud, CEO of Epsitec SA**
+(28 May 2026):
+
+> "As long as the game is released under GPLv3 and you don't sell or lease it, you are
+> welcome to use the name Blupi, which is a registered trademark in Switzerland held by
+> Epsitec SA. You should mention this in the accompanying documentation."
+
+**Mathieu Schroeter** (Epsitec SA) additionally confirmed that the assets are covered by
+the same GPL3 license as the source code.
 
 ## What was ported
 
@@ -91,10 +95,10 @@ cd blupimania2-android/android
 ### Game data
 
 The build packages the original game data (`blupimania1.dat`, `blupimania2.dat`,
-`blupimania3.dat`, `scene/`, `defi/`, `diagram/`, `files/`) into the APK assets. The data
-files are **not** included in this repository — copy them from your own installation of the
-game into `android/app/src/main/assets/data/` (lowercase names), then regenerate the file
-list:
+`blupimania3.dat`, `scene/`, `defi/`, `diagram/`, `files/`) into the APK assets. To keep
+this repository to source code only, the data files are **not** committed here — copy them
+from your own installation of the game into `android/app/src/main/assets/data/` (lowercase
+names), then regenerate the file list:
 
 ```bash
 # from android/app/src/main/assets/data/
