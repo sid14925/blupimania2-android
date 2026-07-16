@@ -14,6 +14,9 @@
 #include <dinput.h>
 
 #include <SDL.h>
+#ifdef __ANDROID__
+#include <jni.h>
+#endif
 
 #include "struct.h"
 #include "D3DTextr.h"
@@ -1250,9 +1253,24 @@ extern "C" int main(int argc, char* argv[])
     int result = d3dApp.Run();
 
 #ifdef __ANDROID__
-    // Quit must really terminate the app: if main just returns, the SDL
-    // activity lingers in the task list ("only minimizes"). Kill the
-    // process so Android closes the task completely.
+    // Quit must really terminate the app AND remove it from recents:
+    // finishAndRemoveTask() closes the task card, then the process exits.
+    {
+        JNIEnv* env = (JNIEnv*)SDL_AndroidGetJNIEnv();
+        jobject activity = (jobject)SDL_AndroidGetActivity();
+        if (env != NULL && activity != NULL)
+        {
+            jclass clazz = env->GetObjectClass(activity);
+            jmethodID method = env->GetMethodID(clazz, "finishAndRemoveTask", "()V");
+            if (method != NULL)
+            {
+                env->CallVoidMethod(activity, method);
+            }
+            env->DeleteLocalRef(clazz);
+            env->DeleteLocalRef(activity);
+        }
+        SDL_Delay(600);     // let the finish animation run
+    }
     SDL_Quit();
     exit(0);
 #endif

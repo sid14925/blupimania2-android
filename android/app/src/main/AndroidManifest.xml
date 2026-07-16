@@ -18,6 +18,7 @@
             android:screenOrientation="sensorLandscape"
             android:windowSoftInputMode="adjustPan"
             android:launchMode="singleInstance"
+            android:autoRemoveFromRecents="true"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
