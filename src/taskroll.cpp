@@ -36,7 +36,6 @@
 CTaskRoll::CTaskRoll(CInstanceManager* iMan, CObject* object)
 					 : CTask(iMan, object)
 {
-	CTask::CTask(iMan, object);
 
 	m_phase = TRO_NULL;
 	m_total = 0;
@@ -53,7 +52,7 @@ CTaskRoll::~CTaskRoll()
 }
 
 
-// Gestion d'un événement.
+// Gestion d'un ï¿½vï¿½nement.
 
 BOOL CTaskRoll::EventProcess(const Event &event)
 {
@@ -69,7 +68,7 @@ BOOL CTaskRoll::EventProcess(const Event &event)
 	m_progress += event.rTime*m_speed;
 	progress = Norm(m_progress);
 
-	if ( m_phase == TRO_ROLL )  // roule une sphère ?
+	if ( m_phase == TRO_ROLL )  // roule une sphï¿½re ?
 	{
 		if ( m_bImpossible )
 		{
@@ -105,7 +104,7 @@ BOOL CTaskRoll::EventProcess(const Event &event)
 						pos.y -= (m_progress-0.8f)/0.2f*2.0f;
 					}
 				}
-				else if ( !m_bSpace )  // sphère tombe dans trou ?
+				else if ( !m_bSpace )  // sphï¿½re tombe dans trou ?
 				{
 					if ( progress > 0.8f )
 					{
@@ -126,14 +125,14 @@ BOOL CTaskRoll::EventProcess(const Event &event)
 					}
 				}
 			}
-			m_object->SetPosition(0, pos);  // avance la sphère
+			m_object->SetPosition(0, pos);  // avance la sphï¿½re
 
 			if ( !m_bPlouf && pos.y < m_water->RetLevel() )
 			{
 				m_bPlouf = TRUE;
 				pos.y = m_water->RetLevel()-1.0f;
 				dim.x = 8.0f;  // hauteur
-				dim.y = 4.0f;  // diamètre
+				dim.y = 4.0f;  // diamï¿½tre
 				m_particule->CreateParticule(pos, D3DVECTOR(0.0f, 0.0f, 0.0f), dim, PARTIPLOUF0, 1.4f, 0.0f);
 				m_sound->Play(SOUND_PLOUF, pos);
 			}
@@ -212,7 +211,7 @@ BOOL CTaskRoll::EventProcess(const Event &event)
 }
 
 
-// Assigne le but à atteindre.
+// Assigne le but ï¿½ atteindre.
 
 Error CTaskRoll::Start(D3DVECTOR dir)
 {
@@ -225,14 +224,14 @@ Error CTaskRoll::Start(D3DVECTOR dir)
 	m_type = m_object->RetType();
 	m_startPos = m_object->RetPosition(0);
 	m_goalPos = m_startPos+m_dir;
-	m_boxAngle = m_object->RetAngle(9);  // angle initial de la sphère
+	m_boxAngle = m_object->RetAngle(9);  // angle initial de la sphï¿½re
 
 	m_bMash = FALSE;
 	m_bExplo = FALSE;
 	m_pMash[0] = SearchObject(m_goalPos, 4.0f);
 
-	// Si on n'a pas trouvé un objet immobile, cherche si la destination
-	// est éventuellement occupée par un blupi mobile. En fait, par un
+	// Si on n'a pas trouvï¿½ un objet immobile, cherche si la destination
+	// est ï¿½ventuellement occupï¿½e par un blupi mobile. En fait, par un
 	// blupi qui n'y est pas encore, mais qui s'y rend.
 	if ( m_pMash[0] == 0 )
 	{
@@ -256,7 +255,7 @@ Error CTaskRoll::Start(D3DVECTOR dir)
 
 	ExploProxi();  // cherche les objets proches
 
-	if ( m_type == OBJECT_BOX7  ||  // sphère ?
+	if ( m_type == OBJECT_BOX7  ||  // sphï¿½re ?
 		 m_type == OBJECT_BOX13 )   // cca ?
 	{
 		if ( m_mashType == OBJECT_MINE   ||
@@ -272,7 +271,7 @@ Error CTaskRoll::Start(D3DVECTOR dir)
 			{
 				m_pMash[i]->SetLock(TRUE);
 			}
-			m_bMash = TRUE;  // écrabouille
+			m_bMash = TRUE;  // ï¿½crabouille
 		}
 	}
 
@@ -293,7 +292,7 @@ Error CTaskRoll::Start(D3DVECTOR dir)
 			{
 				m_pMash[i]->SetLock(TRUE);
 			}
-			m_bMash = TRUE;  // écrabouille
+			m_bMash = TRUE;  // ï¿½crabouille
 
 			if ( m_mashType == OBJECT_MINE  ||
 				 m_mashType == OBJECT_FIOLE ||
@@ -352,7 +351,7 @@ Error CTaskRoll::Start(D3DVECTOR dir)
 	return ERR_OK;
 }
 
-// Indique si l'action est terminée.
+// Indique si l'action est terminï¿½e.
 
 Error CTaskRoll::IsEnded()
 {
@@ -383,7 +382,7 @@ Error CTaskRoll::IsEnded()
 			m_terrain->SetLockZone(m_startPos, LZ_FREE);
 			if ( m_bSpace || m_bPipe )  // dans un trou infini ?
 			{
-				m_object->DeletePart(1);  // supprime les flèches
+				m_object->DeletePart(1);  // supprime les flï¿½ches
 				m_object->DeletePart(2);
 				m_object->DeletePart(3);
 				m_object->DeletePart(4);
@@ -393,12 +392,12 @@ Error CTaskRoll::IsEnded()
 			}
 			else
 			{
-				m_object->DeletePart(1);  // supprime les flèches
+				m_object->DeletePart(1);  // supprime les flï¿½ches
 				m_object->DeletePart(2);
 				m_object->DeletePart(3);
 				m_object->DeletePart(4);
 				pyro = new CPyro(m_iMan);
-				pyro->Create(PT_FRAGT, m_object);  // destruction sphère
+				pyro->Create(PT_FRAGT, m_object);  // destruction sphï¿½re
 				return ERR_STOP;
 			}
 		}
@@ -407,7 +406,7 @@ Error CTaskRoll::IsEnded()
 			if ( m_bExplo )
 			{
 				m_terrain->SetLockZone(m_startPos, LZ_FREE);
-				m_object->DeletePart(1);  // supprime les flèches
+				m_object->DeletePart(1);  // supprime les flï¿½ches
 				m_object->DeletePart(2);
 				m_object->DeletePart(3);
 				m_object->DeletePart(4);
@@ -428,8 +427,8 @@ Error CTaskRoll::IsEnded()
 }
 
 
-// Cherche les objets proche à casser aussi. Pour les vitres,
-// on considère toute la ligne comme un seul objet.
+// Cherche les objets proche ï¿½ casser aussi. Pour les vitres,
+// on considï¿½re toute la ligne comme un seul objet.
 
 void CTaskRoll::ExploProxi()
 {
@@ -475,7 +474,7 @@ void CTaskRoll::ExploProxi()
 	}
 }
 
-// Fait trembler un objet rencontré par la sphère.
+// Fait trembler un objet rencontrï¿½ par la sphï¿½re.
 
 void CTaskRoll::ExploTremble(float progress)
 {
@@ -524,10 +523,10 @@ void CTaskRoll::ExploTremble(float progress)
 	}
 }
 
-// (*)	Attention: Dans ce cas, la vitre est tournée de 90 degrés.
+// (*)	Attention: Dans ce cas, la vitre est tournï¿½e de 90 degrï¿½s.
 //		Il faut donc bien utiliser l'axe "x" !
 
-// Fait exploser un objet rencontré par la sphère.
+// Fait exploser un objet rencontrï¿½ par la sphï¿½re.
 
 void CTaskRoll::ExploObject()
 {
@@ -550,9 +549,9 @@ void CTaskRoll::ExploObject()
 		pyro->Create(pt, m_pMash[i]);  // destruction objet
 		m_pMash[i] = 0;
 
-		if ( i == 0 )  // là où est la boule ?
+		if ( i == 0 )  // lï¿½ oï¿½ est la boule ?
 		{
-			m_terrain->SetLockZone(pos, LZ_BOXo);  // zone occupée !
+			m_terrain->SetLockZone(pos, LZ_BOXo);  // zone occupï¿½e !
 		}
 	}
 
@@ -578,7 +577,7 @@ CObject* CTaskRoll::SearchBox(D3DVECTOR center, float radius)
 		if ( pObj == 0 )  break;
 
 		if ( pObj->RetExplo() )  continue;
-		if ( pObj->RetLock() )  continue;  // déjà stoppé ?
+		if ( pObj->RetLock() )  continue;  // dï¿½jï¿½ stoppï¿½ ?
 
 		type = pObj->RetType();
 		if ( (type < OBJECT_BOX1 || type > OBJECT_BOX20) &&
@@ -614,7 +613,7 @@ CObject* CTaskRoll::SearchObject(D3DVECTOR center, float radius)
 		if ( pObj == 0 )  break;
 
 		if ( pObj->RetExplo() )  continue;
-		if ( pObj->RetLock() )  continue;  // déjà stoppé ?
+		if ( pObj->RetLock() )  continue;  // dï¿½jï¿½ stoppï¿½ ?
 		if ( !pObj->RetEnable() )  continue;
 
 		type = pObj->RetType();
@@ -650,7 +649,7 @@ CObject* CTaskRoll::SearchBlupi(D3DVECTOR center, float radius)
 		if ( pObj == 0 )  break;
 
 		if ( pObj->RetExplo() )  continue;
-		if ( pObj->RetLock() )  continue;  // déjà stoppé ?
+		if ( pObj->RetLock() )  continue;  // dï¿½jï¿½ stoppï¿½ ?
 		if ( !pObj->RetEnable() )  continue;
 
 		type = pObj->RetType();

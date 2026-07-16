@@ -31,7 +31,6 @@
 CTaskTurn::CTaskTurn(CInstanceManager* iMan, CObject* object)
 					 : CTask(iMan, object)
 {
-	CTask::CTask(iMan, object);
 }
 
 // Destructeur de l'objet.
@@ -41,7 +40,7 @@ CTaskTurn::~CTaskTurn()
 }
 
 
-// Gestion d'un événement.
+// Gestion d'un ï¿½vï¿½nement.
 
 BOOL CTaskTurn::EventProcess(const Event &event)
 {
@@ -83,8 +82,8 @@ BOOL CTaskTurn::EventProcess(const Event &event)
 }
 
 
-// Assigne le but à atteindre.
-// Un angle positif effectue un virage à droite.
+// Assigne le but ï¿½ atteindre.
+// Un angle positif effectue un virage ï¿½ droite.
 
 Error CTaskTurn::Start(float angle)
 {
@@ -113,7 +112,7 @@ Error CTaskTurn::Start(float angle)
 	return ERR_OK;
 }
 
-// Indique si l'action est terminée.
+// Indique si l'action est terminï¿½e.
 
 Error CTaskTurn::IsEnded()
 {
@@ -158,7 +157,7 @@ BOOL CTaskTurn::IsUndoable()
 }
 
 
-// Spécifie la vitesse linéaire pour une action pour Blupi.
+// Spï¿½cifie la vitesse linï¿½aire pour une action pour Blupi.
 
 void CTaskTurn::ProgressLinSpeed(float speed)
 {
@@ -170,7 +169,7 @@ void CTaskTurn::ProgressLinSpeed(float speed)
 	motion->SetActionLinSpeed(speed);
 }
 
-// Spécifie la vitesse circulaire pour une action pour Blupi.
+// Spï¿½cifie la vitesse circulaire pour une action pour Blupi.
 
 void CTaskTurn::ProgressCirSpeed(float speed)
 {
@@ -183,7 +182,7 @@ void CTaskTurn::ProgressCirSpeed(float speed)
 }
 
 
-// Démarre une action pour un objet.
+// Dï¿½marre une action pour un objet.
 
 void CTaskTurn::StartAction(CObject* pObj, int action)
 {

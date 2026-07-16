@@ -30,7 +30,6 @@ CList::CList(CInstanceManager* iMan) : CControl(iMan)
 {
 	int		i;
 
-	CControl::CControl(iMan);
 
 	for ( i=0 ; i<LISTMAXDISPLAY ; i++ )
 	{
@@ -78,7 +77,7 @@ CList::~CList()
 }
 
 
-// Crée une nouvelle liste.
+// Crï¿½e une nouvelle liste.
 
 BOOL CList::Create(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg,
 				   float expand)
@@ -95,7 +94,7 @@ BOOL CList::Create(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg,
 	return MoveAdjust();
 }
 
-// Ajuste après un changement de dimensions.
+// Ajuste aprï¿½s un changement de dimensions.
 
 BOOL CList::MoveAdjust()
 {
@@ -238,7 +237,7 @@ BOOL CList::ClearState(int state)
 }
 
 
-// Gestion d'un événement.
+// Gestion d'un ï¿½vï¿½nement.
 
 BOOL CList::EventProcess(const Event &event)
 {
@@ -312,7 +311,7 @@ BOOL CList::EventProcess(const Event &event)
 		UpdateButton();
 		Event newEvent = event;
 		newEvent.event = m_eventMsg;
-		m_event->AddEvent(newEvent);  // ligne sélectionnée changée
+		m_event->AddEvent(newEvent);  // ligne sï¿½lectionnï¿½e changï¿½e
 		return TRUE;
 	}
 	if ( m_bFocus &&
@@ -333,7 +332,7 @@ BOOL CList::EventProcess(const Event &event)
 		UpdateButton();
 		Event newEvent = event;
 		newEvent.event = m_eventMsg;
-		m_event->AddEvent(newEvent);  // ligne sélectionnée changée
+		m_event->AddEvent(newEvent);  // ligne sï¿½lectionnï¿½e changï¿½e
 		return TRUE;
 	}
 
@@ -348,7 +347,7 @@ BOOL CList::EventProcess(const Event &event)
 		Event newEvent = event;
 		newEvent.event = EVENT_KEYDOWN;
 		newEvent.param = VK_DEFAULT;
-		m_event->AddEvent(newEvent);  // ligne sélectionnée changée
+		m_event->AddEvent(newEvent);  // ligne sï¿½lectionnï¿½e changï¿½e
 		return TRUE;
 	}
 
@@ -382,7 +381,7 @@ BOOL CList::EventProcess(const Event &event)
 
 					Event newEvent = event;
 					newEvent.event = m_eventMsg;
-					m_event->AddEvent(newEvent);  // ligne sélectionnée changée
+					m_event->AddEvent(newEvent);  // ligne sï¿½lectionnï¿½e changï¿½e
 				}
 			}
 		}
@@ -455,7 +454,7 @@ void CList::Draw()
 			if ( m_button[0] != 0 )
 			{
 				dim = m_button[0]->RetDim();
-				dim.y *= m_displayLine;  // fond pile-poil derrière
+				dim.y *= m_displayLine;  // fond pile-poil derriï¿½re
 			}
 		}
 
@@ -573,7 +572,7 @@ void CList::Draw()
 					uv1.y += dp;
 					uv2.x -= dp;
 					uv2.y -= dp;
-					DrawIcon(pos, dim, uv1, uv2);  // dessine carré vert
+					DrawIcon(pos, dim, uv1, uv2);  // dessine carrï¿½ vert
 
 					m_engine->SetState(D3DSTATETTw);
 					uv1.x =  0.0f/256.0f;  // v
@@ -598,7 +597,7 @@ void CList::Draw()
 					uv1.y += dp;
 					uv2.x -= dp;
 					uv2.y -= dp;
-					DrawIcon(pos, dim, uv1, uv2);  // dessine carré rouge
+					DrawIcon(pos, dim, uv1, uv2);  // dessine carrï¿½ rouge
 
 					m_engine->SetState(D3DSTATETTw);
 					uv1.x = 96.0f/256.0f;  // x
@@ -649,7 +648,7 @@ void CList::DrawCase(char *text, FPOINT pos, float width, int justif)
 }
 
 
-// Vide complètement la liste.
+// Vide complï¿½tement la liste.
 
 void CList::Flush()
 {
@@ -661,7 +660,7 @@ void CList::Flush()
 }
 
 
-// Spécifie le nombre total de lignes.
+// Spï¿½cifie le nombre total de lignes.
 
 void CList::SetTotal(int i)
 {
@@ -676,14 +675,14 @@ int CList::RetTotal()
 }
 
 
-// Spécifie le nombre multiple pour la 1ère ligne.
+// Spï¿½cifie le nombre multiple pour la 1ï¿½re ligne.
 
 void CList::SetMultiple(int i)
 {
 	m_multiple = i;
 }
 
-// Retourne le nombre multiple pour la 1ère ligne.
+// Retourne le nombre multiple pour la 1ï¿½re ligne.
 
 int CList::RetMultiple()
 {
@@ -691,7 +690,7 @@ int CList::RetMultiple()
 }
 
 
-// Sélectionne une ligne.
+// Sï¿½lectionne une ligne.
 
 void CList::SetSelect(int i)
 {
@@ -708,7 +707,7 @@ void CList::SetSelect(int i)
 	UpdateButton();
 }
 
-// Retourne la ligne sélectionnée.
+// Retourne la ligne sï¿½lectionnï¿½e.
 
 int CList::RetSelect()
 {
@@ -723,7 +722,7 @@ int CList::RetSelect()
 }
 
 
-// Gestion de la capacité à sélectionner une case.
+// Gestion de la capacitï¿½ ï¿½ sï¿½lectionner une case.
 
 void CList::SetSelectCap(BOOL bEnable)
 {
@@ -764,7 +763,7 @@ BOOL CList::RetBlink()
 }
 
 
-// Spécifie le texte d'une ligne.
+// Spï¿½cifie le texte d'une ligne.
 
 void CList::SetName(int i, char* name)
 {
@@ -797,7 +796,7 @@ char* CList::RetName(int i)
 }
 
 
-// Spécifie le bit "check" pour une case.
+// Spï¿½cifie le bit "check" pour une case.
 
 void CList::SetCheck(int i, BOOL bMode)
 {
@@ -816,7 +815,7 @@ BOOL CList::RetCheck(int i)
 }
 
 
-// Spécifie le bit "enable" pour une case.
+// Spï¿½cifie le bit "enable" pour une case.
 
 void CList::SetEnable(int i, BOOL bMode)
 {
@@ -835,7 +834,7 @@ BOOL CList::RetEnable(int i)
 }
 
 
-// Spécifie le look d'une case.
+// Spï¿½cifie le look d'une case.
 
 void CList::SetLook(int i, int look)
 {
@@ -870,7 +869,7 @@ float  CList::RetTabs(int i)
 }
 
 
-// Déplace l'ascenseur de la liste pour voir la ligne sélectionnée.
+// Dï¿½place l'ascenseur de la liste pour voir la ligne sï¿½lectionnï¿½e.
 
 void CList::ShowSelect()
 {
@@ -903,7 +902,7 @@ void CList::ShowSelect()
 }
 
 
-// Met à jour tous les noms des boutons.
+// Met ï¿½ jour tous les noms des boutons.
 
 void CList::UpdateButton()
 {
@@ -933,7 +932,7 @@ void CList::UpdateButton()
 	}
 }
 
-// Met à jour l'ascenseur.
+// Met ï¿½ jour l'ascenseur.
 
 void CList::UpdateScroll()
 {
@@ -970,7 +969,7 @@ void CList::UpdateScroll()
 	m_scroll->SetArrowStep(step);
 }
 
-// Mise à jour lorsque l'ascenseur a été bougé.
+// Mise ï¿½ jour lorsque l'ascenseur a ï¿½tï¿½ bougï¿½.
 
 void CList::MoveScroll()
 {

@@ -35,7 +35,6 @@
 CAutoJostle::CAutoJostle(CInstanceManager* iMan, CObject* object)
 						   : CAuto(iMan, object)
 {
-	CAuto::CAuto(iMan, object);
 
 	Init();
 }
@@ -48,7 +47,7 @@ CAutoJostle::~CAutoJostle()
 }
 
 
-// Détruit l'objet.
+// Dï¿½truit l'objet.
 
 void CAutoJostle::DeleteObject(BOOL bAll)
 {
@@ -68,7 +67,7 @@ void CAutoJostle::Init()
 }
 
 
-// Démarre une émission.
+// Dï¿½marre une ï¿½mission.
 
 BOOL CAutoJostle::Start(int param, float force)
 {
@@ -87,7 +86,7 @@ BOOL CAutoJostle::Start(int param, float force)
 }
 
 
-// Gestion d'un événement.
+// Gestion d'un ï¿½vï¿½nement.
 
 BOOL CAutoJostle::EventProcess(const Event &event)
 {
@@ -140,7 +139,7 @@ BOOL CAutoJostle::EventProcess(const Event &event)
 }
 
 
-// Indique si l'automate a terminé son activité.
+// Indique si l'automate a terminï¿½ son activitï¿½.
 
 Error CAutoJostle::IsEnded()
 {

@@ -23,7 +23,6 @@
 
 CGroup::CGroup(CInstanceManager* iMan) : CControl(iMan)
 {
-	CControl::CControl(iMan);
 }
 
 // Destructeur de l'objet.
@@ -34,7 +33,7 @@ CGroup::~CGroup()
 }
 
 
-// Crée un nouveau bouton.
+// Crï¿½e un nouveau bouton.
 
 BOOL CGroup::Create(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg)
 {
@@ -57,7 +56,7 @@ BOOL CGroup::Create(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg)
 }
 
 
-// Gestion d'un événement.
+// Gestion d'un ï¿½vï¿½nement.
 
 BOOL CGroup::EventProcess(const Event &event)
 {
@@ -110,7 +109,7 @@ void CGroup::Draw()
 		uv2.y -= dp;
 		DrawIcon(m_pos, m_dim, uv1, uv2);
 	}
-	if ( m_icon == 2 )  // dégradé orange -> transparent ?
+	if ( m_icon == 2 )  // dï¿½gradï¿½ orange -> transparent ?
 	{
 		m_engine->SetTexture("button1.tga");
 		m_engine->SetState(D3DSTATETTw);
@@ -124,7 +123,7 @@ void CGroup::Draw()
 		uv2.y -= dp;
 		DrawIcon(m_pos, m_dim, uv1, uv2);
 	}
-	if ( m_icon == 3 )  // dégradé transparent -> gris ?
+	if ( m_icon == 3 )  // dï¿½gradï¿½ transparent -> gris ?
 	{
 		m_engine->SetTexture("button1.tga");
 		m_engine->SetState(D3DSTATETTw);
@@ -138,7 +137,7 @@ void CGroup::Draw()
 		uv2.y -= dp;
 		DrawIcon(m_pos, m_dim, uv1, uv2);
 	}
-	if ( m_icon == 4 )  // coin bleu dégradé ?
+	if ( m_icon == 4 )  // coin bleu dï¿½gradï¿½ ?
 	{
 		m_engine->SetTexture("button1.tga");
 		m_engine->SetState(D3DSTATETTw);
@@ -152,7 +151,7 @@ void CGroup::Draw()
 		uv2.y -= dp;
 		DrawIcon(m_pos, m_dim, uv1, uv2);
 	}
-	if ( m_icon == 5 )  // coin orange dégradé ?
+	if ( m_icon == 5 )  // coin orange dï¿½gradï¿½ ?
 	{
 		m_engine->SetTexture("button1.tga");
 		m_engine->SetState(D3DSTATETTw);
@@ -353,11 +352,11 @@ void CGroup::Draw()
 		DrawIcon(m_pos, m_dim, uv1, uv2);
 	}
 
-	if ( m_icon == 23 )  // bandes pour écran win ?
+	if ( m_icon == 23 )  // bandes pour ï¿½cran win ?
 	{
 		m_engine->SetTexture("button1.tga");
 		m_engine->SetState(D3DSTATETTb);
-		uv1.x = 128.0f/256.0f;  // gris foncé
+		uv1.x = 128.0f/256.0f;  // gris foncï¿½
 		uv1.y =  16.0f/256.0f;
 		uv2.x = 144.0f/256.0f;
 		uv2.y =  32.0f/256.0f;

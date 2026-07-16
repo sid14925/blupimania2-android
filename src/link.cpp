@@ -27,7 +27,6 @@
 
 CLink::CLink(CInstanceManager* iMan) : CControl(iMan)
 {
-	CControl::CControl(iMan);
 
 	m_src.x = NAN;
 }
@@ -40,7 +39,7 @@ CLink::~CLink()
 }
 
 
-// Crée un nouveau bouton.
+// Crï¿½e un nouveau bouton.
 
 BOOL CLink::Create(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg)
 {
@@ -51,7 +50,7 @@ BOOL CLink::Create(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg)
 }
 
 
-// Gestion d'un événement.
+// Gestion d'un ï¿½vï¿½nement.
 
 BOOL CLink::EventProcess(const Event &event)
 {

@@ -28,7 +28,6 @@ CMenu::CMenu(CInstanceManager* iMan) : CControl(iMan)
 {
 	int		i;
 
-	CControl::CControl(iMan);
 
 	m_bCapture = FALSE;
 	m_select = -1;
@@ -52,7 +51,7 @@ CMenu::~CMenu()
 }
 
 
-// Crée un nouveau menu.
+// Crï¿½e un nouveau menu.
 
 BOOL CMenu::Create(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg)
 {
@@ -75,7 +74,7 @@ BOOL CMenu::Create(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg)
 }
 
 
-// Gestion d'un événement.
+// Gestion d'un ï¿½vï¿½nement.
 
 BOOL CMenu::EventProcess(const Event &event)
 {
@@ -178,7 +177,7 @@ void CMenu::Draw()
 }
 
 
-// Crée les boutons du sous-menu.
+// Crï¿½e les boutons du sous-menu.
 
 void CMenu::CreateSubMenu()
 {
@@ -212,7 +211,7 @@ void CMenu::CreateSubMenu()
 	DetectSubMenu(m_pos);
 }
 
-// Met en évidence le sous-bouton survolé par la souris.
+// Met en ï¿½vidence le sous-bouton survolï¿½ par la souris.
 
 void CMenu::DetectSubMenu(FPOINT mouse)
 {
@@ -253,7 +252,7 @@ void CMenu::DetectSubMenu(FPOINT mouse)
 	SetState(STATE_PRESS, FALSE);
 }
 
-// Détruit les boutons du sous-menu.
+// Dï¿½truit les boutons du sous-menu.
 
 void CMenu::DeleteSubMenu()
 {
@@ -274,7 +273,7 @@ void CMenu::DeleteSubMenu()
 }
 
 
-// Choix du sous-menu sélectionné.
+// Choix du sous-menu sï¿½lectionnï¿½.
 
 void CMenu::SetSelect(int select)
 {
@@ -300,7 +299,7 @@ int CMenu::RetSubTotal()
 }
 
 
-// Choix des icônes du sous-menu.
+// Choix des icï¿½nes du sous-menu.
 
 void CMenu::SetSubIcon(int rank, int icon)
 {

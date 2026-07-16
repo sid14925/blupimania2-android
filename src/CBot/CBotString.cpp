@@ -397,7 +397,7 @@ BOOL CBotString::operator<=(const char* p)
 	return Compare(p) <= 0;
 }
 
-BOOL CBotString::IsEmpty()
+BOOL CBotString::IsEmpty() const
 {
 	return (m_lg == 0);
 }

@@ -40,7 +40,6 @@
 CTaskDive::CTaskDive(CInstanceManager* iMan, CObject* object)
 					 : CTask(iMan, object)
 {
-	CTask::CTask(iMan, object);
 
 	m_time = 0.0f;
 	m_bError = TRUE;
@@ -53,7 +52,7 @@ CTaskDive::~CTaskDive()
 }
 
 
-// Gestion d'un événement.
+// Gestion d'un ï¿½vï¿½nement.
 
 BOOL CTaskDive::EventProcess(const Event &event)
 {
@@ -169,7 +168,7 @@ BOOL CTaskDive::EventProcess(const Event &event)
 
 			pos.y = m_level-1.0f;
 			dim.x = 8.0f;  // hauteur
-			dim.y = 4.0f;  // diamètre
+			dim.y = 4.0f;  // diamï¿½tre
 			duration = 1.4f;
 			m_particule->CreateParticule(pos, D3DVECTOR(0.0f, 0.0f, 0.0f), dim, PARTIPLOUF0, duration, 0.0f);
 
@@ -181,7 +180,7 @@ BOOL CTaskDive::EventProcess(const Event &event)
 				pos.y = m_level-1.0f;
 				force = 1.0f+Rand()*1.0f;
 				dim.x = 1.0f*force;  // hauteur
-				dim.y = 0.5f*force;  // diamètre
+				dim.y = 0.5f*force;  // diamï¿½tre
 				duration = 0.8f+Rand()*1.0f;
 				m_particule->CreateParticule(pos, D3DVECTOR(0.0f, 0.0f, 0.0f), dim, PARTIPLOUF0, duration, 0.0f);
 
@@ -274,7 +273,7 @@ BOOL CTaskDive::EventProcess(const Event &event)
 }
 
 
-// Assigne le but à atteindre.
+// Assigne le but ï¿½ atteindre.
 
 Error CTaskDive::Start(CObject *dive)
 {
@@ -328,7 +327,7 @@ Error CTaskDive::Start(CObject *dive)
 	return ERR_OK;
 }
 
-// Indique si l'action est terminée.
+// Indique si l'action est terminï¿½e.
 
 Error CTaskDive::IsEnded()
 {
@@ -486,7 +485,7 @@ Error CTaskDive::IsEnded()
 }
 
 
-// Démarre une action pour Blupi.
+// Dï¿½marre une action pour Blupi.
 
 void CTaskDive::StartAction(int action, float speed)
 {
@@ -498,7 +497,7 @@ void CTaskDive::StartAction(int action, float speed)
 	motion->SetAction(action, speed);
 }
 
-// Spécifie la vitesse de Blupi.
+// Spï¿½cifie la vitesse de Blupi.
 
 void CTaskDive::SetLinSpeed(float speed)
 {

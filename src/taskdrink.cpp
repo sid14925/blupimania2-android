@@ -31,7 +31,6 @@
 CTaskDrink::CTaskDrink(CInstanceManager* iMan, CObject* object)
 					 : CTask(iMan, object)
 {
-	CTask::CTask(iMan, object);
 
 	m_time = 0.0f;
 	m_bError= TRUE;
@@ -44,7 +43,7 @@ CTaskDrink::~CTaskDrink()
 }
 
 
-// Gestion d'un événement.
+// Gestion d'un ï¿½vï¿½nement.
 
 BOOL CTaskDrink::EventProcess(const Event &event)
 {
@@ -77,7 +76,7 @@ BOOL CTaskDrink::EventProcess(const Event &event)
 }
 
 
-// Assigne le but à atteindre.
+// Assigne le but ï¿½ atteindre.
 
 Error CTaskDrink::Start(CObject *fiole)
 {
@@ -93,7 +92,7 @@ Error CTaskDrink::Start(CObject *fiole)
 	m_goalPos = m_fiole->RetPosition(0);
 	m_startPos = m_object->RetPosition(0);
 
-	if ( m_object->RetStrong() != 0.0f )  // déjà costaud/glu ?
+	if ( m_object->RetStrong() != 0.0f )  // dï¿½jï¿½ costaud/glu ?
 	{
 		StartAction(MBLUPI_ERROR);
 		m_bError = TRUE;
@@ -112,7 +111,7 @@ Error CTaskDrink::Start(CObject *fiole)
 	return ERR_OK;
 }
 
-// Indique si l'action est terminée.
+// Indique si l'action est terminï¿½e.
 
 Error CTaskDrink::IsEnded()
 {
@@ -181,7 +180,7 @@ Error CTaskDrink::IsEnded()
 }
 
 
-// Démarre une action pour Blupi.
+// Dï¿½marre une action pour Blupi.
 
 void CTaskDrink::StartAction(int action, float speed)
 {

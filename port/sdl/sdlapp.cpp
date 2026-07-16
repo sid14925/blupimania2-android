@@ -51,6 +51,8 @@ static SDL_FingerID     g_finger0 = 0;
 static int              g_fingerCount = 0;
 static float            g_pinchDist = 0.0f;
 static BOOL             g_bPinching = FALSE;
+static float            g_gestureLastX = -1.0f;
+static float            g_gesturePanAcc = 0.0f;
 
 static float AxeLimit(float value)
 {
@@ -631,7 +633,13 @@ static void HandleSDLEvent(const SDL_Event& e)
                 DispatchGameMsg(WM_LBUTTONUP, 0, lp);
                 g_bFinger0Down = FALSE;
             }
-            if (g_fingerCount < 2) g_bPinching = FALSE;
+            if (g_fingerCount < 2)
+            {
+                g_bPinching = FALSE;
+                g_gestureLastX = -1.0f;
+                g_gesturePanAcc = 0.0f;
+                g_pinchDist = 0.0f;
+            }
             break;
         }
 
@@ -648,18 +656,39 @@ static void HandleSDLEvent(const SDL_Event& e)
         {
             if (e.mgesture.numFingers == 2)
             {
-                // pinch -> camera zoom via mouse wheel
+                static float s_lastX = -1.0f;
+
+                // pinch -> camera zoom (the game's +/- keys)
                 g_pinchDist += e.mgesture.dDist;
-                while (g_pinchDist > 0.04f)
+                while (g_pinchDist > 0.03f)
                 {
-                    DispatchGameMsg(WM_MOUSEWHEEL, (WPARAM)MAKELONG(0, 120), 0);
-                    g_pinchDist -= 0.04f;
+                    DispatchGameMsg(WM_KEYDOWN, VK_ADD, 0);
+                    DispatchGameMsg(WM_KEYUP, VK_ADD, 0);
+                    g_pinchDist -= 0.03f;
                 }
-                while (g_pinchDist < -0.04f)
+                while (g_pinchDist < -0.03f)
                 {
-                    DispatchGameMsg(WM_MOUSEWHEEL, (WPARAM)MAKELONG(0, -120), 0);
-                    g_pinchDist += 0.04f;
+                    DispatchGameMsg(WM_KEYDOWN, VK_SUBTRACT, 0);
+                    DispatchGameMsg(WM_KEYUP, VK_SUBTRACT, 0);
+                    g_pinchDist += 0.03f;
                 }
+
+                // two-finger horizontal drag -> camera rotation (mouse wheel)
+                if (g_gestureLastX >= 0.0f)
+                {
+                    g_gesturePanAcc += e.mgesture.x - g_gestureLastX;
+                    while (g_gesturePanAcc > 0.04f)
+                    {
+                        DispatchGameMsg(WM_MOUSEWHEEL, (WPARAM)MAKELONG(0, 120), 0);
+                        g_gesturePanAcc -= 0.04f;
+                    }
+                    while (g_gesturePanAcc < -0.04f)
+                    {
+                        DispatchGameMsg(WM_MOUSEWHEEL, (WPARAM)MAKELONG(0, -120), 0);
+                        g_gesturePanAcc += 0.04f;
+                    }
+                }
+                g_gestureLastX = e.mgesture.x;
             }
             break;
         }
@@ -1072,11 +1101,22 @@ static void PortLogToStderr(void* userdata, int category, SDL_LogPriority priori
     fflush(stderr);
 }
 
+#ifdef __ANDROID__
+extern "C" void PortAndroidBootstrap(void);
+#endif
+
 extern "C" int main(int argc, char* argv[])
 {
+#ifndef __ANDROID__
     SDL_LogSetOutputFunction(PortLogToStderr, NULL);
+#endif
     fprintf(stderr, "[port] main start\n");
     fflush(stderr);
+
+#ifdef __ANDROID__
+    // extract game data from the APK on first launch, chdir to it
+    PortAndroidBootstrap();
+#endif
 
     char cmdLine[256];
     cmdLine[0] = 0;

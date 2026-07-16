@@ -33,7 +33,6 @@
 CTaskTrax::CTaskTrax(CInstanceManager* iMan, CObject* object)
 					 : CTask(iMan, object)
 {
-	CTask::CTask(iMan, object);
 
 	m_time = 0.0f;
 	m_bError= TRUE;
@@ -46,7 +45,7 @@ CTaskTrax::~CTaskTrax()
 }
 
 
-// Gestion d'un événement.
+// Gestion d'un ï¿½vï¿½nement.
 
 BOOL CTaskTrax::EventProcess(const Event &event)
 {
@@ -92,12 +91,12 @@ BOOL CTaskTrax::EventProcess(const Event &event)
 			}
 		}
 
-		if ( m_part == 4 )  // bouton gauche (tourne à droite) ?
+		if ( m_part == 4 )  // bouton gauche (tourne ï¿½ droite) ?
 		{
 			m_trax->StartTaskList(TO_TURN, D3DVECTOR(0.0f, 0.0f, 0.0f), 0, 0, PI/2.0f);
 		}
 
-		if ( m_part == 5 )  // bouton droite (tourne à gauche) ?
+		if ( m_part == 5 )  // bouton droite (tourne ï¿½ gauche) ?
 		{
 			m_trax->StartTaskList(TO_TURN, D3DVECTOR(0.0f, 0.0f, 0.0f), 0, 0, -PI/2.0f);
 		}
@@ -107,7 +106,7 @@ BOOL CTaskTrax::EventProcess(const Event &event)
 }
 
 
-// Assigne le but à atteindre.
+// Assigne le but ï¿½ atteindre.
 
 Error CTaskTrax::Start(CObject *trax, int part)
 {
@@ -132,7 +131,7 @@ Error CTaskTrax::Start(CObject *trax, int part)
 	return ERR_OK;
 }
 
-// Indique si l'action est terminée.
+// Indique si l'action est terminï¿½e.
 
 Error CTaskTrax::IsEnded()
 {
@@ -168,7 +167,7 @@ CObject* CTaskTrax::SearchBox(D3DVECTOR center, float radius)
 	{
 		pObj = (CObject*)m_iMan->SearchInstance(CLASS_OBJECT, i);
 		if ( pObj == 0 )  break;
-		if ( pObj == m_object )  continue;  // soi-même ?
+		if ( pObj == m_object )  continue;  // soi-mï¿½me ?
 		if ( pObj->RetExplo() )  continue;
 		if ( pObj->RetLock() )  continue;
 		if ( !pObj->RetEnable() )  continue;
@@ -190,7 +189,7 @@ CObject* CTaskTrax::SearchBox(D3DVECTOR center, float radius)
 }
 
 
-// Démarre une action pour un objet.
+// Dï¿½marre une action pour un objet.
 
 void CTaskTrax::StartAction(int action, float speed)
 {

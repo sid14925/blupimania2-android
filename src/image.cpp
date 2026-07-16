@@ -23,7 +23,6 @@
 
 CImage::CImage(CInstanceManager* iMan) : CControl(iMan)
 {
-	CControl::CControl(iMan);
 
 	m_filename[0] = 0;
 }
@@ -41,7 +40,7 @@ CImage::~CImage()
 }
 
 
-// Crée un nouveau bouton.
+// Crï¿½e un nouveau bouton.
 
 BOOL CImage::Create(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg)
 {
@@ -64,7 +63,7 @@ BOOL CImage::Create(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg)
 }
 
 
-// Spécifie le nom de l'image à afficher.
+// Spï¿½cifie le nom de l'image ï¿½ afficher.
 
 void CImage::SetFilenameImage(char *name)
 {
@@ -82,7 +81,7 @@ char* CImage::RetFilenameImage()
 }
 
 
-// Gestion d'un événement.
+// Gestion d'un ï¿½vï¿½nement.
 
 BOOL CImage::EventProcess(const Event &event)
 {

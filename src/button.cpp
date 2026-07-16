@@ -27,7 +27,6 @@
 
 CButton::CButton(CInstanceManager* iMan) : CControl(iMan)
 {
-	CControl::CControl(iMan);
 
 	m_bCapture = FALSE;
 	m_bImmediat = FALSE;
@@ -43,7 +42,7 @@ CButton::~CButton()
 }
 
 
-// Crée un nouveau bouton.
+// Crï¿½e un nouveau bouton.
 
 BOOL CButton::Create(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg)
 {
@@ -66,7 +65,7 @@ BOOL CButton::Create(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg)
 }
 
 
-// Gestion d'un événement.
+// Gestion d'un ï¿½vï¿½nement.
 
 BOOL CButton::EventProcess(const Event &event)
 {
@@ -181,8 +180,8 @@ void CButton::Draw()
 }
 
 
-// Gestion du mode immédiat, qui envoie l'événement "pressé"
-// avant que le bouton de la souris soit relâché.
+// Gestion du mode immï¿½diat, qui envoie l'ï¿½vï¿½nement "pressï¿½"
+// avant que le bouton de la souris soit relï¿½chï¿½.
 
 void CButton::SetImmediat(BOOL bImmediat)
 {
@@ -195,8 +194,8 @@ BOOL CButton::RetImmediat()
 }
 
 
-// Gestion du mode "répétition automatique", lorsque le bouton
-// de la souris est maintenu pressé.
+// Gestion du mode "rï¿½pï¿½tition automatique", lorsque le bouton
+// de la souris est maintenu pressï¿½.
 
 void CButton::SetRepeat(BOOL bRepeat)
 {

@@ -32,7 +32,6 @@
 CMotionTrax::CMotionTrax(CInstanceManager* iMan, CObject* object)
 							  : CMotion(iMan, object)
 {
-	CMotion::CMotion(iMan, object);
 
 	m_time = 0.0f;
 	m_lastParticule = 0.0f;
@@ -56,11 +55,11 @@ void CMotionTrax::DeleteObject(BOOL bAll)
 }
 
 
-// Démarre une action spéciale.
+// Dï¿½marre une action spï¿½ciale.
 
 Error CMotionTrax::SetAction(int action, float time)
 {
-	if ( time == 0.2f )  // valeur par défaut ?
+	if ( time == 0.2f )  // valeur par dï¿½faut ?
 	{
 		if ( action == MTRAX_ERROR )  time = 1.0f/1.50f;
 		if ( action == MTRAX_ROLL  )  time = 1.0f/0.75f;
@@ -82,21 +81,21 @@ Error CMotionTrax::SetAction(int action, float time)
 }
 
 
-// Retourne la vitesse linéaire.
+// Retourne la vitesse linï¿½aire.
 
 float CMotionTrax::RetLinSpeed()
 {
 	return 5.0f;
 }
 
-// Retourne la vitesse linéaire.
+// Retourne la vitesse linï¿½aire.
 
 float CMotionTrax::RetCirSpeed()
 {
 	return 0.5f*PI;
 }
 
-// Retourne la distance linéaire de freinage.
+// Retourne la distance linï¿½aire de freinage.
 
 float CMotionTrax::RetLinStopLength()
 {
@@ -104,7 +103,7 @@ float CMotionTrax::RetLinStopLength()
 }
 
 
-// Crée un trax quelconque posé sur le sol.
+// Crï¿½e un trax quelconque posï¿½ sur le sol.
 
 BOOL CMotionTrax::Create(D3DVECTOR pos, float angle, ObjectType type)
 {
@@ -116,7 +115,7 @@ BOOL CMotionTrax::Create(D3DVECTOR pos, float angle, ObjectType type)
 	m_object->SetType(type);
 	pModFile = new CModFile(m_iMan);
 
-	// Crée la base principale.
+	// Crï¿½e la base principale.
 	rank = m_engine->CreateObject();
 	m_engine->SetObjectType(rank, TYPEOBJECT);  // c'est un objet fixe
 	m_object->SetObjectRank(0, rank);
@@ -125,7 +124,7 @@ BOOL CMotionTrax::Create(D3DVECTOR pos, float angle, ObjectType type)
 	m_object->SetPosition(0, pos);
 	m_object->SetAngleY(0, angle);
 
-	// Crée la chenille droite.
+	// Crï¿½e la chenille droite.
 	rank = m_engine->CreateObject();
 	m_engine->SetObjectType(rank, TYPEDESCENDANT);
 	m_object->SetObjectRank(1, rank);
@@ -134,7 +133,7 @@ BOOL CMotionTrax::Create(D3DVECTOR pos, float angle, ObjectType type)
 	pModFile->CreateEngineObject(rank);
 	m_object->SetPosition(1, D3DVECTOR(0.0f, 0.0f, -2.5f));
 
-	// Crée la chenille gauche.
+	// Crï¿½e la chenille gauche.
 	rank = m_engine->CreateObject();
 	m_engine->SetObjectType(rank, TYPEDESCENDANT);
 	m_object->SetObjectRank(2, rank);
@@ -143,7 +142,7 @@ BOOL CMotionTrax::Create(D3DVECTOR pos, float angle, ObjectType type)
 	pModFile->CreateEngineObject(rank);
 	m_object->SetPosition(2, D3DVECTOR(0.0f, 0.0f, 2.5f));
 
-	// Crée le bouton "avance".
+	// Crï¿½e le bouton "avance".
 	rank = m_engine->CreateObject();
 	m_engine->SetObjectType(rank, TYPEDESCENDANT);
 	m_object->SetObjectRank(3, rank);
@@ -152,7 +151,7 @@ BOOL CMotionTrax::Create(D3DVECTOR pos, float angle, ObjectType type)
 	pModFile->CreateEngineObject(rank);
 	m_object->SetPosition(3, D3DVECTOR(0.0f, 0.0f, 0.0f));
 
-	// Crée le bouton "gauche".
+	// Crï¿½e le bouton "gauche".
 	rank = m_engine->CreateObject();
 	m_engine->SetObjectType(rank, TYPEDESCENDANT);
 	m_object->SetObjectRank(4, rank);
@@ -161,7 +160,7 @@ BOOL CMotionTrax::Create(D3DVECTOR pos, float angle, ObjectType type)
 	pModFile->CreateEngineObject(rank);
 	m_object->SetPosition(4, D3DVECTOR(0.0f, 0.0f, 0.0f));
 
-	// Crée le bouton "droite".
+	// Crï¿½e le bouton "droite".
 	rank = m_engine->CreateObject();
 	m_engine->SetObjectType(rank, TYPEDESCENDANT);
 	m_object->SetObjectRank(5, rank);
@@ -189,7 +188,7 @@ BOOL CMotionTrax::Create(D3DVECTOR pos, float angle, ObjectType type)
 }
 
 
-// Gestion d'un événement.
+// Gestion d'un ï¿½vï¿½nement.
 
 BOOL CMotionTrax::EventProcess(const Event &event)
 {
@@ -203,7 +202,7 @@ BOOL CMotionTrax::EventProcess(const Event &event)
 	return TRUE;
 }
 
-// Gestion d'un événement.
+// Gestion d'un ï¿½vï¿½nement.
 
 BOOL CMotionTrax::EventFrame(const Event &event)
 {
@@ -278,7 +277,7 @@ BOOL CMotionTrax::EventFrame(const Event &event)
 		UpdateTrackMapping(m_leftTrack, m_rightTrack);
 	}
 
-	// Fait fumer le pot d'échappement.
+	// Fait fumer le pot d'ï¿½chappement.
 	smoke = m_actionLinSpeed+Abs(m_actionCirSpeed);
 	if ( m_actionType == MTRAX_ROLL )  smoke = 1.0f;
 	error = 0.0f;
@@ -314,7 +313,7 @@ BOOL CMotionTrax::EventFrame(const Event &event)
 }
 
 
-// Fait évoluer les particules.
+// Fait ï¿½voluer les particules.
 
 void CMotionTrax::ParticuleFrame(float rTime, float smoke, float error)
 {
@@ -354,7 +353,7 @@ void CMotionTrax::ParticuleFrame(float rTime, float smoke, float error)
 	}
 }
 
-// Met à jour le mapping de la texture des chenilles.
+// Met ï¿½ jour le mapping de la texture des chenilles.
 
 void CMotionTrax::UpdateTrackMapping(float left, float right)
 {

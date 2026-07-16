@@ -35,7 +35,6 @@
 CAutoGoal::CAutoGoal(CInstanceManager* iMan, CObject* object)
 						 : CAuto(iMan, object)
 {
-	CAuto::CAuto(iMan, object);
 
 	Init();
 }
@@ -47,7 +46,7 @@ CAutoGoal::~CAutoGoal()
 }
 
 
-// Détruit l'objet.
+// Dï¿½truit l'objet.
 
 void CAutoGoal::DeleteObject(BOOL bAll)
 {
@@ -68,7 +67,7 @@ void CAutoGoal::Init()
 }
 
 
-// Démarre l'objet.
+// Dï¿½marre l'objet.
 
 BOOL CAutoGoal::Start(int phase)
 {
@@ -88,7 +87,7 @@ BOOL CAutoGoal::Start(int phase)
 }
 
 
-// Gestion d'un événement.
+// Gestion d'un ï¿½vï¿½nement.
 
 BOOL CAutoGoal::EventProcess(const Event &event)
 {
@@ -128,7 +127,7 @@ BOOL CAutoGoal::EventProcess(const Event &event)
 		blupi = m_object->RetTruck();
 		if ( blupi != 0 )
 		{
-			// Monte un peu le ballon par-rapport à blupi.
+			// Monte un peu le ballon par-rapport ï¿½ blupi.
 			pos = m_object->RetPosition(0);
 			pos.y += event.rTime;
 			if ( pos.y > 0.0f )  pos.y = 0.0f;
@@ -173,7 +172,7 @@ BOOL CAutoGoal::Abort()
 }
 
 
-// Retourne une erreur liée à l'état de l'automate.
+// Retourne une erreur liï¿½e ï¿½ l'ï¿½tat de l'automate.
 
 Error CAutoGoal::RetError()
 {
@@ -181,7 +180,7 @@ Error CAutoGoal::RetError()
 }
 
 
-// Début d'une action spéciale.
+// Dï¿½but d'une action spï¿½ciale.
 
 Error CAutoGoal::SetAction(int action, float time)
 {
@@ -193,7 +192,7 @@ Error CAutoGoal::SetAction(int action, float time)
 }
 
 
-// Modifie l'objet pilier pour que la caméra puisse le voir
+// Modifie l'objet pilier pour que la camï¿½ra puisse le voir
 // depuis en haut.
 
 void CAutoGoal::ChangeColumn()
@@ -222,7 +221,7 @@ void CAutoGoal::ChangeColumn()
 }
 
 
-// Rotation d'un point de la caméra.
+// Rotation d'un point de la camï¿½ra.
 
 void RotateGoal(D3DVECTOR &pos, D3DVECTOR center, float angle)
 {
@@ -233,7 +232,7 @@ void RotateGoal(D3DVECTOR &pos, D3DVECTOR center, float angle)
 	pos.z = rot.y;
 }
 
-// Début du mouvement vertical de la caméra.
+// Dï¿½but du mouvement vertical de la camï¿½ra.
 
 void CAutoGoal::CameraStart()
 {
@@ -268,7 +267,7 @@ void CAutoGoal::CameraStart()
 	m_goalView = 800.0f;
 }
 
-// Progression du mouvement spécial de la caméra.
+// Progression du mouvement spï¿½cial de la camï¿½ra.
 
 void CAutoGoal::CameraProgress(float progress)
 {

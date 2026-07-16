@@ -29,7 +29,6 @@
 
 CSlider::CSlider(CInstanceManager* iMan) : CControl(iMan)
 {
-	CControl::CControl(iMan);
 
 	m_buttonLeft  = 0;
 	m_buttonRight = 0;
@@ -59,7 +58,7 @@ CSlider::~CSlider()
 }
 
 
-// Crée un nouveau bouton.
+// Crï¿½e un nouveau bouton.
 
 BOOL CSlider::Create(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg)
 {
@@ -90,7 +89,7 @@ void CSlider::MoveAdjust()
 	m_bHoriz = ( m_dim.x > m_dim.y );
 
 	if ( ( m_bHoriz && m_dim.x < m_dim.y*3.0f) ||
-		 (!m_bHoriz && m_dim.y < m_dim.x*3.0f) )  // slider très court ?
+		 (!m_bHoriz && m_dim.y < m_dim.x*3.0f) )  // slider trï¿½s court ?
 	{
 		delete m_buttonLeft;
 		m_buttonLeft = 0;
@@ -231,7 +230,7 @@ BOOL CSlider::ClearState(int state)
 }
 
 
-// Gestion d'un événement.
+// Gestion d'un ï¿½vï¿½nement.
 
 BOOL CSlider::EventProcess(const Event &event)
 {

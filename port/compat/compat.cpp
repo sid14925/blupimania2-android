@@ -1,5 +1,6 @@
 // compat.cpp — implementations for the Win32 shim (port/compat/windows.h).
 
+#define PORT_NO_STDIO_REDIRECT      // this file calls the real fopen/remove
 #include <windows.h>
 #include <SDL.h>
 
@@ -45,6 +46,192 @@ char* PortStrCpyN(char* dst, const char* src, int n)
     dst[i] = 0;
     return dst;
 }
+
+// ------------------------------------------------------- path-aware stdio
+
+// converts Windows-style relative paths to the host filesystem:
+// backslashes -> slashes; lowercased on Android (case-sensitive FS)
+static void PortFixPath(const char* in, char* out, int outSize)
+{
+    int i;
+    for (i = 0; i < outSize-1 && in[i]; i++)
+    {
+        char c = in[i];
+        if (c == '\\') c = '/';
+#ifdef __ANDROID__
+        c = (char)tolower((unsigned char)c);
+#endif
+        out[i] = c;
+    }
+    out[i] = 0;
+}
+
+char* Port_fullpath(char* absPath, const char* relPath, size_t maxLength)
+{
+    char fixed[512];
+    PortFixPath(relPath, fixed, sizeof(fixed));
+    if (fixed[0] == '/')
+    {
+        PortStrCpyN(absPath, fixed, (int)maxLength);
+        return absPath;
+    }
+    char cwd[512];
+#ifdef _WIN32
+    if (_getcwd(cwd, sizeof(cwd)) == NULL) cwd[0] = 0;
+#else
+    if (getcwd(cwd, sizeof(cwd)) == NULL) cwd[0] = 0;
+#endif
+    snprintf(absPath, maxLength, "%s/%s", cwd, fixed);
+    return absPath;
+}
+
+FILE* Port_fopen(const char* path, const char* mode)
+{
+    char fixed[512];
+    PortFixPath(path, fixed, sizeof(fixed));
+    return fopen(fixed, mode);
+}
+
+int Port_remove(const char* path)
+{
+    char fixed[512];
+    PortFixPath(path, fixed, sizeof(fixed));
+    return remove(fixed);
+}
+
+int Port_rename(const char* oldp, const char* newp)
+{
+    char f1[512], f2[512];
+    PortFixPath(oldp, f1, sizeof(f1));
+    PortFixPath(newp, f2, sizeof(f2));
+    return rename(f1, f2);
+}
+
+int Port_mkdir(const char* path)
+{
+    char fixed[512];
+    PortFixPath(path, fixed, sizeof(fixed));
+    // strip a trailing slash: _mkdir("files\\") is common in the game
+    size_t n = strlen(fixed);
+    if (n > 0 && fixed[n-1] == '/') fixed[n-1] = 0;
+#ifdef _WIN32
+    return _mkdir(fixed);
+#else
+    return mkdir(fixed, 0755);
+#endif
+}
+
+// ------------------------------------------------- _findfirst on POSIX
+
+#if !defined(_WIN32) || defined(__ANDROID__)
+
+#include <io.h>
+#include <dirent.h>
+
+struct PortFindState
+{
+    DIR* dir;
+    char dirPath[512];
+    char pattern[260];
+};
+
+static BOOL PortWildMatch(const char* pat, const char* str)
+{
+    while (*pat)
+    {
+        if (*pat == '*')
+        {
+            pat++;
+            if (*pat == 0) return TRUE;
+            for (const char* s = str; *s; s++)
+                if (PortWildMatch(pat, s)) return TRUE;
+            return FALSE;
+        }
+        if (*pat == '?')
+        {
+            if (*str == 0) return FALSE;
+        }
+        else if (tolower((unsigned char)*pat) != tolower((unsigned char)*str))
+        {
+            return FALSE;
+        }
+        pat++;
+        str++;
+    }
+    return *str == 0;
+}
+
+static int PortFindFill(PortFindState* st, struct _finddata_t* data)
+{
+    struct dirent* e;
+    while ((e = readdir(st->dir)) != NULL)
+    {
+        if (!PortWildMatch(st->pattern, e->d_name)) continue;
+
+        char full[800];
+        snprintf(full, sizeof(full), "%s/%s", st->dirPath, e->d_name);
+        struct stat sb;
+        data->attrib = _A_NORMAL;
+        data->size = 0;
+        if (stat(full, &sb) == 0)
+        {
+            if (S_ISDIR(sb.st_mode)) data->attrib |= _A_SUBDIR;
+            data->size = (unsigned long)sb.st_size;
+        }
+        PortStrCpyN(data->name, e->d_name, sizeof(data->name));
+        return 0;
+    }
+    return -1;
+}
+
+extern "C" intptr_t _findfirst(const char* pattern, struct _finddata_t* data)
+{
+    char fixed[512];
+    PortFixPath(pattern, fixed, sizeof(fixed));
+
+    PortFindState* st = (PortFindState*)calloc(1, sizeof(PortFindState));
+    const char* slash = strrchr(fixed, '/');
+    if (slash != NULL)
+    {
+        size_t n = (size_t)(slash - fixed);
+        memcpy(st->dirPath, fixed, n);
+        st->dirPath[n] = 0;
+        PortStrCpyN(st->pattern, slash+1, sizeof(st->pattern));
+    }
+    else
+    {
+        strcpy(st->dirPath, ".");
+        PortStrCpyN(st->pattern, fixed, sizeof(st->pattern));
+    }
+
+    st->dir = opendir(st->dirPath[0] ? st->dirPath : ".");
+    if (st->dir == NULL) { free(st); return -1; }
+
+    if (PortFindFill(st, data) != 0)
+    {
+        closedir(st->dir);
+        free(st);
+        return -1;
+    }
+    return (intptr_t)st;
+}
+
+extern "C" int _findnext(intptr_t handle, struct _finddata_t* data)
+{
+    if (handle == -1 || handle == 0) return -1;
+    return PortFindFill((PortFindState*)handle, data);
+}
+
+extern "C" int _findclose(intptr_t handle)
+{
+    if (handle == -1 || handle == 0) return -1;
+    PortFindState* st = (PortFindState*)handle;
+    closedir(st->dir);
+    free(st);
+    return 0;
+}
+
+#endif // POSIX findfirst
 
 // ---------------------------------------------------------------- debug/time
 

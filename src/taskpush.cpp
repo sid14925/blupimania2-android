@@ -39,7 +39,6 @@
 CTaskPush::CTaskPush(CInstanceManager* iMan, CObject* object)
 					 : CTask(iMan, object)
 {
-	CTask::CTask(iMan, object);
 
 	m_bFirst = TRUE;
 	m_bLast = FALSE;
@@ -60,7 +59,7 @@ CTaskPush::~CTaskPush()
 }
 
 
-// Gestion d'un événement.
+// Gestion d'un ï¿½vï¿½nement.
 
 BOOL CTaskPush::EventProcess(const Event &event)
 {
@@ -79,7 +78,7 @@ BOOL CTaskPush::EventProcess(const Event &event)
 	progress = Norm(m_progress);
 	softProgress = progress;
 
-	if ( m_phase == TPU_ROLL )  // roule une sphère ?
+	if ( m_phase == TPU_ROLL )  // roule une sphï¿½re ?
 	{
 		ProgressAction(progress);
 		if ( m_progress >= 0.75f && !m_bTask )
@@ -359,7 +358,7 @@ BOOL CTaskPush::EventProcess(const Event &event)
 					pyro = new CPyro(m_iMan);
 					pyro->Create(PT_GOAL, m_pGoal);  // destruction ballon
 					m_pGoal = 0;
-					m_terrain->SetLockZone(pos, LZ_BOX);  // zone occupée !
+					m_terrain->SetLockZone(pos, LZ_BOX);  // zone occupï¿½e !
 				}
 			}
 		}
@@ -385,7 +384,7 @@ BOOL CTaskPush::EventProcess(const Event &event)
 }
 
 
-// Assigne le but à atteindre.
+// Assigne le but ï¿½ atteindre.
 
 Error CTaskPush::Start(int part, int nbTiles)
 {
@@ -425,7 +424,7 @@ Error CTaskPush::Start(int part, int nbTiles)
 		m_maxBox = 20;
 		m_bRepeat = FALSE;
 	}
-	if ( m_object->RetStrong() < 0.0f )  // blupi englué ?
+	if ( m_object->RetStrong() < 0.0f )  // blupi engluï¿½ ?
 	{
 		m_maxBox = 1;
 		m_bRepeat = FALSE;
@@ -434,7 +433,7 @@ Error CTaskPush::Start(int part, int nbTiles)
 	m_startPos = m_object->RetPosition(0);
 
 	// Si blupi est dans un tunnel, interdit de pousser une caisse
-	// située à côté du tunnel (perpendiculairement au tunnel) !
+	// situï¿½e ï¿½ cï¿½tï¿½ du tunnel (perpendiculairement au tunnel) !
 	lz = m_terrain->RetLockZone(m_startPos, TRUE);
 	if ( lz == LZ_TUNNELh && part%2 == 0 )
 	{
@@ -530,7 +529,7 @@ Error CTaskPush::Start(int part, int nbTiles)
 	}
 	m_goalPos.y = 0.0f+m_object->RetCharacter()->height;
 
-	if ( (m_pBox[0]->RetType() == OBJECT_BOX7 ||    // sphère ?
+	if ( (m_pBox[0]->RetType() == OBJECT_BOX7 ||    // sphï¿½re ?
 		  m_pBox[0]->RetType() == OBJECT_BOX13) &&  // cca ?
 		 m_totalBox == 1 )
 	{
@@ -615,7 +614,7 @@ Error CTaskPush::Start(int part, int nbTiles)
 		m_bImpossible = !IsPosFree(RetBoxGoalPos(m_totalBox-1));
 	}
 
-	// Vérifie si les caisses à pousser sont compatibles avec le pousseur.
+	// Vï¿½rifie si les caisses ï¿½ pousser sont compatibles avec le pousseur.
 	if ( !m_bImpossible && !IsPusherAdhoc() )
 	{
 		m_bImpossible = TRUE;
@@ -728,11 +727,11 @@ Error CTaskPush::Start(int part, int nbTiles)
 	return ERR_OK;
 }
 
-// (*)	< 0.5 pour que m_terrain->SetZoneLock() libère toujours
-//		la case initiale où est la mine !
+// (*)	< 0.5 pour que m_terrain->SetZoneLock() libï¿½re toujours
+//		la case initiale oï¿½ est la mine !
 
 
-// Indique si l'action est terminée.
+// Indique si l'action est terminï¿½e.
 
 Error CTaskPush::IsEnded()
 {
@@ -752,7 +751,7 @@ Error CTaskPush::IsEnded()
 		return ERR_CONTINUE;
 	}
 
-	if ( m_phase == TPU_ROLL )  // roule une sphère ?
+	if ( m_phase == TPU_ROLL )  // roule une sphï¿½re ?
 	{
 		if ( m_type == OBJECT_BLUPI )
 		{
@@ -768,13 +767,13 @@ Error CTaskPush::IsEnded()
 	{
 		m_object->SetStrong(0.0f);
 
-		if ( m_bMine )  // arrivée sur une mine ?
+		if ( m_bMine )  // arrivï¿½e sur une mine ?
 		{
 			pyro = new CPyro(m_iMan);
 			pyro->Create(PT_FRAGT, m_pMine);  // destruction mine
 
 			i = m_totalBox-1;
-			m_pBox[i]->DeletePart(1);  // supprime les flèches
+			m_pBox[i]->DeletePart(1);  // supprime les flï¿½ches
 			m_pBox[i]->DeletePart(2);
 			m_pBox[i]->DeletePart(3);
 			m_pBox[i]->DeletePart(4);
@@ -785,14 +784,14 @@ Error CTaskPush::IsEnded()
 			if ( m_type == OBJECT_BLUPI )
 			{
 				m_sound->Play(SOUND_BLUPIouaou, m_object->RetPosition(0), 1.0f);
-				StartAction(MBLUPI_AMAZE);  // étonné
+				StartAction(MBLUPI_AMAZE);  // ï¿½tonnï¿½
 			}
 		}
 		else if ( m_bImpossible )  // impossible de pousser ?
 		{
 			StartAction(MBLUPI_ERROR);
 		}
-		else if ( m_bHole )  // arrivée dans un trou ?
+		else if ( m_bHole )  // arrivï¿½e dans un trou ?
 		{
 			if ( m_bColomnFall )  // colonne ?
 			{
@@ -817,7 +816,7 @@ Error CTaskPush::IsEnded()
 				{
 					m_sound->Play(SOUND_BLUPIohhh, m_object->RetPosition(0), 1.0f);
 					StartAction(MBLUPI_WALK);
-					StartAction(MBLUPI_AMAZE);  // étonné
+					StartAction(MBLUPI_AMAZE);  // ï¿½tonnï¿½
 				}
 
 				for ( i=0 ; i<m_totalBox ; i++ )
@@ -829,7 +828,7 @@ Error CTaskPush::IsEnded()
 				}
 
 				i = m_totalBox-1;
-				m_pBox[i]->DeletePart(1);  // supprime les flèches
+				m_pBox[i]->DeletePart(1);  // supprime les flï¿½ches
 				m_pBox[i]->DeletePart(2);
 				m_pBox[i]->DeletePart(3);
 				m_pBox[i]->DeletePart(4);
@@ -843,7 +842,7 @@ Error CTaskPush::IsEnded()
 				if ( m_bBoum )  // objet fragile ?
 				{
 					i = m_totalBox-1;
-					m_pBox[i]->DeletePart(1);  // supprime les flèches
+					m_pBox[i]->DeletePart(1);  // supprime les flï¿½ches
 					m_pBox[i]->DeletePart(2);
 					m_pBox[i]->DeletePart(3);
 					m_pBox[i]->DeletePart(4);
@@ -854,7 +853,7 @@ Error CTaskPush::IsEnded()
 					if ( m_type == OBJECT_BLUPI )
 					{
 						m_sound->Play(SOUND_BLUPIgrrr, m_object->RetPosition(0), 1.0f);
-						StartAction(MBLUPI_AMAZE);  // étonné
+						StartAction(MBLUPI_AMAZE);  // ï¿½tonnï¿½
 					}
 				}
 				else	// caisse normale ?
@@ -867,7 +866,7 @@ Error CTaskPush::IsEnded()
 				}
 			}
 		}
-		else	// arrivée sur sol plat ?
+		else	// arrivï¿½e sur sol plat ?
 		{
 			if ( m_bRepeat && !m_bStop )
 			{
@@ -919,7 +918,7 @@ BOOL CTaskPush::Stop()
 }
 
 
-// Vérifie si les caisses à pousser sont compatibles avec le pousseur.
+// Vï¿½rifie si les caisses ï¿½ pousser sont compatibles avec le pousseur.
   
 BOOL CTaskPush::IsPusherAdhoc()
 {
@@ -985,7 +984,7 @@ BOOL CTaskPush::IsPusherAdhoc()
 }
 
 
-// Bloque toute la zone des opérations.
+// Bloque toute la zone des opï¿½rations.
 
 void CTaskPush::SetLockZone(BOOL bLock)
 {
@@ -1036,7 +1035,7 @@ D3DVECTOR CTaskPush::RetBoxStartPos(int rank)
 	return m_boxStartPos+(m_boxGoalPos-m_boxStartPos)*(float)rank;
 }
 
-// Retourne la position d'arrivée d'une caisse.
+// Retourne la position d'arrivï¿½e d'une caisse.
 
 D3DVECTOR CTaskPush::RetBoxGoalPos(int rank)
 {
@@ -1060,9 +1059,9 @@ CObject* CTaskPush::SearchBox(D3DVECTOR center, float radius)
 	{
 		pObj = (CObject*)m_iMan->SearchInstance(CLASS_OBJECT, i);
 		if ( pObj == 0 )  break;
-		if ( pObj == m_object )  continue;  // soi-même ?
+		if ( pObj == m_object )  continue;  // soi-mï¿½me ?
 		if ( pObj->RetExplo() )  continue;
-		if ( pObj->RetLock() )  continue;  // déjà stoppé ?
+		if ( pObj->RetLock() )  continue;  // dï¿½jï¿½ stoppï¿½ ?
 		if ( !pObj->RetEnable() )  continue;
 
 		type = pObj->RetType();
@@ -1099,7 +1098,7 @@ CObject* CTaskPush::SearchObject(D3DVECTOR center, float radius)
 		if ( pObj == 0 )  break;
 
 		if ( pObj->RetExplo() )  continue;
-		if ( pObj->RetLock() )  continue;  // déjà stoppé ?
+		if ( pObj->RetLock() )  continue;  // dï¿½jï¿½ stoppï¿½ ?
 		if ( !pObj->RetEnable() )  continue;
 
 		type = pObj->RetType();
@@ -1133,7 +1132,7 @@ void CTaskPush::JostlePlant(D3DVECTOR center)
 		if ( pObj == 0 )  break;
 
 		if ( pObj->RetExplo() )  continue;
-		if ( pObj->RetLock() )  continue;  // déjà stoppé ?
+		if ( pObj->RetLock() )  continue;  // dï¿½jï¿½ stoppï¿½ ?
 
 		type = pObj->RetType();
 
@@ -1213,14 +1212,14 @@ D3DVECTOR CTaskPush::RetAngleFreeFall(float angle)
 
 	angle3D = D3DVECTOR(0.0f, 0.0f, 0.0f);
 
-	// Si nécessaire, calcule l'amplitude de la rotation
-	// latérale de la caisse.
+	// Si nï¿½cessaire, calcule l'amplitude de la rotation
+	// latï¿½rale de la caisse.
 	if ( m_randFreeFall == NAN )
 	{
 		m_randFreeFall = 0.0f;
 		pos = RetBoxGoalPos(m_totalBox-1);
 
-		if ( m_part%2 == 1 )  // flèche ouest/est ?
+		if ( m_part%2 == 1 )  // flï¿½che ouest/est ?
 		{
 			if ( rand()%2 == 0 )
 			{
@@ -1237,7 +1236,7 @@ D3DVECTOR CTaskPush::RetAngleFreeFall(float angle)
 				if ( IsSpace(pos) )  m_randFreeFall = 1.0f;
 			}
 		}
-		else	// flèche nord/sud ?
+		else	// flï¿½che nord/sud ?
 		{
 			if ( rand()%2 == 0 )
 			{
@@ -1257,26 +1256,26 @@ D3DVECTOR CTaskPush::RetAngleFreeFall(float angle)
 	}
 
 	// Calcule l'angle (x;z) de la caisse selon le
-	// sens dans lequel elle est poussée.
-	if ( m_part == 1 || m_part == 5 )  // flèche ouest ?
+	// sens dans lequel elle est poussï¿½e.
+	if ( m_part == 1 || m_part == 5 )  // flï¿½che ouest ?
 	{
 		angle3D.z = -angle;
 		angle3D.x =  angle*0.2f*m_randFreeFall;
 	}
 
-	if ( m_part == 2 || m_part == 6 )  // flèche nord ?
+	if ( m_part == 2 || m_part == 6 )  // flï¿½che nord ?
 	{
 		angle3D.x = -angle;
 		angle3D.z =  angle*0.2f*m_randFreeFall;
 	}
 
-	if ( m_part == 3 || m_part == 7 )  // flèche est ?
+	if ( m_part == 3 || m_part == 7 )  // flï¿½che est ?
 	{
 		angle3D.z = angle;
 		angle3D.x = angle*0.2f*m_randFreeFall;
 	}
 
-	if ( m_part == 4 || m_part == 8 )  // flèche sud ?
+	if ( m_part == 4 || m_part == 8 )  // flï¿½che sud ?
 	{
 		angle3D.x = angle;
 		angle3D.z = angle*0.2f*m_randFreeFall;
@@ -1320,7 +1319,7 @@ void CTaskPush::AdaptBox(int i, const D3DVECTOR &pos)
 }
 
 
-// Démarre une action pour Blupi.
+// Dï¿½marre une action pour Blupi.
 
 void CTaskPush::StartAction(int action, float speed)
 {
@@ -1353,7 +1352,7 @@ void CTaskPush::StartAction(int action, float speed)
 	}
 }
 
-// Spécifie la progression pour une action pour Blupi.
+// Spï¿½cifie la progression pour une action pour Blupi.
 
 void CTaskPush::ProgressAction(float progress)
 {
@@ -1365,7 +1364,7 @@ void CTaskPush::ProgressAction(float progress)
 	motion->SetActionProgress(progress);
 }
 
-// Spécifie la vitesse linéaire pour une action pour Blupi.
+// Spï¿½cifie la vitesse linï¿½aire pour une action pour Blupi.
 
 void CTaskPush::ProgressLinSpeed(float speed)
 {
@@ -1377,7 +1376,7 @@ void CTaskPush::ProgressLinSpeed(float speed)
 	motion->SetActionLinSpeed(speed);
 }
 
-// Spécifie la vitesse circulaire pour une action pour Blupi.
+// Spï¿½cifie la vitesse circulaire pour une action pour Blupi.
 
 void CTaskPush::ProgressCirSpeed(float speed)
 {

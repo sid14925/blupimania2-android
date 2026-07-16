@@ -32,7 +32,6 @@
 CTaskCatapult::CTaskCatapult(CInstanceManager* iMan, CObject* object)
 					 : CTask(iMan, object)
 {
-	CTask::CTask(iMan, object);
 
 	m_time = 0.0f;
 	m_bError= TRUE;
@@ -45,7 +44,7 @@ CTaskCatapult::~CTaskCatapult()
 }
 
 
-// Gestion d'un événement.
+// Gestion d'un ï¿½vï¿½nement.
 
 BOOL CTaskCatapult::EventProcess(const Event &event)
 {
@@ -67,7 +66,7 @@ BOOL CTaskCatapult::EventProcess(const Event &event)
 		ad = (CAutoDock*)m_dock->RetAuto();
 		if ( ad != 0 )
 		{
-			if ( !ad->Start(m_part) )  // démarre la catapulte
+			if ( !ad->Start(m_part) )  // dï¿½marre la catapulte
 			{
 				StartAction(MBLUPI_ERROR);
 			}
@@ -78,7 +77,7 @@ BOOL CTaskCatapult::EventProcess(const Event &event)
 }
 
 
-// Assigne le but à atteindre.
+// Assigne le but ï¿½ atteindre.
 
 Error CTaskCatapult::Start(CObject *dock, int part)
 {
@@ -103,7 +102,7 @@ Error CTaskCatapult::Start(CObject *dock, int part)
 	return ERR_OK;
 }
 
-// Indique si l'action est terminée.
+// Indique si l'action est terminï¿½e.
 
 Error CTaskCatapult::IsEnded()
 {
@@ -123,7 +122,7 @@ Error CTaskCatapult::IsEnded()
 }
 
 
-// Démarre une action pour Blupi.
+// Dï¿½marre une action pour Blupi.
 
 void CTaskCatapult::StartAction(int action, float speed)
 {

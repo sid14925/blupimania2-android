@@ -35,7 +35,6 @@
 CTaskAdvance::CTaskAdvance(CInstanceManager* iMan, CObject* object)
 						   : CTask(iMan, object)
 {
-	CTask::CTask(iMan, object);
 }
 
 // Destructeur de l'objet.
@@ -45,7 +44,7 @@ CTaskAdvance::~CTaskAdvance()
 }
 
 
-// Gestion d'un événement.
+// Gestion d'un ï¿½vï¿½nement.
 
 BOOL CTaskAdvance::EventProcess(const Event &event)
 {
@@ -108,11 +107,11 @@ BOOL CTaskAdvance::EventProcess(const Event &event)
 }
 
 
-// Assigne le but à atteindre.
-// Le mode bNoError=TRUE est utilisé lorsque la tâche est créée
-// suite à un Undo. Dans ce cas, la position d'arrivée m_goalPos
-// peut être occupée selon IsPosFree par le robot lui-même. Et
-// il ne faut pas la considérer comme occupée !
+// Assigne le but ï¿½ atteindre.
+// Le mode bNoError=TRUE est utilisï¿½ lorsque la tï¿½che est crï¿½ï¿½e
+// suite ï¿½ un Undo. Dans ce cas, la position d'arrivï¿½e m_goalPos
+// peut ï¿½tre occupï¿½e selon IsPosFree par le robot lui-mï¿½me. Et
+// il ne faut pas la considï¿½rer comme occupï¿½e !
 
 Error CTaskAdvance::Start(float length, BOOL bNoError)
 {
@@ -236,7 +235,7 @@ Error CTaskAdvance::Start(float length, BOOL bNoError)
 //		m_object->SetLock(TRUE);
 	}
 
-	// La position de start est déjà lock.
+	// La position de start est dï¿½jï¿½ lock.
 	m_terrain->SetLockZone(m_goalPos, LZ_BOT);
 
 	if ( m_bFall )
@@ -254,7 +253,7 @@ Error CTaskAdvance::Start(float length, BOOL bNoError)
 	return ERR_OK;
 }
 
-// Indique si l'action est terminée.
+// Indique si l'action est terminï¿½e.
 
 Error CTaskAdvance::IsEnded()
 {
@@ -295,7 +294,7 @@ Error CTaskAdvance::IsEnded()
 
 	if ( m_moveDist >= m_moveAbs )
 	{
-		// On laisse lock la position d'arrivée.
+		// On laisse lock la position d'arrivï¿½e.
 		m_terrain->SetLockZone(m_startPos, LZ_FREE);
 
 		if ( m_type != OBJECT_CRAZY )
@@ -332,7 +331,7 @@ Error CTaskAdvance::IsEnded()
 			ProgressLinSpeed(0.0f);
 			ProgressCirSpeed(0.0f);
 
-			m_object->SetLock(TRUE);  // l'instruction "islock" le détecte !
+			m_object->SetLock(TRUE);  // l'instruction "islock" le dï¿½tecte !
 			m_object->StartTaskList(TO_GOAL, m_goalPos, m_pGoal, 0, 0.0f);
 		}
 
@@ -374,7 +373,7 @@ CObject* CTaskAdvance::SearchObject(D3DVECTOR center, float radius)
 		if ( pObj == 0 )  break;
 
 		if ( pObj->RetExplo() )  continue;
-		if ( pObj->RetLock() )  continue;  // déjà stoppé ?
+		if ( pObj->RetLock() )  continue;  // dï¿½jï¿½ stoppï¿½ ?
 		if ( !pObj->RetEnable() )  continue;
 
 		type = pObj->RetType();
@@ -412,7 +411,7 @@ BOOL CTaskAdvance::IsPosFree(D3DVECTOR center)
 }
 
 
-// Spécifie la vitesse linéaire pour une action pour Blupi.
+// Spï¿½cifie la vitesse linï¿½aire pour une action pour Blupi.
 
 void CTaskAdvance::ProgressLinSpeed(float speed)
 {
@@ -424,7 +423,7 @@ void CTaskAdvance::ProgressLinSpeed(float speed)
 	motion->SetActionLinSpeed(speed);
 }
 
-// Spécifie la vitesse circulaire pour une action pour Blupi.
+// Spï¿½cifie la vitesse circulaire pour une action pour Blupi.
 
 void CTaskAdvance::ProgressCirSpeed(float speed)
 {
@@ -457,7 +456,7 @@ void CTaskAdvance::ReadSituation()
 	m_undo->ReadTokenPos("goal", m_goalPos);
 }
 
-// Démarre une action pour un objet.
+// Dï¿½marre une action pour un objet.
 
 void CTaskAdvance::StartAction(CObject* pObj, int action)
 {

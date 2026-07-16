@@ -22,7 +22,6 @@
 
 CShortcut::CShortcut(CInstanceManager* iMan) : CControl(iMan)
 {
-	CControl::CControl(iMan);
 	m_time = 0.0f;
 }
 
@@ -34,7 +33,7 @@ CShortcut::~CShortcut()
 }
 
 
-// Crée un nouveau bouton.
+// Crï¿½e un nouveau bouton.
 
 BOOL CShortcut::Create(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg)
 {
@@ -45,7 +44,7 @@ BOOL CShortcut::Create(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg)
 }
 
 
-// Gestion d'un événement.
+// Gestion d'un ï¿½vï¿½nement.
 
 BOOL CShortcut::EventProcess(const Event &event)
 {

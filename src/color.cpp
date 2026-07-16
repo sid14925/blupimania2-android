@@ -27,7 +27,6 @@
 
 CColor::CColor(CInstanceManager* iMan) : CControl(iMan)
 {
-	CControl::CControl(iMan);
 
 	m_bRepeat = FALSE;
 	m_repeat = 0.0f;
@@ -46,7 +45,7 @@ CColor::~CColor()
 }
 
 
-// Crée un nouveau bouton.
+// Crï¿½e un nouveau bouton.
 
 BOOL CColor::Create(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg)
 {
@@ -69,7 +68,7 @@ BOOL CColor::Create(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg)
 }
 
 
-// Gestion d'un événement.
+// Gestion d'un ï¿½vï¿½nement.
 
 BOOL CColor::EventProcess(const Event &event)
 {

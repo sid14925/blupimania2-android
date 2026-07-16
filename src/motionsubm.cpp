@@ -33,7 +33,6 @@
 CMotionSubm::CMotionSubm(CInstanceManager* iMan, CObject* object)
 							  : CMotion(iMan, object)
 {
-	CMotion::CMotion(iMan, object);
 
 	m_level = m_water->RetLevel();
 
@@ -58,7 +57,7 @@ void CMotionSubm::DeleteObject(BOOL bAll)
 }
 
 
-// Démarre une action spéciale.
+// Dï¿½marre une action spï¿½ciale.
 
 Error CMotionSubm::SetAction(int action, float time)
 {
@@ -66,21 +65,21 @@ Error CMotionSubm::SetAction(int action, float time)
 }
 
 
-// Retourne la vitesse linéaire.
+// Retourne la vitesse linï¿½aire.
 
 float CMotionSubm::RetLinSpeed()
 {
 	return 5.0f;
 }
 
-// Retourne la vitesse linéaire.
+// Retourne la vitesse linï¿½aire.
 
 float CMotionSubm::RetCirSpeed()
 {
 	return 0.5f*PI;
 }
 
-// Retourne la distance linéaire de freinage.
+// Retourne la distance linï¿½aire de freinage.
 
 float CMotionSubm::RetLinStopLength()
 {
@@ -88,7 +87,7 @@ float CMotionSubm::RetLinStopLength()
 }
 
 
-// Crée un oiseau.
+// Crï¿½e un oiseau.
 
 BOOL CMotionSubm::Create(D3DVECTOR pos, float angle, ObjectType type)
 {
@@ -100,7 +99,7 @@ BOOL CMotionSubm::Create(D3DVECTOR pos, float angle, ObjectType type)
 	m_object->SetType(type);
 	pModFile = new CModFile(m_iMan);
 
-	// Crée l'objet principal.
+	// Crï¿½e l'objet principal.
 	rank = m_engine->CreateObject();
 	m_engine->SetObjectType(rank, TYPEMETAL);  // c'est un objet fixe
 	m_object->SetObjectRank(0, rank);
@@ -117,7 +116,7 @@ BOOL CMotionSubm::Create(D3DVECTOR pos, float angle, ObjectType type)
 }
 
 
-// Gestion d'un événement.
+// Gestion d'un ï¿½vï¿½nement.
 
 BOOL CMotionSubm::EventProcess(const Event &event)
 {
@@ -131,7 +130,7 @@ BOOL CMotionSubm::EventProcess(const Event &event)
 	return TRUE;
 }
 
-// Gestion d'un événement.
+// Gestion d'un ï¿½vï¿½nement.
 
 BOOL CMotionSubm::EventFrame(const Event &event)
 {

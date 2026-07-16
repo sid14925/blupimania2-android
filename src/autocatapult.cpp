@@ -36,7 +36,6 @@
 CAutoCatapult::CAutoCatapult(CInstanceManager* iMan, CObject* object)
 						 : CAuto(iMan, object)
 {
-	CAuto::CAuto(iMan, object);
 
 	Init();
 }
@@ -49,7 +48,7 @@ CAutoCatapult::~CAutoCatapult()
 }
 
 
-// Détruit l'objet.
+// Dï¿½truit l'objet.
 
 void CAutoCatapult::DeleteObject(BOOL bAll)
 {
@@ -73,14 +72,14 @@ void CAutoCatapult::Init()
 }
 
 
-// Démarre l'objet.
+// Dï¿½marre l'objet.
 
 BOOL CAutoCatapult::Start(int part)
 {
 	CTaskList*	taskList;
 	D3DVECTOR	pos;
 
-	if ( m_phase != ACAP_WAIT )  return FALSE;  // occupé ?
+	if ( m_phase != ACAP_WAIT )  return FALSE;  // occupï¿½ ?
 
 	if ( part == 1 )  // bouton action ?
 	{
@@ -137,13 +136,13 @@ BOOL CAutoCatapult::Start(int part)
 		}
 	}
 
-	if ( m_phase == ACAP_WAIT )  return FALSE;  // rien démarré ?
+	if ( m_phase == ACAP_WAIT )  return FALSE;  // rien dï¿½marrï¿½ ?
 
 	return TRUE;
 }
 
 
-// Gestion d'un événement.
+// Gestion d'un ï¿½vï¿½nement.
 
 BOOL CAutoCatapult::EventProcess(const Event &event)
 {
@@ -273,7 +272,7 @@ BOOL CAutoCatapult::EventProcess(const Event &event)
 		}
 	}
 
-	if ( m_phase == ACAP_RETURN )  // marteau au départ ?
+	if ( m_phase == ACAP_RETURN )  // marteau au dï¿½part ?
 	{
 		angle = m_hammerAngle[3]+(m_hammerAngle[4]-m_hammerAngle[3])*progress;
 		m_object->SetAngleZ(2, angle);
@@ -324,7 +323,7 @@ BOOL CAutoCatapult::IsRunning()
 }
 
 
-// Retourne une erreur liée à l'état de l'automate.
+// Retourne une erreur liï¿½e ï¿½ l'ï¿½tat de l'automate.
 
 Error CAutoCatapult::RetError()
 {
@@ -332,7 +331,7 @@ Error CAutoCatapult::RetError()
 }
 
 
-// Bloque/débloque toute la zone de catapultage.
+// Bloque/dï¿½bloque toute la zone de catapultage.
 
 void CAutoCatapult::LockZone(BOOL bLock)
 {
@@ -351,8 +350,8 @@ void CAutoCatapult::LockZone(BOOL bLock)
 		dist += 8.0f;
 	}
 #else
-// Finalement, on ne s'occupe que des positions de départ et
-// d'arrivée, pour permettre de survoller une trappe sans qu'elle
+// Finalement, on ne s'occupe que des positions de dï¿½part et
+// d'arrivï¿½e, pour permettre de survoller une trappe sans qu'elle
 // ne s'ouvre !
 	D3DVECTOR	pos;
 
@@ -395,7 +394,7 @@ float CAutoCatapult::CalcDistFactor()
 }
 
 // Calcule une position dans l'axe de la catapulte.
-// Une valeur positive correspond à la direction de lancement.
+// Une valeur positive correspond ï¿½ la direction de lancement.
 
 D3DVECTOR CAutoCatapult::CalcPosition(float dist)
 {
@@ -421,7 +420,7 @@ CObject* CAutoCatapult::SearchObject(D3DVECTOR center, float radius)
 	{
 		pObj = (CObject*)m_iMan->SearchInstance(CLASS_OBJECT, i);
 		if ( pObj == 0 )  break;
-		if ( pObj == m_object )  continue;  // soi-même ?
+		if ( pObj == m_object )  continue;  // soi-mï¿½me ?
 		if ( pObj->RetLock() )  continue;
 		if ( !pObj->RetEnable() )  continue;
 

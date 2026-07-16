@@ -35,7 +35,6 @@
 CAutoFlash::CAutoFlash(CInstanceManager* iMan, CObject* object)
 						 : CAuto(iMan, object)
 {
-	CAuto::CAuto(iMan, object);
 
 	Init();
 }
@@ -47,7 +46,7 @@ CAutoFlash::~CAutoFlash()
 }
 
 
-// Détruit l'objet.
+// Dï¿½truit l'objet.
 
 void CAutoFlash::DeleteObject(BOOL bAll)
 {
@@ -150,7 +149,7 @@ void CAutoFlash::Init()
 }
 
 
-// Démarre l'objet.
+// Dï¿½marre l'objet.
 
 BOOL CAutoFlash::Start(int part)
 {
@@ -158,7 +157,7 @@ BOOL CAutoFlash::Start(int part)
 }
 
 
-// Gestion d'un événement.
+// Gestion d'un ï¿½vï¿½nement.
 
 BOOL CAutoFlash::EventProcess(const Event &event)
 {
@@ -235,7 +234,7 @@ BOOL CAutoFlash::Abort()
 }
 
 
-// Retourne une erreur liée à l'état de l'automate.
+// Retourne une erreur liï¿½e ï¿½ l'ï¿½tat de l'automate.
 
 Error CAutoFlash::RetError()
 {

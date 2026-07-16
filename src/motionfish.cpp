@@ -37,7 +37,6 @@
 CMotionFish::CMotionFish(CInstanceManager* iMan, CObject* object)
 							  : CMotion(iMan, object)
 {
-	CMotion::CMotion(iMan, object);
 
 	m_level = m_water->RetLevel();
 
@@ -60,7 +59,7 @@ void CMotionFish::DeleteObject(BOOL bAll)
 }
 
 
-// Démarre une action spéciale.
+// Dï¿½marre une action spï¿½ciale.
 
 Error CMotionFish::SetAction(int action, float time)
 {
@@ -68,21 +67,21 @@ Error CMotionFish::SetAction(int action, float time)
 }
 
 
-// Retourne la vitesse linéaire.
+// Retourne la vitesse linï¿½aire.
 
 float CMotionFish::RetLinSpeed()
 {
 	return 5.0f;
 }
 
-// Retourne la vitesse linéaire.
+// Retourne la vitesse linï¿½aire.
 
 float CMotionFish::RetCirSpeed()
 {
 	return 0.5f*PI;
 }
 
-// Retourne la distance linéaire de freinage.
+// Retourne la distance linï¿½aire de freinage.
 
 float CMotionFish::RetLinStopLength()
 {
@@ -90,7 +89,7 @@ float CMotionFish::RetLinStopLength()
 }
 
 
-// Crée un oiseau.
+// Crï¿½e un oiseau.
 
 BOOL CMotionFish::Create(D3DVECTOR pos, float angle, ObjectType type)
 {
@@ -102,7 +101,7 @@ BOOL CMotionFish::Create(D3DVECTOR pos, float angle, ObjectType type)
 	m_object->SetType(type);
 	pModFile = new CModFile(m_iMan);
 
-	// Crée l'objet principal.
+	// Crï¿½e l'objet principal.
 	rank = m_engine->CreateObject();
 	m_engine->SetObjectType(rank, TYPEOBJECT);  // c'est un objet fixe
 	m_object->SetObjectRank(0, rank);
@@ -121,7 +120,7 @@ BOOL CMotionFish::Create(D3DVECTOR pos, float angle, ObjectType type)
 }
 
 
-// Gestion d'un événement.
+// Gestion d'un ï¿½vï¿½nement.
 
 BOOL CMotionFish::EventProcess(const Event &event)
 {
@@ -135,7 +134,7 @@ BOOL CMotionFish::EventProcess(const Event &event)
 	return TRUE;
 }
 
-// Gestion d'un événement.
+// Gestion d'un ï¿½vï¿½nement.
 
 BOOL CMotionFish::EventFrame(const Event &event)
 {
@@ -197,7 +196,7 @@ BOOL CMotionFish::EventFrame(const Event &event)
 				pos.y = m_water->RetLevel()-1.0f;
 				force = 1.0f+(m_height-12.0f)/10.0f;
 				dim.x = 2.0f*force;  // hauteur
-				dim.y = 1.0f*force;  // diamètre
+				dim.y = 1.0f*force;  // diamï¿½tre
 				duration = 1.4f;
 				m_particule->CreateParticule(pos, D3DVECTOR(0.0f, 0.0f, 0.0f), dim, PARTIPLOUF0, duration, 0.0f);
 
@@ -209,7 +208,7 @@ BOOL CMotionFish::EventFrame(const Event &event)
 					pos.y = m_water->RetLevel()-1.0f;
 					force = 1.0f+Rand()*1.0f;
 					dim.x = 1.0f*force;  // hauteur
-					dim.y = 0.5f*force;  // diamètre
+					dim.y = 0.5f*force;  // diamï¿½tre
 					duration = 0.8f+Rand()*1.0f;
 					m_particule->CreateParticule(pos, D3DVECTOR(0.0f, 0.0f, 0.0f), dim, PARTIPLOUF0, duration, 0.0f);
 
@@ -233,7 +232,7 @@ BOOL CMotionFish::EventFrame(const Event &event)
 				pos.y = m_water->RetLevel()-1.0f;
 				force = 1.0f+(m_height-12.0f)/10.0f;
 				dim.x = 4.0f*force;  // hauteur
-				dim.y = 2.0f*force;  // diamètre
+				dim.y = 2.0f*force;  // diamï¿½tre
 				duration = 1.4f;
 				m_particule->CreateParticule(pos, D3DVECTOR(0.0f, 0.0f, 0.0f), dim, PARTIPLOUF0, duration, 0.0f);
 
@@ -245,7 +244,7 @@ BOOL CMotionFish::EventFrame(const Event &event)
 					pos.y = m_water->RetLevel()-1.0f;
 					force = 1.0f+Rand()*1.0f;
 					dim.x = 1.0f*force;  // hauteur
-					dim.y = 0.5f*force;  // diamètre
+					dim.y = 0.5f*force;  // diamï¿½tre
 					duration = 0.8f+Rand()*1.0f;
 					m_particule->CreateParticule(pos, D3DVECTOR(0.0f, 0.0f, 0.0f), dim, PARTIPLOUF0, duration, 0.0f);
 

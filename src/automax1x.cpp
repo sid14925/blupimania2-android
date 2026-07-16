@@ -36,7 +36,6 @@
 CAutoMax1x::CAutoMax1x(CInstanceManager* iMan, CObject* object)
 						 : CAuto(iMan, object)
 {
-	CAuto::CAuto(iMan, object);
 
 	Init();
 }
@@ -48,7 +47,7 @@ CAutoMax1x::~CAutoMax1x()
 }
 
 
-// Détruit l'objet.
+// Dï¿½truit l'objet.
 
 void CAutoMax1x::DeleteObject(BOOL bAll)
 {
@@ -75,7 +74,7 @@ void CAutoMax1x::Init()
 }
 
 
-// Démarre l'objet.
+// Dï¿½marre l'objet.
 
 BOOL CAutoMax1x::Start(int part)
 {
@@ -83,7 +82,7 @@ BOOL CAutoMax1x::Start(int part)
 }
 
 
-// Gestion d'un événement.
+// Gestion d'un ï¿½vï¿½nement.
 
 BOOL CAutoMax1x::EventProcess(const Event &event)
 {
@@ -162,7 +161,7 @@ BOOL CAutoMax1x::EventProcess(const Event &event)
 		}
 		else
 		{
-			m_object->SetHide(0, TRUE);   // portes fermées
+			m_object->SetHide(0, TRUE);   // portes fermï¿½es
 			m_object->SetHide(1, FALSE);  // porte gauche
 			m_object->SetHide(2, FALSE);  // porte droite
 			m_object->SetHide(3, FALSE);  // support 1
@@ -269,7 +268,7 @@ BOOL CAutoMax1x::Abort()
 }
 
 
-// Retourne une erreur liée à l'état de l'automate.
+// Retourne une erreur liï¿½e ï¿½ l'ï¿½tat de l'automate.
 
 Error CAutoMax1x::RetError()
 {
@@ -326,7 +325,7 @@ void CAutoMax1x::ReadSituation()
 		{
 			m_engine->SetObjectType(m_object->RetObjectRank(0), TYPETERRAIN);
 
-			m_object->SetHide(0, FALSE);  // portes fermées
+			m_object->SetHide(0, FALSE);  // portes fermï¿½es
 			m_object->SetHide(1, TRUE);   // porte gauche
 			m_object->SetHide(2, TRUE);   // porte droite
 			m_object->SetHide(3, TRUE);   // support 1

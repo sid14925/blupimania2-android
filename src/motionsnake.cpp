@@ -37,7 +37,6 @@
 CMotionSnake::CMotionSnake(CInstanceManager* iMan, CObject* object)
 							  : CMotion(iMan, object)
 {
-	CMotion::CMotion(iMan, object);
 
 	m_level = m_water->RetLevel();
 
@@ -60,7 +59,7 @@ void CMotionSnake::DeleteObject(BOOL bAll)
 }
 
 
-// Démarre une action spéciale.
+// Dï¿½marre une action spï¿½ciale.
 
 Error CMotionSnake::SetAction(int action, float time)
 {
@@ -68,21 +67,21 @@ Error CMotionSnake::SetAction(int action, float time)
 }
 
 
-// Retourne la vitesse linéaire.
+// Retourne la vitesse linï¿½aire.
 
 float CMotionSnake::RetLinSpeed()
 {
 	return 5.0f;
 }
 
-// Retourne la vitesse linéaire.
+// Retourne la vitesse linï¿½aire.
 
 float CMotionSnake::RetCirSpeed()
 {
 	return 0.5f*PI;
 }
 
-// Retourne la distance linéaire de freinage.
+// Retourne la distance linï¿½aire de freinage.
 
 float CMotionSnake::RetLinStopLength()
 {
@@ -90,7 +89,7 @@ float CMotionSnake::RetLinStopLength()
 }
 
 
-// Crée un oiseau.
+// Crï¿½e un oiseau.
 
 BOOL CMotionSnake::Create(D3DVECTOR pos, float angle, ObjectType type)
 {
@@ -102,7 +101,7 @@ BOOL CMotionSnake::Create(D3DVECTOR pos, float angle, ObjectType type)
 	m_object->SetType(type);
 	pModFile = new CModFile(m_iMan);
 
-	// Crée l'objet principal.
+	// Crï¿½e l'objet principal.
 	rank = m_engine->CreateObject();
 	m_engine->SetObjectType(rank, TYPEOBJECT);  // c'est un objet fixe
 	m_object->SetObjectRank(0, rank);
@@ -121,7 +120,7 @@ BOOL CMotionSnake::Create(D3DVECTOR pos, float angle, ObjectType type)
 }
 
 
-// Gestion d'un événement.
+// Gestion d'un ï¿½vï¿½nement.
 
 BOOL CMotionSnake::EventProcess(const Event &event)
 {
@@ -135,7 +134,7 @@ BOOL CMotionSnake::EventProcess(const Event &event)
 	return TRUE;
 }
 
-// Gestion d'un événement.
+// Gestion d'un ï¿½vï¿½nement.
 
 BOOL CMotionSnake::EventFrame(const Event &event)
 {

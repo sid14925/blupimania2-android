@@ -35,7 +35,6 @@
 CAutoFiole::CAutoFiole(CInstanceManager* iMan, CObject* object)
 						 : CAuto(iMan, object)
 {
-	CAuto::CAuto(iMan, object);
 
 	Init();
 }
@@ -47,7 +46,7 @@ CAutoFiole::~CAutoFiole()
 }
 
 
-// Détruit l'objet.
+// Dï¿½truit l'objet.
 
 void CAutoFiole::DeleteObject(BOOL bAll)
 {
@@ -68,7 +67,7 @@ void CAutoFiole::Init()
 }
 
 
-// Démarre l'objet.
+// Dï¿½marre l'objet.
 
 BOOL CAutoFiole::Start(int part)
 {
@@ -76,7 +75,7 @@ BOOL CAutoFiole::Start(int part)
 }
 
 
-// Gestion d'un événement.
+// Gestion d'un ï¿½vï¿½nement.
 
 BOOL CAutoFiole::EventProcess(const Event &event)
 {
@@ -148,7 +147,7 @@ BOOL CAutoFiole::Abort()
 }
 
 
-// Retourne une erreur liée à l'état de l'automate.
+// Retourne une erreur liï¿½e ï¿½ l'ï¿½tat de l'automate.
 
 Error CAutoFiole::RetError()
 {

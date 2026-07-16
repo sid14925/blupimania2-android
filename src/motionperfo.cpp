@@ -32,7 +32,6 @@
 CMotionPerfo::CMotionPerfo(CInstanceManager* iMan, CObject* object)
 							  : CMotion(iMan, object)
 {
-	CMotion::CMotion(iMan, object);
 
 	m_time = 0.0f;
 	m_lastParticule = 0.0f;
@@ -57,11 +56,11 @@ void CMotionPerfo::DeleteObject(BOOL bAll)
 }
 
 
-// Démarre une action spéciale.
+// Dï¿½marre une action spï¿½ciale.
 
 Error CMotionPerfo::SetAction(int action, float time)
 {
-	if ( time == 0.2f )  // valeur par défaut ?
+	if ( time == 0.2f )  // valeur par dï¿½faut ?
 	{
 		if ( action == MPERFO_ERROR )  time = 1.0f/1.50f;
 	}
@@ -87,28 +86,28 @@ Error CMotionPerfo::SetAction(int action, float time)
 }
 
 
-// Retourne la vitesse linéaire.
+// Retourne la vitesse linï¿½aire.
 
 float CMotionPerfo::RetLinSpeed()
 {
 	return 5.0f;
 }
 
-// Retourne la vitesse linéaire.
+// Retourne la vitesse linï¿½aire.
 
 float CMotionPerfo::RetCirSpeed()
 {
 	return 0.5f*PI;
 }
 
-// Retourne la distance linéaire de freinage.
+// Retourne la distance linï¿½aire de freinage.
 
 float CMotionPerfo::RetLinStopLength()
 {
 	return 2.0f;
 }
 
-// Spécifie la vitesse linéaire dans l'action.
+// Spï¿½cifie la vitesse linï¿½aire dans l'action.
 
 void CMotionPerfo::SetActionLinSpeed(float speed)
 {
@@ -116,7 +115,7 @@ void CMotionPerfo::SetActionLinSpeed(float speed)
 	m_lastParticulePerfo = 0.0f;
 }
 
-// Spécifie la vitesse circulaire dans l'action.
+// Spï¿½cifie la vitesse circulaire dans l'action.
 
 void CMotionPerfo::SetActionCirSpeed(float speed)
 {
@@ -125,7 +124,7 @@ void CMotionPerfo::SetActionCirSpeed(float speed)
 }
 
 
-// Crée une perforatrice quelconque posé sur le sol.
+// Crï¿½e une perforatrice quelconque posï¿½ sur le sol.
 
 BOOL CMotionPerfo::Create(D3DVECTOR pos, float angle, ObjectType type)
 {
@@ -137,7 +136,7 @@ BOOL CMotionPerfo::Create(D3DVECTOR pos, float angle, ObjectType type)
 	m_object->SetType(type);
 	pModFile = new CModFile(m_iMan);
 
-	// Crée la base principale.
+	// Crï¿½e la base principale.
 	rank = m_engine->CreateObject();
 	m_engine->SetObjectType(rank, TYPEOBJECT);  // c'est un objet fixe
 	m_object->SetObjectRank(0, rank);
@@ -146,7 +145,7 @@ BOOL CMotionPerfo::Create(D3DVECTOR pos, float angle, ObjectType type)
 	m_object->SetPosition(0, pos);
 	m_object->SetAngleY(0, angle);
 
-	// Crée la chenille droite.
+	// Crï¿½e la chenille droite.
 	rank = m_engine->CreateObject();
 	m_engine->SetObjectType(rank, TYPEDESCENDANT);
 	m_object->SetObjectRank(1, rank);
@@ -155,7 +154,7 @@ BOOL CMotionPerfo::Create(D3DVECTOR pos, float angle, ObjectType type)
 	pModFile->CreateEngineObject(rank);
 	m_object->SetPosition(1, D3DVECTOR(0.0f, 0.0f, -2.5f));
 
-	// Crée la chenille gauche.
+	// Crï¿½e la chenille gauche.
 	rank = m_engine->CreateObject();
 	m_engine->SetObjectType(rank, TYPEDESCENDANT);
 	m_object->SetObjectRank(2, rank);
@@ -164,7 +163,7 @@ BOOL CMotionPerfo::Create(D3DVECTOR pos, float angle, ObjectType type)
 	pModFile->CreateEngineObject(rank);
 	m_object->SetPosition(2, D3DVECTOR(0.0f, 0.0f, 2.5f));
 
-	// Crée le bouton "avance".
+	// Crï¿½e le bouton "avance".
 	rank = m_engine->CreateObject();
 	m_engine->SetObjectType(rank, TYPEDESCENDANT);
 	m_object->SetObjectRank(3, rank);
@@ -173,7 +172,7 @@ BOOL CMotionPerfo::Create(D3DVECTOR pos, float angle, ObjectType type)
 	pModFile->CreateEngineObject(rank);
 	m_object->SetPosition(3, D3DVECTOR(0.0f, 0.0f, 0.0f));
 
-	// Crée le bouton "gauche".
+	// Crï¿½e le bouton "gauche".
 	rank = m_engine->CreateObject();
 	m_engine->SetObjectType(rank, TYPEDESCENDANT);
 	m_object->SetObjectRank(4, rank);
@@ -182,7 +181,7 @@ BOOL CMotionPerfo::Create(D3DVECTOR pos, float angle, ObjectType type)
 	pModFile->CreateEngineObject(rank);
 	m_object->SetPosition(4, D3DVECTOR(0.0f, 0.0f, 0.0f));
 
-	// Crée le bouton "droite".
+	// Crï¿½e le bouton "droite".
 	rank = m_engine->CreateObject();
 	m_engine->SetObjectType(rank, TYPEDESCENDANT);
 	m_object->SetObjectRank(5, rank);
@@ -191,7 +190,7 @@ BOOL CMotionPerfo::Create(D3DVECTOR pos, float angle, ObjectType type)
 	pModFile->CreateEngineObject(rank);
 	m_object->SetPosition(5, D3DVECTOR(0.0f, 0.0f, 0.0f));
 
-	// Crée le perforateur.
+	// Crï¿½e le perforateur.
 	rank = m_engine->CreateObject();
 	m_engine->SetObjectType(rank, TYPEDESCENDANT);
 	m_object->SetObjectRank(6, rank);
@@ -219,7 +218,7 @@ BOOL CMotionPerfo::Create(D3DVECTOR pos, float angle, ObjectType type)
 }
 
 
-// Gestion d'un événement.
+// Gestion d'un ï¿½vï¿½nement.
 
 BOOL CMotionPerfo::EventProcess(const Event &event)
 {
@@ -233,7 +232,7 @@ BOOL CMotionPerfo::EventProcess(const Event &event)
 	return TRUE;
 }
 
-// Gestion d'un événement.
+// Gestion d'un ï¿½vï¿½nement.
 
 BOOL CMotionPerfo::EventFrame(const Event &event)
 {
@@ -296,7 +295,7 @@ BOOL CMotionPerfo::EventFrame(const Event &event)
 	// Particules du foret.
 	PerfoFrame(event.rTime);
 
-	// Fait fumer le pot d'échappement.
+	// Fait fumer le pot d'ï¿½chappement.
 	smoke = m_actionLinSpeed+Abs(m_actionCirSpeed);
 	error = 0.0f;
 	if ( m_actionType == MPERFO_ERROR )  error = 1.0f;
@@ -331,7 +330,7 @@ BOOL CMotionPerfo::EventFrame(const Event &event)
 }
 
 
-// Fait évoluer les particules.
+// Fait ï¿½voluer les particules.
 
 void CMotionPerfo::PerfoFrame(float rTime)
 {
@@ -394,7 +393,7 @@ void CMotionPerfo::PerfoFrame(float rTime)
 	}
 }
 
-// Fait évoluer les particules.
+// Fait ï¿½voluer les particules.
 
 void CMotionPerfo::ParticuleFrame(float rTime, float smoke, float error)
 {
@@ -434,7 +433,7 @@ void CMotionPerfo::ParticuleFrame(float rTime, float smoke, float error)
 	}
 }
 
-// Met à jour le mapping de la texture des chenilles.
+// Met ï¿½ jour le mapping de la texture des chenilles.
 
 void CMotionPerfo::UpdateTrackMapping(float left, float right)
 {
@@ -504,7 +503,7 @@ CObject* CMotionPerfo::SearchBox(D3DVECTOR center, float radius)
 	{
 		pObj = (CObject*)m_iMan->SearchInstance(CLASS_OBJECT, i);
 		if ( pObj == 0 )  break;
-		if ( pObj == m_object )  continue;  // soi-même ?
+		if ( pObj == m_object )  continue;  // soi-mï¿½me ?
 		if ( pObj->RetExplo() )  continue;
 		if ( pObj->RetLock() )  continue;
 		if ( !pObj->RetEnable() )  continue;

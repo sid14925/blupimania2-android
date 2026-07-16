@@ -36,7 +36,6 @@
 CMotionJet::CMotionJet(CInstanceManager* iMan, CObject* object)
 							  : CMotion(iMan, object)
 {
-	CMotion::CMotion(iMan, object);
 
 	m_progress = 1.0f;
 	m_channelSound = -1;
@@ -62,7 +61,7 @@ void CMotionJet::DeleteObject(BOOL bAll)
 }
 
 
-// Démarre une action spéciale.
+// Dï¿½marre une action spï¿½ciale.
 
 Error CMotionJet::SetAction(int action, float time)
 {
@@ -70,21 +69,21 @@ Error CMotionJet::SetAction(int action, float time)
 }
 
 
-// Retourne la vitesse linéaire.
+// Retourne la vitesse linï¿½aire.
 
 float CMotionJet::RetLinSpeed()
 {
 	return 5.0f;
 }
 
-// Retourne la vitesse linéaire.
+// Retourne la vitesse linï¿½aire.
 
 float CMotionJet::RetCirSpeed()
 {
 	return 0.5f*PI;
 }
 
-// Retourne la distance linéaire de freinage.
+// Retourne la distance linï¿½aire de freinage.
 
 float CMotionJet::RetLinStopLength()
 {
@@ -92,7 +91,7 @@ float CMotionJet::RetLinStopLength()
 }
 
 
-// Crée un oiseau.
+// Crï¿½e un oiseau.
 
 BOOL CMotionJet::Create(D3DVECTOR pos, float angle, ObjectType type)
 {
@@ -104,7 +103,7 @@ BOOL CMotionJet::Create(D3DVECTOR pos, float angle, ObjectType type)
 	m_object->SetType(type);
 	pModFile = new CModFile(m_iMan);
 
-	// Crée l'objet principal.
+	// Crï¿½e l'objet principal.
 	rank = m_engine->CreateObject();
 	m_engine->SetObjectType(rank, TYPEMETAL);  // c'est un objet fixe
 	m_object->SetObjectRank(0, rank);
@@ -125,7 +124,7 @@ BOOL CMotionJet::Create(D3DVECTOR pos, float angle, ObjectType type)
 }
 
 
-// Gestion d'un événement.
+// Gestion d'un ï¿½vï¿½nement.
 
 BOOL CMotionJet::EventProcess(const Event &event)
 {
@@ -139,7 +138,7 @@ BOOL CMotionJet::EventProcess(const Event &event)
 	return TRUE;
 }
 
-// Gestion d'un événement.
+// Gestion d'un ï¿½vï¿½nement.
 
 BOOL CMotionJet::EventFrame(const Event &event)
 {
@@ -195,7 +194,7 @@ BOOL CMotionJet::EventFrame(const Event &event)
 }
 
 
-// Crée l'ombre circulaire sous un oiseau.
+// Crï¿½e l'ombre circulaire sous un oiseau.
 
 BOOL CMotionJet::CreateShadow(float radius, float intensity,
 							  D3DShadowType type)
@@ -213,7 +212,7 @@ BOOL CMotionJet::CreateShadow(float radius, float intensity,
 	return TRUE;
 }
 
-// Déplace les ombres des oiseaux.
+// Dï¿½place les ombres des oiseaux.
 
 void CMotionJet::MoveShadow(float progress)
 {

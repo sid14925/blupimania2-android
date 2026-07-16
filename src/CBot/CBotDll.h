@@ -8,7 +8,11 @@
 #include <windows.h>         
 #include <stdio.h>
 
+#if defined(_WIN32)
 #define DllExport    __declspec( dllexport )
+#else
+#define DllExport
+#endif
 
 #define	CBOTVERSION	104
 
@@ -261,7 +265,7 @@ public:
 	DllExport
 	void			Empty();
 	DllExport
-	BOOL			IsEmpty();
+	BOOL			IsEmpty() const;
 	DllExport
 	int				GivLength();
 	DllExport

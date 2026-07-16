@@ -24,7 +24,6 @@
 
 CCheck::CCheck(CInstanceManager* iMan) : CControl(iMan)
 {
-	CControl::CControl(iMan);
 }
 
 // Destructeur de l'objet.
@@ -35,7 +34,7 @@ CCheck::~CCheck()
 }
 
 
-// Crée un nouveau bouton.
+// Crï¿½e un nouveau bouton.
 
 BOOL CCheck::Create(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg)
 {
@@ -55,7 +54,7 @@ BOOL CCheck::Create(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg)
 }
 
 
-// Gestion d'un événement.
+// Gestion d'un ï¿½vï¿½nement.
 
 BOOL CCheck::EventProcess(const Event &event)
 {
@@ -103,7 +102,7 @@ void CCheck::Draw()
 	if ( (m_state & STATE_VISIBLE) == 0 )  return;
 
 	iDim = m_dim;
-	m_dim.x = m_dim.y*0.75f;  // carré
+	m_dim.x = m_dim.y*0.75f;  // carrï¿½
 
 	if ( m_state & STATE_SHADOW )
 	{
@@ -156,7 +155,7 @@ void CCheck::Draw()
 		{
 			if ( m_state & STATE_RADIO )  icon = 30;  // rond
 			else                          icon = 16;  // vu
-			DrawPart(icon, zoomInt, 0.0f);  // dessine l'icône
+			DrawPart(icon, zoomInt, 0.0f);  // dessine l'icï¿½ne
 		}
 	}
 

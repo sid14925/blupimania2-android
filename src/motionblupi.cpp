@@ -41,7 +41,6 @@ CMotionBlupi::CMotionBlupi(CInstanceManager* iMan, CObject* object)
 {
 	int		i;
 
-	CMotion::CMotion(iMan, object);
 	m_option = 0;
 
 	for ( i=0 ; i<10 ; i++ )
@@ -76,7 +75,7 @@ void CMotionBlupi::DeleteObject(BOOL bAll)
 }
 
 
-// Démarre une action spéciale.
+// Dï¿½marre une action spï¿½ciale.
 
 Error CMotionBlupi::SetAction(int action, float time)
 {
@@ -105,7 +104,7 @@ Error CMotionBlupi::SetAction(int action, float time)
 		return ERR_OK;
 	}
 
-	if ( time == 0.2f )  // valeur par défaut ?
+	if ( time == 0.2f )  // valeur par dï¿½faut ?
 	{
 		if ( action == MBLUPI_PUSH   )  time = 1.0f/5.0f;
 		if ( action == MBLUPI_ERROR  )  time = 1.0f/2.0f;
@@ -145,21 +144,21 @@ Error CMotionBlupi::SetAction(int action, float time)
 }
 
 
-// Retourne la vitesse linéaire.
+// Retourne la vitesse linï¿½aire.
 
 float CMotionBlupi::RetLinSpeed()
 {
 	return 12.0f;
 }
 
-// Retourne la vitesse linéaire.
+// Retourne la vitesse linï¿½aire.
 
 float CMotionBlupi::RetCirSpeed()
 {
 	return 2.0f*PI;
 }
 
-// Retourne la distance linéaire de freinage.
+// Retourne la distance linï¿½aire de freinage.
 
 float CMotionBlupi::RetLinStopLength()
 {
@@ -167,7 +166,7 @@ float CMotionBlupi::RetLinStopLength()
 }
 
 
-// Crée un robot quelconque posé sur le sol.
+// Crï¿½e un robot quelconque posï¿½ sur le sol.
 
 BOOL CMotionBlupi::Create(D3DVECTOR pos, float angle, ObjectType type)
 {
@@ -188,7 +187,7 @@ BOOL CMotionBlupi::Create(D3DVECTOR pos, float angle, ObjectType type)
 	CreatePhysics();
 	pModFile = new CModFile(m_iMan);
 
-	// Crée la base principale.
+	// Crï¿½e la base principale.
 	rank = m_engine->CreateObject();
 	m_engine->SetObjectType(rank, TYPEBLUPI);  // c'est un objet fixe
 	m_object->SetObjectRank(0, rank);
@@ -197,7 +196,7 @@ BOOL CMotionBlupi::Create(D3DVECTOR pos, float angle, ObjectType type)
 	m_object->SetPosition(0, pos);
 	m_object->SetAngleY(0, angle);
 
-	// Crée la jambe droite.
+	// Crï¿½e la jambe droite.
 	rank = m_engine->CreateObject();
 	m_engine->SetObjectType(rank, TYPEBLUPI);
 	m_object->SetObjectRank(1, rank);
@@ -207,7 +206,7 @@ BOOL CMotionBlupi::Create(D3DVECTOR pos, float angle, ObjectType type)
 	m_object->SetPosition(1, D3DVECTOR(-0.5f, -0.4f, -0.9f));
 	m_object->SetAngleZ(1, 30.0f*PI/180.0f);
 
-	// Crée la jambe droite.
+	// Crï¿½e la jambe droite.
 	rank = m_engine->CreateObject();
 	m_engine->SetObjectType(rank, TYPEBLUPI);
 	m_object->SetObjectRank(2, rank);
@@ -217,7 +216,7 @@ BOOL CMotionBlupi::Create(D3DVECTOR pos, float angle, ObjectType type)
 	m_object->SetPosition(2, D3DVECTOR(0.0f, -0.6f, 0.0f));
 	m_object->SetAngleZ(2, -60.0f*PI/180.0f);
 
-	// Crée le pied droite.
+	// Crï¿½e le pied droite.
 	rank = m_engine->CreateObject();
 	m_engine->SetObjectType(rank, TYPEBLUPI);
 	m_object->SetObjectRank(3, rank);
@@ -228,7 +227,7 @@ BOOL CMotionBlupi::Create(D3DVECTOR pos, float angle, ObjectType type)
 	m_object->SetPosition(3, D3DVECTOR(0.2f, -0.7f, 0.0f));
 	m_object->SetAngleZ(3, 30.0f*PI/180.0f);
 
-	// Crée la jambe gauche.
+	// Crï¿½e la jambe gauche.
 	rank = m_engine->CreateObject();
 	m_engine->SetObjectType(rank, TYPEBLUPI);
 	m_object->SetObjectRank(4, rank);
@@ -239,7 +238,7 @@ BOOL CMotionBlupi::Create(D3DVECTOR pos, float angle, ObjectType type)
 	m_object->SetPosition(4, D3DVECTOR(-0.5f, -0.4f, 0.9f));
 	m_object->SetAngleZ(4, 30.0f*PI/180.0f);
 
-	// Crée la jambe gauche.
+	// Crï¿½e la jambe gauche.
 	rank = m_engine->CreateObject();
 	m_engine->SetObjectType(rank, TYPEBLUPI);
 	m_object->SetObjectRank(5, rank);
@@ -250,7 +249,7 @@ BOOL CMotionBlupi::Create(D3DVECTOR pos, float angle, ObjectType type)
 	m_object->SetPosition(5, D3DVECTOR(0.0f, -0.6f, 0.0f));
 	m_object->SetAngleZ(5, -60.0f*PI/180.0f);
 
-	// Crée le pied gauche.
+	// Crï¿½e le pied gauche.
 	rank = m_engine->CreateObject();
 	m_engine->SetObjectType(rank, TYPEBLUPI);
 	m_object->SetObjectRank(6, rank);
@@ -262,7 +261,7 @@ BOOL CMotionBlupi::Create(D3DVECTOR pos, float angle, ObjectType type)
 	m_object->SetPosition(6, D3DVECTOR(0.2f, -0.7f, 0.0f));
 	m_object->SetAngleZ(6, 30.0f*PI/180.0f);
 
-	// Crée le bras droite.
+	// Crï¿½e le bras droite.
 	rank = m_engine->CreateObject();
 	m_engine->SetObjectType(rank, TYPEBLUPI);
 	m_object->SetObjectRank(7, rank);
@@ -272,7 +271,7 @@ BOOL CMotionBlupi::Create(D3DVECTOR pos, float angle, ObjectType type)
 	m_object->SetPosition(7, D3DVECTOR(-0.1f, 2.3f, -1.3f));
 	m_object->SetAngleX(7, -40.0f*PI/180.0f);
 
-	// Crée le bras droite.
+	// Crï¿½e le bras droite.
 	rank = m_engine->CreateObject();
 	m_engine->SetObjectType(rank, TYPEBLUPI);
 	m_object->SetObjectRank(8, rank);
@@ -282,7 +281,7 @@ BOOL CMotionBlupi::Create(D3DVECTOR pos, float angle, ObjectType type)
 	m_object->SetPosition(8, D3DVECTOR(0.0f, 0.0f, -1.45f));
 	m_object->SetAngleX(8, -90.0f*PI/180.0f);
 
-	// Crée la main droite.
+	// Crï¿½e la main droite.
 	rank = m_engine->CreateObject();
 	m_engine->SetObjectType(rank, TYPEBLUPI);
 	m_object->SetObjectRank(9, rank);
@@ -294,7 +293,7 @@ BOOL CMotionBlupi::Create(D3DVECTOR pos, float angle, ObjectType type)
 	m_object->SetAngleX(9, 10.0f*PI/180.0f);
 	m_object->SetZoom(9, 1.3f);
 
-	// Crée le bras gauche.
+	// Crï¿½e le bras gauche.
 	rank = m_engine->CreateObject();
 	m_engine->SetObjectType(rank, TYPEBLUPI);
 	m_object->SetObjectRank(10, rank);
@@ -305,7 +304,7 @@ BOOL CMotionBlupi::Create(D3DVECTOR pos, float angle, ObjectType type)
 	m_object->SetPosition(10, D3DVECTOR(-0.1f, 2.3f, 1.3f));
 	m_object->SetAngleX(10, 40.0f*PI/180.0f);
 
-	// Crée le bras gauche.
+	// Crï¿½e le bras gauche.
 	rank = m_engine->CreateObject();
 	m_engine->SetObjectType(rank, TYPEBLUPI);
 	m_object->SetObjectRank(11, rank);
@@ -316,7 +315,7 @@ BOOL CMotionBlupi::Create(D3DVECTOR pos, float angle, ObjectType type)
 	m_object->SetPosition(11, D3DVECTOR(0.0f, 0.0f, 1.45f));
 	m_object->SetAngleX(11, 90.0f*PI/180.0f);
 
-	// Crée la main gauche.
+	// Crï¿½e la main gauche.
 	rank = m_engine->CreateObject();
 	m_engine->SetObjectType(rank, TYPEBLUPI);
 	m_object->SetObjectRank(12, rank);
@@ -329,7 +328,7 @@ BOOL CMotionBlupi::Create(D3DVECTOR pos, float angle, ObjectType type)
 	m_object->SetAngleX(12, -10.0f*PI/180.0f);
 	m_object->SetZoom(12, 1.3f);
 
-	// Crée le sourcil droite.
+	// Crï¿½e le sourcil droite.
 	rank = m_engine->CreateObject();
 	m_engine->SetObjectType(rank, TYPEBLUPI);
 	m_object->SetObjectRank(13, rank);
@@ -338,7 +337,7 @@ BOOL CMotionBlupi::Create(D3DVECTOR pos, float angle, ObjectType type)
 	pModFile->CreateEngineObject(rank);
 	m_object->SetPosition(13, D3DVECTOR(0.3f, 3.8f, -0.6f));
 
-	// Crée le sourcil gauche.
+	// Crï¿½e le sourcil gauche.
 	rank = m_engine->CreateObject();
 	m_engine->SetObjectType(rank, TYPEBLUPI);
 	m_object->SetObjectRank(14, rank);
@@ -385,7 +384,7 @@ BOOL CMotionBlupi::Create(D3DVECTOR pos, float angle, ObjectType type)
 			m_object->SetPosition(16, D3DVECTOR(-0.5f, 3.4f, 0.0f));
 			m_object->SetAngleZ(16, 15.0f*PI/180.0f);
 		}
-		if ( m_additional[ADD_HAT] == 4 )  // visière ?
+		if ( m_additional[ADD_HAT] == 4 )  // visiï¿½re ?
 		{
 			m_object->SetPosition(16, D3DVECTOR(-0.3f, 3.2f, 0.0f));
 			m_object->SetAngleZ(16, 0.0f*PI/180.0f);
@@ -440,7 +439,7 @@ BOOL CMotionBlupi::Create(D3DVECTOR pos, float angle, ObjectType type)
 }
 
 
-// Crée la physique de l'objet.
+// Crï¿½e la physique de l'objet.
 
 void CMotionBlupi::CreatePhysics()
 {
@@ -903,7 +902,7 @@ void CMotionBlupi::CreatePhysics()
 		  0,   0,   0,  // sourcil gauche
 						// MBLUPI_WALK2:
 		  0,   0,   0,  // corps
-		  0,   5, -35,  // jambe droite (arrière)
+		  0,   5, -35,  // jambe droite (arriï¿½re)
 		  0,   0, -60,  // jambe droite
 		  0,   0,  30,  // pied droite
 		  0,  -5,  80,  // jambe gauche (avant)
@@ -938,7 +937,7 @@ void CMotionBlupi::CreatePhysics()
 		  0,   5,  80,  // jambe droite (avant)
 		  0,   0, -50,  // jambe droite
 		  0,   0,  10,  // pied droite
-		  0,  -5, -35,  // jambe gauche (arrière)
+		  0,  -5, -35,  // jambe gauche (arriï¿½re)
 		  0,   0, -60,  // jambe gauche
 		  0,   0,  30,  // pied gauche
 		-55,   0,   0,  // bras droite
@@ -967,7 +966,7 @@ void CMotionBlupi::CreatePhysics()
 		  0,   0,   0,  // sourcil gauche
 						// MBLUPI_PUSH2:
 		  0,   0,   0,  // corps
-		  0,   5,  20,  // jambe droite (arrière)
+		  0,   5,  20,  // jambe droite (arriï¿½re)
 		  0,   0, -70,  // jambe droite
 		  0,   0,  35,  // pied droite
 		  0,  -5,  80,  // jambe gauche (avant)
@@ -1002,7 +1001,7 @@ void CMotionBlupi::CreatePhysics()
 		  0,   5,  80,  // jambe droite (avant)
 		  0,   0, -65,  // jambe droite
 		  0,   0,  25,  // pied droite
-		  0,  -5,  20,  // jambe gauche (arrière)
+		  0,  -5,  20,  // jambe gauche (arriï¿½re)
 		  0,   0, -70,  // jambe gauche
 		  0,   0,  35,  // pied gauche
 		-55,   0,  90,  // bras droite
@@ -1027,7 +1026,7 @@ void CMotionBlupi::CreatePhysics()
 }
 
 
-// Gestion d'un événement.
+// Gestion d'un ï¿½vï¿½nement.
 
 BOOL CMotionBlupi::EventProcess(const Event &event)
 {
@@ -1092,7 +1091,7 @@ BOOL CMotionBlupi::EventProcess(const Event &event)
 	return TRUE;
 }
 
-// Gestion d'un événement.
+// Gestion d'un ï¿½vï¿½nement.
 
 BOOL CMotionBlupi::EventFrame(const Event &event)
 {
@@ -1158,13 +1157,13 @@ BOOL CMotionBlupi::EventFrame(const Event &event)
 	{
 		if ( m_faceEye == MBLUPI_OPEN )
 		{
-			UpdateFaceMappingEye(MBLUPI_CLOSE);  // yeux fermés
-			m_closeTime = 0.1f+Rand()*0.1f;  // choix durée
+			UpdateFaceMappingEye(MBLUPI_CLOSE);  // yeux fermï¿½s
+			m_closeTime = 0.1f+Rand()*0.1f;  // choix durï¿½e
 		}
 		else
 		{
 			UpdateFaceMappingEye(MBLUPI_OPEN);  // yeux ouverts
-			m_closeTime = 2.0f+Rand()*2.0f;  // choix durée
+			m_closeTime = 2.0f+Rand()*2.0f;  // choix durï¿½e
 		}
 	}
 
@@ -1238,7 +1237,7 @@ BOOL CMotionBlupi::EventFrame(const Event &event)
 		if ( m_walk == MBLUPI_PUSH )  // pousse une caisse ?
 		{
 			prog = Mod(m_actionProgress*3.0f, 1.0f);
-			if ( m_object->RetStrong() < 0.0f )  // blupi englué ?
+			if ( m_object->RetStrong() < 0.0f )  // blupi engluï¿½ ?
 			{
 				prog = 1.0f-prog;
 			}
@@ -1257,7 +1256,7 @@ BOOL CMotionBlupi::EventFrame(const Event &event)
 			cirVib.x = -cosf(prog*PI*2.0f)*0.2f;
 			linVib.z = -tanf(cirVib.x)*0.5f;
 			linVib.y = -0.6f;
-			cirVib.z = -1.0f;  // penché en avant
+			cirVib.z = -1.0f;  // penchï¿½ en avant
 
 			if ( prog < 0.25f )
 			{
@@ -1376,13 +1375,13 @@ BOOL CMotionBlupi::EventFrame(const Event &event)
 		time *= 5.0f;
 	}
 
-	if ( action == MBLUPI_TRUCK )  // porté par dock ?
+	if ( action == MBLUPI_TRUCK )  // portï¿½ par dock ?
 	{
 		// Le corps se tortille.
 		cirVib.x = sinf(m_aTime*10.0f)*0.25f;
 		cirVib.z = cosf(m_aTime*10.0f)*0.25f;
 
-		// Correction pour que la tête reste immobile sur l'aimant.
+		// Correction pour que la tï¿½te reste immobile sur l'aimant.
 		rot.x = sinf(m_aTime*10.0f)*1.0f;
 		rot.y = cosf(m_aTime*10.0f)*1.0f;
 //?		rot = RotatePoint(-(m_object->RetAngleY(0)-PI*1.5f), rot);
@@ -1406,7 +1405,7 @@ BOOL CMotionBlupi::EventFrame(const Event &event)
 		effect[3* 4+zz] = -sinf(m_aTime*12.0f)*0.4f;  // pied gauche
 	}
 
-	if ( action == MBLUPI_OUPS )  // perd l'équilibre ?
+	if ( action == MBLUPI_OUPS )  // perd l'ï¿½quilibre ?
 	{
 		effect[3* 1+zz] = Min(m_actionTime, 1.0f)*0.9f;  // jambe droite
 		effect[3* 4+zz] = Min(m_actionTime, 1.0f)*0.9f;  // jambe gauche
@@ -1470,7 +1469,7 @@ BOOL CMotionBlupi::EventFrame(const Event &event)
 	if ( action == MBLUPI_AMAZE  ||
 		 action == MBLUPI_AMAZE2 )
 	{
-		UpdateFaceMappingMouth(MBLUPI_ANGRY);  // fâché
+		UpdateFaceMappingMouth(MBLUPI_ANGRY);  // fï¿½chï¿½
 		if ( m_progress >= 1.0f )
 		{
 			UpdateFaceMappingMouth(MBLUPI_HAPPY);
@@ -1593,7 +1592,7 @@ BOOL CMotionBlupi::EventFrame(const Event &event)
 	}
 	if ( action == MBLUPI_DRINK2 )
 	{
-		UpdateFaceMappingMouth(MBLUPI_ANGRY);  // fâché
+		UpdateFaceMappingMouth(MBLUPI_ANGRY);  // fï¿½chï¿½
 		if ( m_progress >= 1.0f )
 		{
 			m_actionType = MBLUPI_WAIT;
@@ -1632,7 +1631,7 @@ BOOL CMotionBlupi::EventFrame(const Event &event)
 	}
 #endif
 
-	// Bouge tous les membres d'après la table.
+	// Bouge tous les membres d'aprï¿½s la table.
 	j = action;
 	if ( j <  0      )  j = 0;
 	if ( j >= MBLUPI_MAX )  j = MBLUPI_MAX-1;
@@ -1644,7 +1643,7 @@ BOOL CMotionBlupi::EventFrame(const Event &event)
 		m_object->SetAngleZ(i, SmoothA(m_object->RetAngleZ(i), m_armAngles[i*3+zz+j*3*max]*PI/180.0f+effect[i*3+zz], time));
 	}
 
-	// Gère la position des sourcils.
+	// Gï¿½re la position des sourcils.
 	pos = D3DVECTOR(0.3f, 3.8f, 0.6f);
 	if ( action == MBLUPI_ERROR  ||
 		 action == MBLUPI_ERROR2 )
@@ -1684,14 +1683,14 @@ BOOL CMotionBlupi::EventFrame(const Event &event)
 	ppos.z = Smooth(ipos.z, pos.z, rTime*8.0f);
 	m_object->SetPosition(14, ppos);  // sourcil gauche
 
-	pos.z = -pos.z;  // symétrique en x
+	pos.z = -pos.z;  // symï¿½trique en x
 	ipos = m_object->RetPosition(13);
 	ppos.x = Smooth(ipos.x, pos.x, rTime*8.0f);
 	ppos.y = Smooth(ipos.y, pos.y, rTime*8.0f);
 	ppos.z = Smooth(ipos.z, pos.z, rTime*8.0f);
 	m_object->SetPosition(13, ppos);  // sourcil droite
 
-	// Gestion de l'inclinaison d'après certains membres.
+	// Gestion de l'inclinaison d'aprï¿½s certains membres.
 	if ( action == MBLUPI_ERROR  ||
 		 action == MBLUPI_ERROR2 )
 	{
@@ -1723,7 +1722,7 @@ BOOL CMotionBlupi::EventFrame(const Event &event)
 	{
 		s = m_object->RetAngleY(1);
 		cirVib.y = -s;
-		cirVib.z = 10.0f*PI/180.0f;  // penché en arrière
+		cirVib.z = 10.0f*PI/180.0f;  // penchï¿½ en arriï¿½re
 		linVib.y -= 0.2f;
 		linVib.x -= 0.3f;
 	}
@@ -1897,7 +1896,7 @@ void CMotionBlupi::StrongParticule()
 	}
 }
 
-// Gestion des particules lorsque Blupi est englué.
+// Gestion des particules lorsque Blupi est engluï¿½.
 
 void CMotionBlupi::GluParticule()
 {
@@ -1992,7 +1991,7 @@ CObject* CMotionBlupi::SearchBot(D3DVECTOR center, float radius)
 		if ( pObj == 0 )  break;
 
 		if ( pObj->RetExplo() )  continue;
-		if ( pObj->RetLock() )  continue;  // déjà stoppé ?
+		if ( pObj->RetLock() )  continue;  // dï¿½jï¿½ stoppï¿½ ?
 		if ( !pObj->RetEnable() )  continue;
 
 		type = pObj->RetType();
@@ -2011,7 +2010,7 @@ CObject* CMotionBlupi::SearchBot(D3DVECTOR center, float radius)
 }
 
 
-// Met à jour le mapping de la texture des yeux.
+// Met ï¿½ jour le mapping de la texture des yeux.
 
 void CMotionBlupi::UpdateFaceMappingEye(int face)
 {
@@ -2038,7 +2037,7 @@ void CMotionBlupi::UpdateFaceMappingEye(int face)
 								   au, bu, 1.0f, 0.0f);
 }
 
-// Met à jour le mapping de la texture de la bouche.
+// Met ï¿½ jour le mapping de la texture de la bouche.
 
 void CMotionBlupi::UpdateFaceMappingMouth(int face)
 {
@@ -2066,7 +2065,7 @@ void CMotionBlupi::UpdateFaceMappingMouth(int face)
 }
 
 
-// Détermine le son à utiliser pour la marche (pour un pas).
+// Dï¿½termine le son ï¿½ utiliser pour la marche (pour un pas).
 
 void CMotionBlupi::StepSound()
 {
@@ -2120,12 +2119,12 @@ void CMotionBlupi::BrainFrameDemo()
 	if ( pos.z > -160.0f )
 	{
 		ih = -300.0f;  // hauteur initiale
-		dh =  250.0f;  // total montée
+		dh =  250.0f;  // total montï¿½e
 	}
 	else
 	{
 		ih = -150.0f;  // hauteur initiale
-		dh =  110.0f;  // total montée
+		dh =  110.0f;  // total montï¿½e
 	}
 	delay = dh/10.0f;
 

@@ -46,7 +46,6 @@ CWindow::CWindow(CInstanceManager* iMan) : CControl(iMan)
 {
 	int		i;
 
-	CControl::CControl(iMan);
 
 	for ( i=0 ; i<MAXWINDOW ; i++ )
 	{
@@ -82,7 +81,7 @@ CWindow::~CWindow()
 }
 
 
-// Purge tous les contrôles.
+// Purge tous les contrï¿½les.
 
 void CWindow::Flush()
 {
@@ -117,7 +116,7 @@ void CWindow::Flush()
 }
 
 
-// Crée une nouvelle fenêtre.
+// Crï¿½e une nouvelle fenï¿½tre.
 
 BOOL CWindow::Create(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg)
 {
@@ -128,7 +127,7 @@ BOOL CWindow::Create(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg)
 }
 
 
-// Crée un nouveau bouton.
+// Crï¿½e un nouveau bouton.
 
 CButton* CWindow::CreateButton(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg)
 {
@@ -150,7 +149,7 @@ CButton* CWindow::CreateButton(FPOINT pos, FPOINT dim, int icon, EventMsg eventM
 	return 0;
 }
 
-// Crée un nouveau bouton.
+// Crï¿½e un nouveau bouton.
 
 CColor* CWindow::CreateColor(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg)
 {
@@ -172,7 +171,7 @@ CColor* CWindow::CreateColor(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg
 	return 0;
 }
 
-// Crée un nouveau bouton.
+// Crï¿½e un nouveau bouton.
 
 CCheck* CWindow::CreateCheck(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg)
 {
@@ -194,7 +193,7 @@ CCheck* CWindow::CreateCheck(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg
 	return 0;
 }
 
-// Crée un nouveau bouton.
+// Crï¿½e un nouveau bouton.
 
 CKey* CWindow::CreateKey(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg)
 {
@@ -216,7 +215,7 @@ CKey* CWindow::CreateKey(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg)
 	return 0;
 }
 
-// Crée un nouveau bouton.
+// Crï¿½e un nouveau bouton.
 
 CGroup* CWindow::CreateGroup(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg)
 {
@@ -238,7 +237,7 @@ CGroup* CWindow::CreateGroup(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg
 	return 0;
 }
 
-// Crée un nouveau bouton.
+// Crï¿½e un nouveau bouton.
 
 CImage* CWindow::CreateImage(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg)
 {
@@ -260,7 +259,7 @@ CImage* CWindow::CreateImage(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg
 	return 0;
 }
 
-// Crée un nouveau label.
+// Crï¿½e un nouveau label.
 
 CLabel* CWindow::CreateLabel(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg,
 						  char *name)
@@ -291,7 +290,7 @@ CLabel* CWindow::CreateLabel(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg
 				text[100-1] = 0;
 				if ( p-name < 100 )
 				{
-					text[p-name] = 0;  // supprime texte après "\\" (tooltip)
+					text[p-name] = 0;  // supprime texte aprï¿½s "\\" (tooltip)
 				}
 				pc->SetName(text);
 			}
@@ -301,7 +300,7 @@ CLabel* CWindow::CreateLabel(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg
 	return 0;
 }
 
-// Crée un nouveau pavé éditable.
+// Crï¿½e un nouveau pavï¿½ ï¿½ditable.
 
 CEdit* CWindow::CreateEdit(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg)
 {
@@ -323,7 +322,7 @@ CEdit* CWindow::CreateEdit(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg)
 	return 0;
 }
 
-// Crée un nouveau pavé éditable.
+// Crï¿½e un nouveau pavï¿½ ï¿½ditable.
 
 CEditValue* CWindow::CreateEditValue(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg)
 {
@@ -345,7 +344,7 @@ CEditValue* CWindow::CreateEditValue(FPOINT pos, FPOINT dim, int icon, EventMsg 
 	return 0;
 }
 
-// Crée un nouvel ascenseur.
+// Crï¿½e un nouvel ascenseur.
 
 CScroll* CWindow::CreateScroll(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg)
 {
@@ -367,7 +366,7 @@ CScroll* CWindow::CreateScroll(FPOINT pos, FPOINT dim, int icon, EventMsg eventM
 	return 0;
 }
 
-// Crée un nouveau curseur.
+// Crï¿½e un nouveau curseur.
 
 CSlider* CWindow::CreateSlider(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg)
 {
@@ -389,7 +388,7 @@ CSlider* CWindow::CreateSlider(FPOINT pos, FPOINT dim, int icon, EventMsg eventM
 	return 0;
 }
 
-// Crée une nouvelle liste.
+// Crï¿½e une nouvelle liste.
 
 CList* CWindow::CreateList(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg,
 						 float expand)
@@ -412,7 +411,7 @@ CList* CWindow::CreateList(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg,
 	return 0;
 }
 
-// Crée une nouvelle liste.
+// Crï¿½e une nouvelle liste.
 
 CArray* CWindow::CreateArray(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg,
 						 float expand)
@@ -435,7 +434,7 @@ CArray* CWindow::CreateArray(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg
 	return 0;
 }
 
-// Crée un nouveau raccourci.
+// Crï¿½e un nouveau raccourci.
 
 CShortcut* CWindow::CreateShortcut(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg)
 {
@@ -457,7 +456,7 @@ CShortcut* CWindow::CreateShortcut(FPOINT pos, FPOINT dim, int icon, EventMsg ev
 	return 0;
 }
 
-// Crée une nouvelle carte.
+// Crï¿½e une nouvelle carte.
 
 CMap* CWindow::CreateMap(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg)
 {
@@ -479,7 +478,7 @@ CMap* CWindow::CreateMap(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg)
 	return 0;
 }
 
-// Crée une nouvelle jauge.
+// Crï¿½e une nouvelle jauge.
 
 CGauge* CWindow::CreateGauge(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg)
 {
@@ -501,7 +500,7 @@ CGauge* CWindow::CreateGauge(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg
 	return 0;
 }
 
-// Crée un nouvel indicateur d'avance.
+// Crï¿½e un nouvel indicateur d'avance.
 
 CProgress* CWindow::CreateProgress(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg)
 {
@@ -523,7 +522,7 @@ CProgress* CWindow::CreateProgress(FPOINT pos, FPOINT dim, int icon, EventMsg ev
 	return 0;
 }
 
-// Crée une nouvelle boussole.
+// Crï¿½e une nouvelle boussole.
 
 CCompass* CWindow::CreateCompass(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg)
 {
@@ -545,7 +544,7 @@ CCompass* CWindow::CreateCompass(FPOINT pos, FPOINT dim, int icon, EventMsg even
 	return 0;
 }
 
-// Crée une nouveau lien graphique.
+// Crï¿½e une nouveau lien graphique.
 
 CLink* CWindow::CreateLink(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg)
 {
@@ -567,7 +566,7 @@ CLink* CWindow::CreateLink(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg)
 	return 0;
 }
 
-// Supprime un contrôle.
+// Supprime un contrï¿½le.
 
 BOOL CWindow::DeleteControl(EventMsg eventMsg)
 {
@@ -588,7 +587,7 @@ BOOL CWindow::DeleteControl(EventMsg eventMsg)
 	return FALSE;
 }
 
-// Donne un contrôle d'après son événement.
+// Donne un contrï¿½le d'aprï¿½s son ï¿½vï¿½nement.
 
 CControl* CWindow::SearchControl(EventMsg eventMsg)
 {
@@ -607,7 +606,7 @@ CControl* CWindow::SearchControl(EventMsg eventMsg)
 	return 0;
 }
 
-// Donne un contrôle d'après son rang.
+// Donne un contrï¿½le d'aprï¿½s son rang.
 
 CControl* CWindow::SearchControl(int tabOrder)
 {
@@ -626,7 +625,7 @@ CControl* CWindow::SearchControl(int tabOrder)
 	return 0;
 }
 
-// Donne le contrôle qui a le focus.
+// Donne le contrï¿½le qui a le focus.
 
 CControl* CWindow::SearchControl()
 {
@@ -646,7 +645,7 @@ CControl* CWindow::SearchControl()
 }
 
 
-// Donne le tooltip lié à la fenêtre.
+// Donne le tooltip liï¿½ ï¿½ la fenï¿½tre.
 
 BOOL CWindow::GetTooltip(FPOINT pos, char* name)
 {
@@ -679,7 +678,7 @@ BOOL CWindow::GetTooltip(FPOINT pos, char* name)
 		return TRUE;
 	}
 
-	if ( Detect(pos) )  // dans la fenêtre ?
+	if ( Detect(pos) )  // dans la fenï¿½tre ?
 	{
 		strcpy(name, m_tooltip);
 		return TRUE;
@@ -689,7 +688,7 @@ BOOL CWindow::GetTooltip(FPOINT pos, char* name)
 }
 
 
-// Spécifie le nom pour la barre de titre.
+// Spï¿½cifie le nom pour la barre de titre.
 
 void CWindow::SetName(char* name)
 {
@@ -827,7 +826,7 @@ FPOINT CWindow::RetMaxDim()
 }
 
 
-// Indique si la fenêtre est déplaçable.
+// Indique si la fenï¿½tre est dï¿½plaï¿½able.
 
 void CWindow::SetMovable(BOOL bMode)
 {
@@ -840,7 +839,7 @@ BOOL CWindow::RetMovable()
 }
 
 
-// Gestion de la présence des boutons minimise/maximise.
+// Gestion de la prï¿½sence des boutons minimise/maximise.
 
 void CWindow::SetRedim(BOOL bMode)
 {
@@ -853,7 +852,7 @@ BOOL CWindow::RetRedim()
 }
 
 
-// Gestion de la présence du bouton de fermeture.
+// Gestion de la prï¿½sence du bouton de fermeture.
 
 void CWindow::SetClosable(BOOL bMode)
 {
@@ -982,9 +981,9 @@ EventMsg CWindow::RetEventMsgClose()
 }
 
 
-// Détecte si la souris est dans un bord de la fenêtre, pour
+// Dï¿½tecte si la souris est dans un bord de la fenï¿½tre, pour
 // la redimensionner.
-// Bits retournée: 0=gauche, 1=bas, 2=droite, 3=haut, -1=tout.
+// Bits retournï¿½e: 0=gauche, 1=bas, 2=droite, 3=haut, -1=tout.
 
 int CWindow::BorderDetect(FPOINT pos)
 {
@@ -1035,7 +1034,7 @@ int CWindow::BorderDetect(FPOINT pos)
 	return flags;
 }
 
-// Gestion d'un événement.
+// Gestion d'un ï¿½vï¿½nement.
 
 BOOL CWindow::EventProcess(const Event &event)
 {
@@ -1089,7 +1088,7 @@ BOOL CWindow::EventProcess(const Event &event)
 	if ( event.event == EVENT_MOUSEMOVE && m_bCapture )
 	{
 		pos = event.pos;
-		if ( m_pressFlags == -1 )  // déplace tout ?
+		if ( m_pressFlags == -1 )  // dï¿½place tout ?
 		{
 			m_pos.x += pos.x-m_pressPos.x;
 			m_pos.y += pos.y-m_pressPos.y;
@@ -1148,7 +1147,7 @@ BOOL CWindow::EventProcess(const Event &event)
 }
 
 
-// Dessine la fenêtre.
+// Dessine la fenï¿½tre.
 
 void CWindow::Draw()
 {
@@ -1389,7 +1388,7 @@ void CWindow::DrawVertex(FPOINT pos, FPOINT dim, int icon)
 		uv2.y -= dp;
 		DrawIcon(pos, dim, uv1, uv2, 8.0f/256.0f);
 	}
-	else if ( icon == 12 )  // fenêtre de l'interface ?
+	else if ( icon == 12 )  // fenï¿½tre de l'interface ?
 	{
 		m_engine->SetTexture("button1.tga");
 //?		m_engine->SetState(D3DSTATENORMAL);
@@ -1454,9 +1453,9 @@ void CWindow::DrawVertex(FPOINT pos, FPOINT dim, int icon)
 		uv2.y -= dp;
 
 		p1.x = 30.0f/640.0f;  // bord gauche
-		p1.y = 64.0f/480.0f;  // bord inférieur
+		p1.y = 64.0f/480.0f;  // bord infï¿½rieur
 		p2.x = 30.0f/640.0f;  // bord droite
-		p2.y = 90.0f/480.0f;  // bord supérieur
+		p2.y = 90.0f/480.0f;  // bord supï¿½rieur
 
 		ppos.y = pos.y;
 		ddim.y = p1.y;

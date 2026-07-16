@@ -23,7 +23,6 @@
 
 CProgress::CProgress(CInstanceManager* iMan) : CControl(iMan)
 {
-	CControl::CControl(iMan);
 
 	m_total = 0;
 	m_progress = 0;
@@ -37,7 +36,7 @@ CProgress::~CProgress()
 }
 
 
-// Crée un nouveau bouton.
+// Crï¿½e un nouveau bouton.
 
 BOOL CProgress::Create(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg)
 {
@@ -48,7 +47,7 @@ BOOL CProgress::Create(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg)
 }
 
 
-// Gestion d'un événement.
+// Gestion d'un ï¿½vï¿½nement.
 
 BOOL CProgress::EventProcess(const Event &event)
 {
@@ -132,7 +131,7 @@ void CProgress::Draw()
 }
 
 
-// Gestion du nombre total d'étapes.
+// Gestion du nombre total d'ï¿½tapes.
 
 void CProgress::SetTotal(int total)
 {

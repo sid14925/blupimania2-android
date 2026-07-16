@@ -35,7 +35,6 @@
 CTaskGoto::CTaskGoto(CInstanceManager* iMan, CObject* object)
 					 : CTask(iMan, object)
 {
-	CTask::CTask(iMan, object);
 
 	m_bStopPending = FALSE;
 
@@ -56,7 +55,7 @@ CTaskGoto::~CTaskGoto()
 }
 
 
-// Gestion d'un événement.
+// Gestion d'un ï¿½vï¿½nement.
 
 BOOL CTaskGoto::EventProcess(const Event &event)
 {
@@ -75,8 +74,8 @@ BOOL CTaskGoto::EventProcess(const Event &event)
 	if ( m_phase == TGP_GOTO && m_pathIndex >= 0 )  // goto dot list ?
 	{
 		pos = m_object->RetPosition(0);  // position actuelle
-		goal = m_pathPos[m_pathIndex];  // position à atteindre
-		dist = Length2d(pos, goal);  // longueur à avancer
+		goal = m_pathPos[m_pathIndex];  // position ï¿½ atteindre
+		dist = Length2d(pos, goal);  // longueur ï¿½ avancer
 		rot.x = (goal.x-pos.x)/dist;
 		rot.y = (goal.z-pos.z)/dist;
 
@@ -108,12 +107,12 @@ BOOL CTaskGoto::EventProcess(const Event &event)
 			if ( m_object->RetStrong() > 0.0f )  speed *= 1.5f;
 			if ( m_object->RetStrong() < 0.0f )  speed *= 0.7f;
 			factor = 1.0f;
-			if ( m_totalAdvance < m_linStopLength )  // première droite ?
+			if ( m_totalAdvance < m_linStopLength )  // premiï¿½re droite ?
 			{
 				factor = 1.0f-(m_linStopLength-m_totalAdvance)/m_linStopLength;
 				factor = 0.2f+factor*0.8f;
 			}
-			if ( m_pathIndex == 0 &&  // dernière droite ?
+			if ( m_pathIndex == 0 &&  // derniï¿½re droite ?
 				 dist < m_linStopLength )
 			{
 				factor = 1.0f-(m_linStopLength-dist)/m_linStopLength;
@@ -162,7 +161,7 @@ BOOL CTaskGoto::EventProcess(const Event &event)
 		ProgressCirSpeed(1.0f);
 	}
 
-	if ( m_phase == TGP_RUSH )  // élan initial ?
+	if ( m_phase == TGP_RUSH )  // ï¿½lan initial ?
 	{
 		m_delay -= event.rTime;
 	}
@@ -170,7 +169,7 @@ BOOL CTaskGoto::EventProcess(const Event &event)
 	return TRUE;
 }
 
-// Assigne le but à atteindre.
+// Assigne le but ï¿½ atteindre.
 
 Error CTaskGoto::Start(D3DVECTOR goal, CObject *target, int part)
 {
@@ -226,7 +225,7 @@ Error CTaskGoto::Start(D3DVECTOR goal, CObject *target, int part)
 	return ERR_OK;
 }
 
-// Indique si l'action est terminée.
+// Indique si l'action est terminï¿½e.
 
 Error CTaskGoto::IsEnded()
 {
@@ -246,7 +245,7 @@ Error CTaskGoto::IsEnded()
 			{
 				if ( m_finalMargin == 0.0f )
 				{
-					limit = 0.2f;  // précis si dernier point
+					limit = 0.2f;  // prï¿½cis si dernier point
 				}
 				else
 				{
@@ -255,10 +254,10 @@ Error CTaskGoto::IsEnded()
 			}
 			else
 			{
-				limit = 1.0f;  // moins précis si pas dernier point
+				limit = 1.0f;  // moins prï¿½cis si pas dernier point
 			}
-			goal = m_pathPos[m_pathIndex];  // position à atteindre
-			dist = Length2d(pos, goal);  // longueur à avancer
+			goal = m_pathPos[m_pathIndex];  // position ï¿½ atteindre
+			dist = Length2d(pos, goal);  // longueur ï¿½ avancer
 		}
 		else
 		{
@@ -270,9 +269,9 @@ Error CTaskGoto::IsEnded()
 		{
 			JostleObject(pos);
 
-			m_pathIndex --;  // index point suivant à atteindre
+			m_pathIndex --;  // index point suivant ï¿½ atteindre
 
-			if ( m_pathIndex >= 0 &&  // pas encore arrivé ?
+			if ( m_pathIndex >= 0 &&  // pas encore arrivï¿½ ?
 				 !m_bStopPending )
 			{
 				// Nouvel obstacle survenu entre-temps ?
@@ -290,7 +289,7 @@ Error CTaskGoto::IsEnded()
 					return ERR_CONTINUE;
 				}
 			}
-			else	// est-on arrivé ?
+			else	// est-on arrivï¿½ ?
 			{
 				if ( m_bFinalTurn )
 				{
@@ -332,7 +331,7 @@ Error CTaskGoto::IsEnded()
 		}
 	}
 
-	if ( m_phase == TGP_RUSH )  // élan initial ?
+	if ( m_phase == TGP_RUSH )  // ï¿½lan initial ?
 	{
 		if ( m_delay <= 0.0f )
 		{
@@ -396,7 +395,7 @@ void CTaskGoto::JostleObject(D3DVECTOR center)
 		if ( pObj == 0 )  break;
 
 		if ( pObj->RetExplo() )  continue;
-		if ( pObj->RetLock() )  continue;  // déjà stoppé ?
+		if ( pObj->RetLock() )  continue;  // dï¿½jï¿½ stoppï¿½ ?
 
 		type = pObj->RetType();
 
@@ -430,7 +429,7 @@ void CTaskGoto::JostleObject(D3DVECTOR center)
 
 
 // Si on arrive sur une caisse, modifie la position pour arriver par
-// le bon côté de la caisse.
+// le bon cï¿½tï¿½ de la caisse.
 // Retourne TRUE s'il faut ignorer l'objet goal.
 
 void CTaskGoto::AdjustTarget(CObject *target, int part)
@@ -443,7 +442,7 @@ void CTaskGoto::AdjustTarget(CObject *target, int part)
 	if ( (m_typeTarget >= OBJECT_BOX1 && m_typeTarget <= OBJECT_BOX20) ||
 		 (m_typeTarget >= OBJECT_KEY1 && m_typeTarget <= OBJECT_KEY5 ) )
 	{
-		if ( part == 1 || part == 5 )  // flèche ouest ?
+		if ( part == 1 || part == 5 )  // flï¿½che ouest ?
 		{
 			m_goal = target->RetPosition(0);
 			m_goal.x -= PUSH_DIST;
@@ -451,7 +450,7 @@ void CTaskGoto::AdjustTarget(CObject *target, int part)
 			m_bFinalTurn = TRUE;
 			m_finalAngle = 0.0f;
 		}
-		if ( part == 2 || part == 6 )  // flèche nord ?
+		if ( part == 2 || part == 6 )  // flï¿½che nord ?
 		{
 			m_goal = target->RetPosition(0);
 			m_goal.z += PUSH_DIST;
@@ -459,7 +458,7 @@ void CTaskGoto::AdjustTarget(CObject *target, int part)
 			m_bFinalTurn = TRUE;
 			m_finalAngle = 0.0f;
 		}
-		if ( part == 3 || part == 7 )  // flèche est ?
+		if ( part == 3 || part == 7 )  // flï¿½che est ?
 		{
 			m_goal = target->RetPosition(0);
 			m_goal.x += PUSH_DIST;
@@ -467,7 +466,7 @@ void CTaskGoto::AdjustTarget(CObject *target, int part)
 			m_bFinalTurn = TRUE;
 			m_finalAngle = 0.0f;
 		}
-		if ( part == 4 || part == 8 )  // flèche sud ?
+		if ( part == 4 || part == 8 )  // flï¿½che sud ?
 		{
 			m_goal = target->RetPosition(0);
 			m_goal.z -= PUSH_DIST;
@@ -587,7 +586,7 @@ void CTaskGoto::AdjustTarget(CObject *target, int part)
 }
 
 
-// Démarre une action pour Blupi.
+// Dï¿½marre une action pour Blupi.
 
 void CTaskGoto::StartAction(int action, float speed)
 {
@@ -602,7 +601,7 @@ void CTaskGoto::StartAction(int action, float speed)
 	}
 }
 
-// Spécifie la progression pour une action pour Blupi.
+// Spï¿½cifie la progression pour une action pour Blupi.
 
 void CTaskGoto::ProgressAction(float progress)
 {
@@ -614,7 +613,7 @@ void CTaskGoto::ProgressAction(float progress)
 	motion->SetActionProgress(progress);
 }
 
-// Spécifie la vitesse linéaire pour une action pour Blupi.
+// Spï¿½cifie la vitesse linï¿½aire pour une action pour Blupi.
 
 void CTaskGoto::ProgressLinSpeed(float speed)
 {
@@ -626,7 +625,7 @@ void CTaskGoto::ProgressLinSpeed(float speed)
 	motion->SetActionLinSpeed(speed);
 }
 
-// Spécifie la vitesse circulaire pour une action pour Blupi.
+// Spï¿½cifie la vitesse circulaire pour une action pour Blupi.
 
 void CTaskGoto::ProgressCirSpeed(float speed)
 {
@@ -639,9 +638,9 @@ void CTaskGoto::ProgressCirSpeed(float speed)
 }
 
 
-// Teste si un déplacement dans la case "goal" suivante est possible..
+// Teste si un dï¿½placement dans la case "goal" suivante est possible..
 // Retourne TRUE si on ne peut pas atteindre la position.
-// Retourne FALSE et bloque la position si le déplacement est possible.
+// Retourne FALSE et bloque la position si le dï¿½placement est possible.
 
 BOOL CTaskGoto::IsLockZone(const D3DVECTOR &goal)
 {
@@ -684,7 +683,7 @@ BOOL CTaskGoto::IsLockZone(const D3DVECTOR &goal)
 	return FALSE;
 }
 
-// Libère la dernière position.
+// Libï¿½re la derniï¿½re position.
 
 void CTaskGoto::FreeLockZone()
 {
@@ -697,21 +696,21 @@ void CTaskGoto::FreeLockZone()
 
 
 // Essaye plusieurs fois de trouver le chemin.
-// Dans une première passe, essaye en évitant les max1x fermés.
-// Dans une deuxième passe, essaye même les max1x fermés.
+// Dans une premiï¿½re passe, essaye en ï¿½vitant les max1x fermï¿½s.
+// Dans une deuxiï¿½me passe, essaye mï¿½me les max1x fermï¿½s.
 
 BOOL CTaskGoto::PathFinder(D3DVECTOR start, D3DVECTOR goal)
 {
-	m_pass = 0;  // première passe
+	m_pass = 0;  // premiï¿½re passe
 	m_secondNeed = 0;
 	if ( PathFinderPass(start, goal) )  return TRUE;
 
 	if ( m_secondNeed == 0 )  return FALSE;
-	m_pass = 1;  // deuxième passe
+	m_pass = 1;  // deuxiï¿½me passe
 	return PathFinderPass(start, goal);
 }
 
-// Cherche le chemin le plus court, selon une idée géniale de Denis.
+// Cherche le chemin le plus court, selon une idï¿½e gï¿½niale de Denis.
 // Soit le labyrinthe suivant ("S"=start, "G"=goal, "X"=obstacle) :
 //		S . . X . . . G
 //		. . . X . X . .
@@ -722,16 +721,16 @@ BOOL CTaskGoto::PathFinder(D3DVECTOR start, D3DVECTOR goal)
 // On cherche d'abord les cases possibles "1" autour de "S".
 // On cherche ensuite les cases possibles "2" autour des "1".
 // On cherche ensuite les cases possibles "n+1" autour des "n", etc.
-// Toutes ces cases visitées sont ajoutées dans une liste (m_listTable),
-// avec l'index de la case père.
+// Toutes ces cases visitï¿½es sont ajoutï¿½es dans une liste (m_listTable),
+// avec l'index de la case pï¿½re.
 //		S 1 2 X 6 7 8 G
 //		1 1 2 X 5 X . .
 //		2 2 2 3 4 X 8 8
 //		3 X X 3 4 X 7 7
 //		4 5 X 4 4 5 6 7
 //		5 5 6 5 5 5 6 7
-// Dès qu'on atteint "G", on remonte "8", "7" ... "1" en arrière
-// dans la liste (m_listTable) grace à l'index de la case père,
+// Dï¿½s qu'on atteint "G", on remonte "8", "7" ... "1" en arriï¿½re
+// dans la liste (m_listTable) grace ï¿½ l'index de la case pï¿½re,
 // ce qui permet d'obtenir ce chemin (dans m_pathPos), depuis la fin :
 //		S . . X 6 7 8 G
 //		. 1 . X 5 X . .
@@ -748,8 +747,8 @@ BOOL CTaskGoto::PathFinder(D3DVECTOR start, D3DVECTOR goal)
 //		. a 1
 //		. S b
 //		. . .
-// On accepte d'aller de "S" à "1" si "a" ET "b" sont des obstacles
-// arrondis (blupi, mine, sphère, etc.).
+// On accepte d'aller de "S" ï¿½ "1" si "a" ET "b" sont des obstacles
+// arrondis (blupi, mine, sphï¿½re, etc.).
 
 BOOL CTaskGoto::PathFinderPass(D3DVECTOR start, D3DVECTOR goal)
 {
@@ -762,8 +761,8 @@ BOOL CTaskGoto::PathFinderPass(D3DVECTOR start, D3DVECTOR goal)
 	m_listGoalx = (int)(goal.x/m_dimTile) + m_nbTiles2;
 	m_listGoaly = (int)(goal.z/m_dimTile) + m_nbTiles2;
 
-	ListCreate();  // crée la liste et le bitmap
-	m_pathIndex = -1;  // corrige un bug cherché longtemps avec Denis !!!
+	ListCreate();  // crï¿½e la liste et le bitmap
+	m_pathIndex = -1;  // corrige un bug cherchï¿½ longtemps avec Denis !!!
 
 	// Met le premier point (start) dans la liste.
 	m_bListFound = FALSE;
@@ -773,7 +772,7 @@ BOOL CTaskGoto::PathFinderPass(D3DVECTOR start, D3DVECTOR goal)
 	ListAdd(-1, x,y);
 	i2 = m_listTotal;
 
-	// Met tous les points "n+1" autour des précédents "n".
+	// Met tous les points "n+1" autour des prï¿½cï¿½dents "n".
 	while ( !m_bListFound )  // tant que goal pas atteint
 	{
 		ii1 = m_listTotal;
@@ -839,9 +838,9 @@ BOOL CTaskGoto::PathFinderPass(D3DVECTOR start, D3DVECTOR goal)
 		i2 = ii2;  // les cases "n+1" deviendront "n" au prochain while
 	}
 
-	// Récupère le chemin le plus court depuis la fin.
+	// Rï¿½cupï¿½re le chemin le plus court depuis la fin.
 	m_pathIndex = 0;
-	i = m_listTotal-1;  // index dernière case (c'est toujours le goal)
+	i = m_listTotal-1;  // index derniï¿½re case (c'est toujours le goal)
 	while ( i != 0 )
 	{
 		x = m_listTable[i].x;
@@ -854,11 +853,11 @@ BOOL CTaskGoto::PathFinderPass(D3DVECTOR start, D3DVECTOR goal)
 
 		if ( m_pathIndex >= MAXPATH )  return FALSE;
 
-		i = m_listTable[i].father;  // index case "n-1" père
+		i = m_listTable[i].father;  // index case "n-1" pï¿½re
 	}
 	m_pathIndex --;
 
-	// Lock le premier segment qui sera avancé.
+	// Lock le premier segment qui sera avancï¿½.
 	if ( m_pathIndex >= 0 )
 	{
 		if ( IsLockZone(m_pathPos[m_pathIndex]) )  return FALSE;
@@ -867,9 +866,9 @@ BOOL CTaskGoto::PathFinderPass(D3DVECTOR start, D3DVECTOR goal)
 	return TRUE;
 }
 
-// Détermine si une position du terrain est libre.
+// Dï¿½termine si une position du terrain est libre.
 // Si on va sur le goal est qu'il s'agit d'une fiole, le mouvement
-// (diagonale) est refusé.
+// (diagonale) est refusï¿½.
 
 BOOL CTaskGoto::IsTerrainFreeR(int ix, int iy, int x, int y)
 {
@@ -881,7 +880,7 @@ BOOL CTaskGoto::IsTerrainFreeR(int ix, int iy, int x, int y)
 	return IsTerrainFree(ix, iy, x, y);
 }
 
-// Détermine si une position du terrain est libre.
+// Dï¿½termine si une position du terrain est libre.
 
 BOOL CTaskGoto::IsTerrainFree(int ix, int iy, int x, int y)
 {
@@ -895,15 +894,15 @@ BOOL CTaskGoto::IsTerrainFree(int ix, int iy, int x, int y)
 
 	lz = m_terrain->RetLockZone(x,y, TRUE);
 
-	if ( x == m_goalx && y == m_goaly )  // est-on sur l'arrivée ?
+	if ( x == m_goalx && y == m_goaly )  // est-on sur l'arrivï¿½e ?
 	{
 		if ( lz == LZ_MAX1X )
 		{
-			lz = LZ_FREE;  // si arrivée = trappe -> comme si libre
+			lz = LZ_FREE;  // si arrivï¿½e = trappe -> comme si libre
 		}
 		if ( m_finalMargin != 0.0f )
 		{
-			lz = LZ_FREE;  // si arrivée = potion -> comme si libre
+			lz = LZ_FREE;  // si arrivï¿½e = potion -> comme si libre
 		}
 	}
 
@@ -912,15 +911,15 @@ BOOL CTaskGoto::IsTerrainFree(int ix, int iy, int x, int y)
 	if ( lz == LZ_TUNNELh && iy == y )  return TRUE;
 	if ( lz == LZ_TUNNELv && ix == x )  return TRUE;
 
-	if ( m_pass == 0 )  // première passe ?
+	if ( m_pass == 0 )  // premiï¿½re passe ?
 	{
 		if ( lz == LZ_MAX1X )
 		{
-			m_secondNeed ++;  // une deuxième passe serait utile
+			m_secondNeed ++;  // une deuxiï¿½me passe serait utile
 			return FALSE;
 		}
 	}
-	else	// deuxième passe ?
+	else	// deuxiï¿½me passe ?
 	{
 		if ( lz == LZ_MAX1X )  return TRUE;
 	}
@@ -928,7 +927,7 @@ BOOL CTaskGoto::IsTerrainFree(int ix, int iy, int x, int y)
 	return FALSE;
 }
 
-// Détermine si une position du terrain est libre ou occupée
+// Dï¿½termine si une position du terrain est libre ou occupï¿½e
 // par un objet rond.
 
 BOOL CTaskGoto::IsTerrainRound(int ix, int iy, int x, int y)
@@ -943,15 +942,15 @@ BOOL CTaskGoto::IsTerrainRound(int ix, int iy, int x, int y)
 
 	lz = m_terrain->RetLockZone(x,y, TRUE);
 
-	if ( x == m_goalx && y == m_goaly )  // est-on sur l'arrivée ?
+	if ( x == m_goalx && y == m_goaly )  // est-on sur l'arrivï¿½e ?
 	{
 		if ( lz == LZ_MAX1X )
 		{
-			lz = LZ_FREE;  // si arrivée = trappe -> comme si libre
+			lz = LZ_FREE;  // si arrivï¿½e = trappe -> comme si libre
 		}
 		if ( m_finalMargin != 0.0f )
 		{
-			lz = LZ_FREE;  // si arrivée = potion -> comme si libre
+			lz = LZ_FREE;  // si arrivï¿½e = potion -> comme si libre
 		}
 	}
 
@@ -962,15 +961,15 @@ BOOL CTaskGoto::IsTerrainRound(int ix, int iy, int x, int y)
 		 lz == LZ_BLUPI ||
 		 lz == LZ_BOXo  )  return TRUE;
 
-	if ( m_pass == 0 )  // première passe ?
+	if ( m_pass == 0 )  // premiï¿½re passe ?
 	{
 		if ( lz == LZ_MAX1X )
 		{
-			m_secondNeed ++;  // une deuxième passe serait utile
+			m_secondNeed ++;  // une deuxiï¿½me passe serait utile
 			return FALSE;
 		}
 	}
-	else	// deuxième passe ?
+	else	// deuxiï¿½me passe ?
 	{
 		if ( lz == LZ_MAX1X )  return TRUE;
 	}
@@ -978,7 +977,7 @@ BOOL CTaskGoto::IsTerrainRound(int ix, int iy, int x, int y)
 	return FALSE;
 }
 
-// Libère la liste et le bitmap.
+// Libï¿½re la liste et le bitmap.
 
 void CTaskGoto::ListFlush()
 {
@@ -989,11 +988,11 @@ void CTaskGoto::ListFlush()
 	m_listFlags = 0;
 }
 
-// Crée une liste et un bitmap vide.
+// Crï¿½e une liste et un bitmap vide.
 
 void CTaskGoto::ListCreate()
 {
-	ListFlush();  // libère si nécessaire
+	ListFlush();  // libï¿½re si nï¿½cessaire
 
 	m_listTable = (ListItem*)malloc(sizeof(ListItem)*m_nbTiles*m_nbTiles);
 	m_listTotal = 0;
@@ -1002,9 +1001,9 @@ void CTaskGoto::ListCreate()
 	ZeroMemory(m_listFlags, sizeof(char)*m_nbTiles*m_nbTiles);
 }
 
-// Ajoute un élément à la fin de la liste, seulement s'il n'existe
-// encore aucun élément à cette coordonnée.
-// Retourne TRUE si on a atteint le goal et qu'il faut arrêter.
+// Ajoute un ï¿½lï¿½ment ï¿½ la fin de la liste, seulement s'il n'existe
+// encore aucun ï¿½lï¿½ment ï¿½ cette coordonnï¿½e.
+// Retourne TRUE si on a atteint le goal et qu'il faut arrï¿½ter.
 
 BOOL CTaskGoto::ListAdd(int father, int x, int y)
 {

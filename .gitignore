@@ -1,0 +1,18 @@
+# build outputs
+build-win/
+build-android/
+android/.gradle/
+android/app/build/
+android/app/.cxx/
+android/gradle.log
+android/gradle-*.log
+android/local.properties
+build.log
+
+# game data is packaged separately (not part of the source tree)
+android/app/src/main/assets/data/
+
+*.obj
+*.o
+*.exe
+*.apk

@@ -199,6 +199,25 @@ int   PortStriCmp(const char* a, const char* b);
 int   PortStrniCmp(const char* a, const char* b, size_t n);
 char* PortStrCpyN(char* dst, const char* src, int n);
 
+// The game builds paths with backslashes ("scene\\bm201.bm2"); on POSIX
+// filesystems (Android) they must become forward slashes. All stdio calls
+// that take paths are routed through these wrappers.
+char* Port_fullpath(char* absPath, const char* relPath, size_t maxLength);
+#ifndef _WIN32
+#define _fullpath Port_fullpath
+#endif
+
+FILE* Port_fopen(const char* path, const char* mode);
+int   Port_remove(const char* path);
+int   Port_rename(const char* oldp, const char* newp);
+int   Port_mkdir(const char* path);
+#ifndef PORT_NO_STDIO_REDIRECT
+#define fopen  Port_fopen
+#define remove Port_remove
+#define rename Port_rename
+#define _mkdir Port_mkdir
+#endif
+
 // ------------------------------------------------------------ API functions
 // Implemented in port/compat/compat.cpp
 

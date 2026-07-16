@@ -26,7 +26,6 @@
 CTaskWait::CTaskWait(CInstanceManager* iMan, CObject* object)
 					 : CTask(iMan, object)
 {
-	CTask::CTask(iMan, object);
 }
 
 // Destructeur de l'objet.
@@ -36,7 +35,7 @@ CTaskWait::~CTaskWait()
 }
 
 
-// Gestion d'un événement.
+// Gestion d'un ï¿½vï¿½nement.
 
 BOOL CTaskWait::EventProcess(const Event &event)
 {
@@ -49,17 +48,17 @@ BOOL CTaskWait::EventProcess(const Event &event)
 }
 
 
-// Assigne le but à atteindre.
+// Assigne le but ï¿½ atteindre.
 
 Error CTaskWait::Start(float time)
 {
-	m_waitTime = time;  // durée à attendre
-	m_passTime = 0.0f;  // durée écoulée
+	m_waitTime = time;  // durï¿½e ï¿½ attendre
+	m_passTime = 0.0f;  // durï¿½e ï¿½coulï¿½e
 	m_bEnded = FALSE;
 	return ERR_OK;
 }
 
-// Indique si l'action est terminée.
+// Indique si l'action est terminï¿½e.
 
 Error CTaskWait::IsEnded()
 {

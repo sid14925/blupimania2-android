@@ -51,6 +51,7 @@ set(PORT_SOURCES
     ${PORT}/sdl/sdltextr.cpp
     ${PORT}/sdl/sdlsound.cpp
     ${PORT}/sdl/sdljoystick.cpp
+    ${PORT}/sdl/androidboot.cpp
 )
 
 if(ANDROID)
@@ -72,6 +73,11 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
         -w
         -fno-strict-aliasing
         -fno-delete-null-pointer-checks
+        # MSVC-era idioms in the 2001 code: qualified member declarations,
+        # address-of-temporary arguments
+        -fms-extensions
+        -Wno-error=address-of-temporary
+        -Wno-address-of-temporary
     )
 elseif(CMAKE_CXX_COMPILER_ID MATCHES "GNU")
     target_compile_options(blupimania2 PRIVATE
@@ -84,8 +90,8 @@ elseif(CMAKE_CXX_COMPILER_ID MATCHES "GNU")
 endif()
 
 if(ANDROID)
-    # SDL2 is built as a sibling project via the Android gradle build
-    target_link_libraries(blupimania2 PRIVATE SDL2 GLESv2 log android)
+    # SDL2/SDL2main targets come from the sibling add_subdirectory(SDL2-src)
+    target_link_libraries(blupimania2 PRIVATE SDL2main SDL2 GLESv2 log android)
 else()
     find_package(SDL2 REQUIRED)
     target_include_directories(blupimania2 PRIVATE ${SDL2_INCLUDE_DIRS})

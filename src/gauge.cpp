@@ -23,7 +23,6 @@
 
 CGauge::CGauge(CInstanceManager* iMan) : CControl(iMan)
 {
-	CControl::CControl(iMan);
 
 	m_level = 0.0f;
 	m_mode = GM_NORMAL;
@@ -37,7 +36,7 @@ CGauge::~CGauge()
 }
 
 
-// Crée un nouveau bouton.
+// Crï¿½e un nouveau bouton.
 
 BOOL CGauge::Create(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg)
 {
@@ -48,7 +47,7 @@ BOOL CGauge::Create(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg)
 }
 
 
-// Gestion d'un événement.
+// Gestion d'un ï¿½vï¿½nement.
 
 BOOL CGauge::EventProcess(const Event &event)
 {

@@ -24,7 +24,6 @@
 
 CEditValue::CEditValue(CInstanceManager* iMan) : CControl(iMan)
 {
-	CControl::CControl(iMan);
 
 	m_edit       = 0;
 	m_buttonUp   = 0;
@@ -48,7 +47,7 @@ CEditValue::~CEditValue()
 }
 
 
-// Crée un nouveau bouton.
+// Crï¿½e un nouveau bouton.
 
 BOOL CEditValue::Create(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg)
 {
@@ -128,7 +127,7 @@ void CEditValue::MoveAdjust()
 }
 
 
-// Gestion d'un événement.
+// Gestion d'un ï¿½vï¿½nement.
 
 BOOL CEditValue::EventProcess(const Event &event)
 {
@@ -236,7 +235,7 @@ BOOL CEditValue::EventProcess(const Event &event)
 }
 
 
-// Met en évidence la valeur éditée.
+// Met en ï¿½vidence la valeur ï¿½ditï¿½e.
 
 void CEditValue::HiliteValue(const Event &event)
 {
@@ -247,7 +246,7 @@ void CEditValue::HiliteValue(const Event &event)
 	pos = m_edit->RetTextLength();
 	if ( m_type == EVT_100 && pos > 0 )
 	{
-		pos --;  // ne sélectionne pas le "%"
+		pos --;  // ne sï¿½lectionne pas le "%"
 	}
 
 	m_edit->SetCursor(pos, 0);
@@ -256,7 +255,7 @@ void CEditValue::HiliteValue(const Event &event)
 	Event newEvent = event;
 	newEvent.event = EVENT_FOCUS;
 	newEvent.param = m_edit->RetEventMsg();
-	m_event->AddEvent(newEvent);  // défocus les autres objets
+	m_event->AddEvent(newEvent);  // dï¿½focus les autres objets
 }
 
 
@@ -340,7 +339,7 @@ void CEditValue::SetValue(float value, BOOL bSendMessage)
 	}
 }
 
-// Retourne la valeur éditée.
+// Retourne la valeur ï¿½ditï¿½e.
 
 float CEditValue::RetValue()
 {

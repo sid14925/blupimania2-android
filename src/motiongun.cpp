@@ -33,7 +33,6 @@
 CMotionGun::CMotionGun(CInstanceManager* iMan, CObject* object)
 							  : CMotion(iMan, object)
 {
-	CMotion::CMotion(iMan, object);
 
 	m_time = 0.0f;
 	m_lastParticule = 0.0f;
@@ -57,11 +56,11 @@ void CMotionGun::DeleteObject(BOOL bAll)
 }
 
 
-// Démarre une action spéciale.
+// Dï¿½marre une action spï¿½ciale.
 
 Error CMotionGun::SetAction(int action, float time)
 {
-	if ( time == 0.2f )  // valeur par défaut ?
+	if ( time == 0.2f )  // valeur par dï¿½faut ?
 	{
 		if ( action == MGUN_ERROR )  time = 1.0f/1.50f;
 	}
@@ -88,35 +87,35 @@ Error CMotionGun::SetAction(int action, float time)
 }
 
 
-// Retourne la vitesse linéaire.
+// Retourne la vitesse linï¿½aire.
 
 float CMotionGun::RetLinSpeed()
 {
 	return 5.0f;
 }
 
-// Retourne la vitesse linéaire.
+// Retourne la vitesse linï¿½aire.
 
 float CMotionGun::RetCirSpeed()
 {
 	return 0.5f*PI;
 }
 
-// Retourne la distance linéaire de freinage.
+// Retourne la distance linï¿½aire de freinage.
 
 float CMotionGun::RetLinStopLength()
 {
 	return 2.0f;
 }
 
-// Spécifie la vitesse linéaire dans l'action.
+// Spï¿½cifie la vitesse linï¿½aire dans l'action.
 
 void CMotionGun::SetActionLinSpeed(float speed)
 {
 	CMotion::SetActionLinSpeed(speed);
 }
 
-// Spécifie la vitesse circulaire dans l'action.
+// Spï¿½cifie la vitesse circulaire dans l'action.
 
 void CMotionGun::SetActionCirSpeed(float speed)
 {
@@ -124,7 +123,7 @@ void CMotionGun::SetActionCirSpeed(float speed)
 }
 
 
-// Crée une perforatrice quelconque posé sur le sol.
+// Crï¿½e une perforatrice quelconque posï¿½ sur le sol.
 
 BOOL CMotionGun::Create(D3DVECTOR pos, float angle, ObjectType type)
 {
@@ -136,7 +135,7 @@ BOOL CMotionGun::Create(D3DVECTOR pos, float angle, ObjectType type)
 	m_object->SetType(type);
 	pModFile = new CModFile(m_iMan);
 
-	// Crée la base principale.
+	// Crï¿½e la base principale.
 	rank = m_engine->CreateObject();
 	m_engine->SetObjectType(rank, TYPEOBJECT);  // c'est un objet fixe
 	m_object->SetObjectRank(0, rank);
@@ -145,7 +144,7 @@ BOOL CMotionGun::Create(D3DVECTOR pos, float angle, ObjectType type)
 	m_object->SetPosition(0, pos);
 	m_object->SetAngleY(0, angle);
 
-	// Crée la chenille droite.
+	// Crï¿½e la chenille droite.
 	rank = m_engine->CreateObject();
 	m_engine->SetObjectType(rank, TYPEDESCENDANT);
 	m_object->SetObjectRank(1, rank);
@@ -154,7 +153,7 @@ BOOL CMotionGun::Create(D3DVECTOR pos, float angle, ObjectType type)
 	pModFile->CreateEngineObject(rank);
 	m_object->SetPosition(1, D3DVECTOR(0.0f, 0.0f, -2.5f));
 
-	// Crée la chenille gauche.
+	// Crï¿½e la chenille gauche.
 	rank = m_engine->CreateObject();
 	m_engine->SetObjectType(rank, TYPEDESCENDANT);
 	m_object->SetObjectRank(2, rank);
@@ -163,7 +162,7 @@ BOOL CMotionGun::Create(D3DVECTOR pos, float angle, ObjectType type)
 	pModFile->CreateEngineObject(rank);
 	m_object->SetPosition(2, D3DVECTOR(0.0f, 0.0f, 2.5f));
 
-	// Crée le bouton "avance".
+	// Crï¿½e le bouton "avance".
 	rank = m_engine->CreateObject();
 	m_engine->SetObjectType(rank, TYPEDESCENDANT);
 	m_object->SetObjectRank(3, rank);
@@ -172,7 +171,7 @@ BOOL CMotionGun::Create(D3DVECTOR pos, float angle, ObjectType type)
 	pModFile->CreateEngineObject(rank);
 	m_object->SetPosition(3, D3DVECTOR(0.0f, 0.0f, 0.0f));
 
-	// Crée le bouton "gauche".
+	// Crï¿½e le bouton "gauche".
 	rank = m_engine->CreateObject();
 	m_engine->SetObjectType(rank, TYPEDESCENDANT);
 	m_object->SetObjectRank(4, rank);
@@ -181,7 +180,7 @@ BOOL CMotionGun::Create(D3DVECTOR pos, float angle, ObjectType type)
 	pModFile->CreateEngineObject(rank);
 	m_object->SetPosition(4, D3DVECTOR(0.0f, 0.0f, 0.0f));
 
-	// Crée le bouton "droite".
+	// Crï¿½e le bouton "droite".
 	rank = m_engine->CreateObject();
 	m_engine->SetObjectType(rank, TYPEDESCENDANT);
 	m_object->SetObjectRank(5, rank);
@@ -209,7 +208,7 @@ BOOL CMotionGun::Create(D3DVECTOR pos, float angle, ObjectType type)
 }
 
 
-// Gestion d'un événement.
+// Gestion d'un ï¿½vï¿½nement.
 
 BOOL CMotionGun::EventProcess(const Event &event)
 {
@@ -223,7 +222,7 @@ BOOL CMotionGun::EventProcess(const Event &event)
 	return TRUE;
 }
 
-// Gestion d'un événement.
+// Gestion d'un ï¿½vï¿½nement.
 
 BOOL CMotionGun::EventFrame(const Event &event)
 {
@@ -283,7 +282,7 @@ BOOL CMotionGun::EventFrame(const Event &event)
 		UpdateTrackMapping(m_leftTrack, m_rightTrack);
 	}
 
-	// Fait fumer le pot d'échappement.
+	// Fait fumer le pot d'ï¿½chappement.
 	smoke = m_actionLinSpeed+Abs(m_actionCirSpeed);
 	error = 0.0f;
 	if ( m_actionType == MGUN_ERROR )  error = 1.0f;
@@ -318,7 +317,7 @@ BOOL CMotionGun::EventFrame(const Event &event)
 }
 
 
-// Fait évoluer les particules.
+// Fait ï¿½voluer les particules.
 
 void CMotionGun::ParticuleFrame(float rTime, float smoke, float error)
 {
@@ -358,7 +357,7 @@ void CMotionGun::ParticuleFrame(float rTime, float smoke, float error)
 	}
 }
 
-// Met à jour le mapping de la texture des chenilles.
+// Met ï¿½ jour le mapping de la texture des chenilles.
 
 void CMotionGun::UpdateTrackMapping(float left, float right)
 {
@@ -509,7 +508,7 @@ CObject* CMotionGun::SearchTarget(D3DVECTOR center, float radius)
 		if ( pObj == 0 )  break;
 
 		if ( pObj->RetExplo() )  continue;
-		if ( pObj->RetLock() )  continue;  // déjà stoppé ?
+		if ( pObj->RetLock() )  continue;  // dï¿½jï¿½ stoppï¿½ ?
 		if ( !pObj->RetEnable() )  continue;
 
 		type = pObj->RetType();

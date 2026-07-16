@@ -38,7 +38,6 @@
 CAutoDock::CAutoDock(CInstanceManager* iMan, CObject* object)
 						 : CAuto(iMan, object)
 {
-	CAuto::CAuto(iMan, object);
 
 	Init();
 }
@@ -52,7 +51,7 @@ CAutoDock::~CAutoDock()
 }
 
 
-// Détruit l'objet.
+// Dï¿½truit l'objet.
 
 void CAutoDock::DeleteObject(BOOL bAll)
 {
@@ -80,13 +79,13 @@ void CAutoDock::Init()
 }
 
 
-// Démarre l'objet.
+// Dï¿½marre l'objet.
 
 BOOL CAutoDock::Start(int part)
 {
 	CObject*	pObj;
 
-	if ( m_phase != ADKP_WAIT )  return FALSE;  // occupé ?
+	if ( m_phase != ADKP_WAIT )  return FALSE;  // occupï¿½ ?
 
 	if ( m_rest == 0 )
 	{
@@ -171,14 +170,14 @@ BOOL CAutoDock::Start(int part)
 		}
 	}
 
-	if ( m_phase == ADKP_WAIT )  return FALSE;  // rien démarré ?
+	if ( m_phase == ADKP_WAIT )  return FALSE;  // rien dï¿½marrï¿½ ?
 
 	m_initialPos = m_currentPos;
 	return TRUE;
 }
 
 
-// Gestion d'un événement.
+// Gestion d'un ï¿½vï¿½nement.
 
 BOOL CAutoDock::EventProcess(const Event &event)
 {
@@ -205,12 +204,12 @@ BOOL CAutoDock::EventProcess(const Event &event)
 
 	if ( m_object->RetFret() == 0 )  // porte rien ?
 	{
-		StopBzzz();  // stoppe le son de l'électro-aimant
+		StopBzzz();  // stoppe le son de l'ï¿½lectro-aimant
 	}
 	else	// porte qq chose ?
 	{
-		StartBzzz();  // démarre le son de l'électro-aimant
-		PosBzzz();  // déplace le son de l'électro-aimant
+		StartBzzz();  // dï¿½marre le son de l'ï¿½lectro-aimant
+		PosBzzz();  // dï¿½place le son de l'ï¿½lectro-aimant
 
 		if ( m_lastParticule+0.05f <= m_time )
 		{
@@ -344,7 +343,7 @@ BOOL CAutoDock::EventProcess(const Event &event)
 	return TRUE;
 }
 
-// Met à jour les positions des différentes parties.
+// Met ï¿½ jour les positions des diffï¿½rentes parties.
 
 void CAutoDock::UpdatePosition()
 {
@@ -391,7 +390,7 @@ BOOL CAutoDock::DecRest()
 	return TRUE;
 }
 
-// Met à jour la position du nombre d'utilisations restantes.
+// Met ï¿½ jour la position du nombre d'utilisations restantes.
 
 void CAutoDock::UpdateRest(float rTime)
 {
@@ -480,7 +479,7 @@ BOOL CAutoDock::IsRunning()
 }
 
 
-// Retourne une erreur liée à l'état de l'automate.
+// Retourne une erreur liï¿½e ï¿½ l'ï¿½tat de l'automate.
 
 Error CAutoDock::RetError()
 {
@@ -488,7 +487,7 @@ Error CAutoDock::RetError()
 }
 
 
-// Cherche si le sol est à niveau sous le piston.
+// Cherche si le sol est ï¿½ niveau sous le piston.
 
 BOOL CAutoDock::IsFlatGround()
 {
@@ -543,7 +542,7 @@ CObject* CAutoDock::SearchObject(D3DVECTOR center, float radius)
 	{
 		pObj = (CObject*)m_iMan->SearchInstance(CLASS_OBJECT, i);
 		if ( pObj == 0 )  break;
-		if ( pObj == m_object )  continue;  // soi-même ?
+		if ( pObj == m_object )  continue;  // soi-mï¿½me ?
 		if ( pObj->RetLock() )  continue;
 		if ( !pObj->RetEnable() )  continue;
 
@@ -561,7 +560,7 @@ CObject* CAutoDock::SearchObject(D3DVECTOR center, float radius)
 	return pBest;
 }
 
-// Regarde s'il est possible d'atteindre une position donnée.
+// Regarde s'il est possible d'atteindre une position donnï¿½e.
 // Si le dock porte un objet, on ne peut pas passer par-dessus
 // les objets hauts !
 
@@ -600,7 +599,7 @@ D3DVECTOR CAutoDock::CalcPosPiston(D3DVECTOR piston)
 }
 
 
-// Démarre une action pour Blupi.
+// Dï¿½marre une action pour Blupi.
 
 void CAutoDock::StartAction(CObject *pObj, int action, float speed)
 {
@@ -625,7 +624,7 @@ void CAutoDock::SoundManip(float time, float amplitude, float frequency)
 	m_sound->AddEnvelope(i, 0.0f, 0.3f*frequency, 0.1f, SOPER_STOP);
 }
 
-// Fait entendre le son de l'électro-aimant.
+// Fait entendre le son de l'ï¿½lectro-aimant.
 
 void CAutoDock::StartBzzz()
 {
@@ -634,7 +633,7 @@ void CAutoDock::StartBzzz()
 	m_sound->AddEnvelope(m_channelSound, 0.5f, 1.0f, 1.0f, SOPER_LOOP);
 }
 
-// Stoppe le son de l'électro-aimant.
+// Stoppe le son de l'ï¿½lectro-aimant.
 
 void CAutoDock::StopBzzz()
 {
@@ -644,7 +643,7 @@ void CAutoDock::StopBzzz()
 	m_channelSound = -1;
 }
 
-// Déplace le son de l'électro-aimant.
+// Dï¿½place le son de l'ï¿½lectro-aimant.
 
 void CAutoDock::PosBzzz()
 {
@@ -673,7 +672,7 @@ void CAutoDock::ReadSituation()
 	{
 		m_phase = (AutoDockPhase)phase;
 		m_progress = 0.0f;
-		m_speed = 1.0f/0.001f;  // instantané (ou presque)
+		m_speed = 1.0f/0.001f;  // instantanï¿½ (ou presque)
 
 	}
 

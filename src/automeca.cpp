@@ -38,7 +38,6 @@
 CAutoMeca::CAutoMeca(CInstanceManager* iMan, CObject* object)
 						 : CAuto(iMan, object)
 {
-	CAuto::CAuto(iMan, object);
 
 	Init();
 }
@@ -50,7 +49,7 @@ CAutoMeca::~CAutoMeca()
 }
 
 
-// Détruit l'objet.
+// Dï¿½truit l'objet.
 
 void CAutoMeca::DeleteObject(BOOL bAll)
 {
@@ -69,7 +68,7 @@ void CAutoMeca::Init()
 }
 
 
-// Démarre l'objet.
+// Dï¿½marre l'objet.
 
 BOOL CAutoMeca::Start(int part)
 {
@@ -77,7 +76,7 @@ BOOL CAutoMeca::Start(int part)
 }
 
 
-// Gestion d'un événement.
+// Gestion d'un ï¿½vï¿½nement.
 
 BOOL CAutoMeca::EventProcess(const Event &event)
 {
@@ -118,7 +117,7 @@ BOOL CAutoMeca::EventProcess(const Event &event)
 		}
 	}
 
-	if ( m_type == OBJECT_BARRIER58 )  // futura étuve ?
+	if ( m_type == OBJECT_BARRIER58 )  // futura ï¿½tuve ?
 	{
 		pos.x = 0.0f;
 		pos.y = 6.0f+sinf(m_rand*5.0f+m_time*0.5f)*0.6f;
@@ -226,7 +225,7 @@ BOOL CAutoMeca::EventProcess(const Event &event)
 		}
 	}
 
-	if ( m_type == OBJECT_BARRIER66 )  // trésor ?
+	if ( m_type == OBJECT_BARRIER66 )  // trï¿½sor ?
 	{
 		if ( m_lastParticule+0.1f <= m_time )
 		{
@@ -245,7 +244,7 @@ BOOL CAutoMeca::EventProcess(const Event &event)
 		}
 	}
 
-	if ( m_type == OBJECT_BARRIER74 )  // labo étuve basse ?
+	if ( m_type == OBJECT_BARRIER74 )  // labo ï¿½tuve basse ?
 	{
 		if ( m_lastParticule+0.05f <= m_time )
 		{
@@ -265,7 +264,7 @@ BOOL CAutoMeca::EventProcess(const Event &event)
 		}
 	}
 
-	if ( m_type == OBJECT_BARRIER75 )  // labo étuve haute ?
+	if ( m_type == OBJECT_BARRIER75 )  // labo ï¿½tuve haute ?
 	{
 		if ( m_lastParticule+0.05f <= m_time )
 		{
@@ -328,7 +327,7 @@ BOOL CAutoMeca::Abort()
 }
 
 
-// Retourne une erreur liée à l'état de l'automate.
+// Retourne une erreur liï¿½e ï¿½ l'ï¿½tat de l'automate.
 
 Error CAutoMeca::RetError()
 {

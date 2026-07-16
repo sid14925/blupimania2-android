@@ -23,7 +23,6 @@
 
 CScroll::CScroll(CInstanceManager* iMan) : CControl(iMan)
 {
-	CControl::CControl(iMan);
 
 	m_buttonUp   = 0;
 	m_buttonDown = 0;
@@ -49,7 +48,7 @@ CScroll::~CScroll()
 }
 
 
-// Crée un nouveau bouton.
+// Crï¿½e un nouveau bouton.
 
 BOOL CScroll::Create(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg)
 {
@@ -80,7 +79,7 @@ void CScroll::MoveAdjust()
 	CButton*	pc;
 	FPOINT		pos, dim;
 
-	if ( m_dim.y < m_dim.x*2.0f )  // ascenseur très court ?
+	if ( m_dim.y < m_dim.x*2.0f )  // ascenseur trï¿½s court ?
 	{
 		delete m_buttonUp;
 		m_buttonUp = 0;
@@ -185,7 +184,7 @@ BOOL CScroll::ClearState(int state)
 }
 
 
-// Gestion d'un événement.
+// Gestion d'un ï¿½vï¿½nement.
 
 BOOL CScroll::EventProcess(const Event &event)
 {

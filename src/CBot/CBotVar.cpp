@@ -1532,12 +1532,12 @@ CBotString CBotVarClass::GivValString()
 
 	if ( m_papa != NULL )						// pas utilis� pour un array
 	{
-		res = m_papa->GivName() + "( ";
+		res = m_papa->GivName(); res += "( ";
 
 		CBotVar*	pv = m_pVar;
 		while ( pv != NULL )
 		{
-			res += pv->GivName() + "=";
+			res += pv->GivName(); res += "=";
 
 			if ( pv->IsStatic() )
 			{

@@ -36,7 +36,6 @@
 CAutoScrap::CAutoScrap(CInstanceManager* iMan, CObject* object)
 						 : CAuto(iMan, object)
 {
-	CAuto::CAuto(iMan, object);
 
 	Init();
 }
@@ -48,7 +47,7 @@ CAutoScrap::~CAutoScrap()
 }
 
 
-// Détruit l'objet.
+// Dï¿½truit l'objet.
 
 void CAutoScrap::DeleteObject(BOOL bAll)
 {
@@ -65,7 +64,7 @@ void CAutoScrap::Init()
 }
 
 
-// Démarre l'objet.
+// Dï¿½marre l'objet.
 
 BOOL CAutoScrap::Start(int part)
 {
@@ -73,7 +72,7 @@ BOOL CAutoScrap::Start(int part)
 }
 
 
-// Gestion d'un événement.
+// Gestion d'un ï¿½vï¿½nement.
 
 BOOL CAutoScrap::EventProcess(const Event &event)
 {
@@ -126,7 +125,7 @@ BOOL CAutoScrap::Abort()
 }
 
 
-// Retourne une erreur liée à l'état de l'automate.
+// Retourne une erreur liï¿½e ï¿½ l'ï¿½tat de l'automate.
 
 Error CAutoScrap::RetError()
 {

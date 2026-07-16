@@ -48,7 +48,6 @@ void GetKeyName(char *name, int key)
 
 CKey::CKey(CInstanceManager* iMan) : CControl(iMan)
 {
-	CControl::CControl(iMan);
 
 	m_key[0] = 0;
 	m_key[1] = 0;
@@ -63,7 +62,7 @@ CKey::~CKey()
 }
 
 
-// Crée un nouveau bouton.
+// Crï¿½e un nouveau bouton.
 
 BOOL CKey::Create(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg)
 {
@@ -83,7 +82,7 @@ BOOL CKey::Create(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg)
 }
 
 
-// Gestion d'un événement.
+// Gestion d'un ï¿½vï¿½nement.
 
 BOOL CKey::EventProcess(const Event &event)
 {
@@ -137,33 +136,33 @@ BOOL CKey::EventProcess(const Event &event)
 }
 
 
-// Cherche si une touche est déjà utilisée.
+// Cherche si une touche est dï¿½jï¿½ utilisï¿½e.
 
 BOOL CKey::TestKey(int key)
 {
 	int		i, j;
 
 	if ( key == VK_PAUSE    ||
-		 key == VK_SNAPSHOT )  return TRUE;  // touche bloquée
+		 key == VK_SNAPSHOT )  return TRUE;  // touche bloquï¿½e
 
 	for ( i=0 ; i<20 ; i++ )
 	{
 		for ( j=0 ; j<2 ; j++ )
 		{
-			if ( key == m_engine->RetKey(i, j) )  // touche utilisée ?
+			if ( key == m_engine->RetKey(i, j) )  // touche utilisï¿½e ?
 			{
 				m_engine->SetKey(i, j, 0);  // plus rien !
 			}
 		}
 
-		if ( m_engine->RetKey(i, 0) == 0 )  // première option libre ?
+		if ( m_engine->RetKey(i, 0) == 0 )  // premiï¿½re option libre ?
 		{
 			m_engine->SetKey(i, 0, m_engine->RetKey(i, 1));  // shift
 			m_engine->SetKey(i, 1, 0);
 		}
 	}
 
-	return FALSE;  // pas utilisée
+	return FALSE;  // pas utilisï¿½e
 }
 
 

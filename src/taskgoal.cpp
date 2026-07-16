@@ -35,7 +35,6 @@
 CTaskGoal::CTaskGoal(CInstanceManager* iMan, CObject* object)
 					 : CTask(iMan, object)
 {
-	CTask::CTask(iMan, object);
 
 	m_time = 0.0f;
 	m_bError = TRUE;
@@ -48,7 +47,7 @@ CTaskGoal::~CTaskGoal()
 }
 
 
-// Gestion d'un événement.
+// Gestion d'un ï¿½vï¿½nement.
 
 BOOL CTaskGoal::EventProcess(const Event &event)
 {
@@ -82,7 +81,7 @@ BOOL CTaskGoal::EventProcess(const Event &event)
 }
 
 
-// Assigne le but à atteindre.
+// Assigne le but ï¿½ atteindre.
 
 Error CTaskGoal::Start(CObject *goal)
 {
@@ -130,7 +129,7 @@ Error CTaskGoal::Start(CObject *goal)
 	return ERR_OK;
 }
 
-// Indique si l'action est terminée.
+// Indique si l'action est terminï¿½e.
 
 Error CTaskGoal::IsEnded()
 {
@@ -214,7 +213,7 @@ Error CTaskGoal::IsEnded()
 }
 
 
-// Démarre une action pour Blupi.
+// Dï¿½marre une action pour Blupi.
 
 void CTaskGoal::StartAction(int action, float speed)
 {
@@ -247,7 +246,7 @@ void CTaskGoal::StartAction(int action, float speed)
 	}
 }
 
-// Indique s'il s'agit du dernier ballon à partir.
+// Indique s'il s'agit du dernier ballon ï¿½ partir.
 
 BOOL CTaskGoal::IsLastGoal()
 {

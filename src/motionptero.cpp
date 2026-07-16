@@ -39,7 +39,6 @@
 CMotionPtero::CMotionPtero(CInstanceManager* iMan, CObject* object)
 							  : CMotion(iMan, object)
 {
-	CMotion::CMotion(iMan, object);
 
 	m_progress = 1.0f;
 	m_total = 0;
@@ -59,7 +58,7 @@ void CMotionPtero::DeleteObject(BOOL bAll)
 }
 
 
-// Démarre une action spéciale.
+// Dï¿½marre une action spï¿½ciale.
 
 Error CMotionPtero::SetAction(int action, float time)
 {
@@ -67,21 +66,21 @@ Error CMotionPtero::SetAction(int action, float time)
 }
 
 
-// Retourne la vitesse linéaire.
+// Retourne la vitesse linï¿½aire.
 
 float CMotionPtero::RetLinSpeed()
 {
 	return 5.0f;
 }
 
-// Retourne la vitesse linéaire.
+// Retourne la vitesse linï¿½aire.
 
 float CMotionPtero::RetCirSpeed()
 {
 	return 0.5f*PI;
 }
 
-// Retourne la distance linéaire de freinage.
+// Retourne la distance linï¿½aire de freinage.
 
 float CMotionPtero::RetLinStopLength()
 {
@@ -89,7 +88,7 @@ float CMotionPtero::RetLinStopLength()
 }
 
 
-// Crée un oiseau.
+// Crï¿½e un oiseau.
 
 BOOL CMotionPtero::Create(D3DVECTOR pos, float angle, ObjectType type)
 {
@@ -120,7 +119,7 @@ BOOL CMotionPtero::Create(D3DVECTOR pos, float angle, ObjectType type)
 	if ( option > 10 )  option = 10;
 	m_total = option;  // nombre d'oiseaux
 
-	// Crée l'objet principal, inexistant !.
+	// Crï¿½e l'objet principal, inexistant !.
 	rank = m_engine->CreateObject();
 	m_engine->SetObjectType(rank, TYPEOBJECT);  // c'est un objet fixe
 	m_object->SetObjectRank(0, rank);
@@ -131,7 +130,7 @@ BOOL CMotionPtero::Create(D3DVECTOR pos, float angle, ObjectType type)
 
 	for ( i=0 ; i<m_total ; i++ )
 	{
-		// Crée le corps principal.
+		// Crï¿½e le corps principal.
 		rank = m_engine->CreateObject();
 		m_engine->SetObjectType(rank, TYPEOBJECT);  // c'est un objet fixe
 		m_object->SetObjectRank(i*9+1, rank);
@@ -141,7 +140,7 @@ BOOL CMotionPtero::Create(D3DVECTOR pos, float angle, ObjectType type)
 		m_object->SetPosition(i*9+1, pos);
 		m_object->SetAngleY(i*9+1, angle);
 
-		// Crée l'aile droite.
+		// Crï¿½e l'aile droite.
 		rank = m_engine->CreateObject();
 		m_engine->SetObjectType(rank, TYPEDESCENDANT);
 		m_object->SetObjectRank(i*9+2, rank);
@@ -166,7 +165,7 @@ BOOL CMotionPtero::Create(D3DVECTOR pos, float angle, ObjectType type)
 		pModFile->CreateEngineObject(rank);
 		m_object->SetPosition(i*9+4, D3DVECTOR(0.0f, 0.0f, -1.2f));
 
-		// Crée l'aile gauche.
+		// Crï¿½e l'aile gauche.
 		rank = m_engine->CreateObject();
 		m_engine->SetObjectType(rank, TYPEDESCENDANT);
 		m_object->SetObjectRank(i*9+5, rank);
@@ -194,7 +193,7 @@ BOOL CMotionPtero::Create(D3DVECTOR pos, float angle, ObjectType type)
 		pModFile->CreateEngineObject(rank);
 		m_object->SetPosition(i*9+7, D3DVECTOR(0.0f, 0.0f, 1.2f));
 
-		// Crée les pattes.
+		// Crï¿½e les pattes.
 		rank = m_engine->CreateObject();
 		m_engine->SetObjectType(rank, TYPEDESCENDANT);
 		m_object->SetObjectRank(i*9+8, rank);
@@ -231,7 +230,7 @@ BOOL CMotionPtero::Create(D3DVECTOR pos, float angle, ObjectType type)
 }
 
 
-// Gestion d'un événement.
+// Gestion d'un ï¿½vï¿½nement.
 
 BOOL CMotionPtero::EventProcess(const Event &event)
 {
@@ -245,7 +244,7 @@ BOOL CMotionPtero::EventProcess(const Event &event)
 	return TRUE;
 }
 
-// Gestion d'un événement.
+// Gestion d'un ï¿½vï¿½nement.
 
 BOOL CMotionPtero::EventFrame(const Event &event)
 {
@@ -306,12 +305,12 @@ BOOL CMotionPtero::EventFrame(const Event &event)
 	m_progress += event.rTime*m_speed;
 
 	pos = m_startPos+(m_goalPos-m_startPos)*m_progress;
-	m_object->SetPosition(0, pos);  // déplace tout le groupe
+	m_object->SetPosition(0, pos);  // dï¿½place tout le groupe
 
 	// Gestion des oiseaux individuels.
 	for ( i=0 ; i<m_total ; i++ )
 	{
-		// Progression du temps propre à chaque oiseau.
+		// Progression du temps propre ï¿½ chaque oiseau.
 		m_birdTable[i].time += event.rTime*m_birdTable[i].speed;
 
 		// Choix des angles pour les ailes (bras).
@@ -394,12 +393,12 @@ BOOL CMotionPtero::EventFrame(const Event &event)
 		linVib.y += -sinf(angle)*2.0f;
 		cirVib.z += -cosf(angle)*0.1f;
 
-		// Mouvement très lent.
+		// Mouvement trï¿½s lent.
 		linVib.x += sinf(m_birdTable[i].time*0.12f)*10.0f;
 		linVib.y += sinf(m_birdTable[i].time*0.25f)*3.0f;
 		linVib.z += sinf(m_birdTable[i].time*0.43f)*1.0f;
 
-		// Mouvement faible et rapide pseudo-aléatoire.
+		// Mouvement faible et rapide pseudo-alï¿½atoire.
 		cirVib.x += sinf(m_birdTable[i].time*5.42f)*0.01f;
 		cirVib.x += sinf(m_birdTable[i].time*4.33f)*0.01f;
 		cirVib.y += sinf(m_birdTable[i].time*3.18f)*0.01f;
@@ -420,7 +419,7 @@ BOOL CMotionPtero::EventFrame(const Event &event)
 }
 
 
-// Crée l'ombre circulaire sous un oiseau.
+// Crï¿½e l'ombre circulaire sous un oiseau.
 
 BOOL CMotionPtero::CreateShadow(int i, float radius, float intensity,
 							   D3DShadowType type)
@@ -438,7 +437,7 @@ BOOL CMotionPtero::CreateShadow(int i, float radius, float intensity,
 	return TRUE;
 }
 
-// Déplace les ombres des oiseaux.
+// Dï¿½place les ombres des oiseaux.
 
 void CMotionPtero::MoveShadow(int i, float progress)
 {

@@ -27,7 +27,6 @@
 CTaskFire::CTaskFire(CInstanceManager* iMan, CObject* object)
 					 : CTask(iMan, object)
 {
-	CTask::CTask(iMan, object);
 	m_soundChannel = -1;
 }
 
@@ -44,7 +43,7 @@ CTaskFire::~CTaskFire()
 }
 
 
-// Gestion d'un événement.
+// Gestion d'un ï¿½vï¿½nement.
 
 BOOL CTaskFire::EventProcess(const Event &event)
 {
@@ -212,14 +211,14 @@ BOOL CTaskFire::EventProcess(const Event &event)
 }
 
 
-// Assigne le but à atteindre.
+// Assigne le but ï¿½ atteindre.
 
 Error CTaskFire::Start(float delay)
 {
 	D3DVECTOR	pos, goal, speed;
 	ObjectType	type;
 
-	m_bError = TRUE;  // opération impossible
+	m_bError = TRUE;  // opï¿½ration impossible
 
 	type = m_object->RetType();
 	if ( type != OBJECT_MOBILEfb &&
@@ -276,7 +275,7 @@ Error CTaskFire::Start(float delay)
 	return ERR_OK;
 }
 
-// Indique si l'action est terminée.
+// Indique si l'action est terminï¿½e.
 
 Error CTaskFire::IsEnded()
 {

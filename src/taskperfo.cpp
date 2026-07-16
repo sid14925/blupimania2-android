@@ -33,7 +33,6 @@
 CTaskPerfo::CTaskPerfo(CInstanceManager* iMan, CObject* object)
 					 : CTask(iMan, object)
 {
-	CTask::CTask(iMan, object);
 
 	m_time = 0.0f;
 	m_bError= TRUE;
@@ -46,7 +45,7 @@ CTaskPerfo::~CTaskPerfo()
 }
 
 
-// Gestion d'un événement.
+// Gestion d'un ï¿½vï¿½nement.
 
 BOOL CTaskPerfo::EventProcess(const Event &event)
 {
@@ -69,12 +68,12 @@ BOOL CTaskPerfo::EventProcess(const Event &event)
 			m_perfo->StartTaskList(TO_MOVE, D3DVECTOR(0.0f, 0.0f, 0.0f), 0, 0, 8.0f);
 		}
 
-		if ( m_part == 4 )  // bouton gauche (tourne à droite) ?
+		if ( m_part == 4 )  // bouton gauche (tourne ï¿½ droite) ?
 		{
 			m_perfo->StartTaskList(TO_TURN, D3DVECTOR(0.0f, 0.0f, 0.0f), 0, 0, PI/2.0f);
 		}
 
-		if ( m_part == 5 )  // bouton droite (tourne à gauche) ?
+		if ( m_part == 5 )  // bouton droite (tourne ï¿½ gauche) ?
 		{
 			m_perfo->StartTaskList(TO_TURN, D3DVECTOR(0.0f, 0.0f, 0.0f), 0, 0, -PI/2.0f);
 		}
@@ -84,7 +83,7 @@ BOOL CTaskPerfo::EventProcess(const Event &event)
 }
 
 
-// Assigne le but à atteindre.
+// Assigne le but ï¿½ atteindre.
 
 Error CTaskPerfo::Start(CObject *perfo, int part)
 {
@@ -109,7 +108,7 @@ Error CTaskPerfo::Start(CObject *perfo, int part)
 	return ERR_OK;
 }
 
-// Indique si l'action est terminée.
+// Indique si l'action est terminï¿½e.
 
 Error CTaskPerfo::IsEnded()
 {
@@ -129,7 +128,7 @@ Error CTaskPerfo::IsEnded()
 }
 
 
-// Démarre une action pour un objet.
+// Dï¿½marre une action pour un objet.
 
 void CTaskPerfo::StartAction(int action, float speed)
 {

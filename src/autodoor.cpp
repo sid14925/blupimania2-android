@@ -31,8 +31,8 @@
 
 
 #define HEIGHT		-26.0f		// abaissement de la porte
-#define TIME_CLOSE	1.0f		// durée fermeture
-#define TIME_OPEN	5.0f		// durée ouverture
+#define TIME_CLOSE	1.0f		// durï¿½e fermeture
+#define TIME_OPEN	5.0f		// durï¿½e ouverture
 
 
 
@@ -41,7 +41,6 @@
 CAutoDoor::CAutoDoor(CInstanceManager* iMan, CObject* object)
 						 : CAuto(iMan, object)
 {
-	CAuto::CAuto(iMan, object);
 
 	m_partiStop = -1;
 	Init();
@@ -61,7 +60,7 @@ CAutoDoor::~CAutoDoor()
 }
 
 
-// Détruit l'objet.
+// Dï¿½truit l'objet.
 
 void CAutoDoor::DeleteObject(BOOL bAll)
 {
@@ -94,7 +93,7 @@ void CAutoDoor::Init()
 }
 
 
-// Démarre l'objet.
+// Dï¿½marre l'objet.
 
 BOOL CAutoDoor::Start(int param)
 {
@@ -102,7 +101,7 @@ BOOL CAutoDoor::Start(int param)
 }
 
 
-// Gestion d'un événement.
+// Gestion d'un ï¿½vï¿½nement.
 
 BOOL CAutoDoor::EventProcess(const Event &event)
 {
@@ -117,7 +116,7 @@ BOOL CAutoDoor::EventProcess(const Event &event)
 	m_progress += event.rTime*m_speed;
 	progress = Norm(m_progress);
 
-	if ( m_phase == ADOP_WAIT )  // attend porte fermée ?
+	if ( m_phase == ADOP_WAIT )  // attend porte fermï¿½e ?
 	{
 		if ( progress >= 1.0f )
 		{
@@ -217,7 +216,7 @@ BOOL CAutoDoor::Abort()
 }
 
 
-// Met à jour la position des portes.
+// Met ï¿½ jour la position des portes.
 
 void CAutoDoor::MoveDoor(float progress)
 {
@@ -254,7 +253,7 @@ void CAutoDoor::MoveDoor(float progress)
 	if ( progress == 1.0f )  UpdateLockZone(TRUE);
 }
 
-// Met à jour les sphères de collision.
+// Met ï¿½ jour les sphï¿½res de collision.
 
 void CAutoDoor::UpdateLockZone(BOOL bOpen)
 {
@@ -264,7 +263,7 @@ void CAutoDoor::UpdateLockZone(BOOL bOpen)
 	m_terrain->SetLockZone(pos, bOpen?LZ_FREE:LZ_FIX);
 }
 
-// Met à jour les feux de stop.
+// Met ï¿½ jour les feux de stop.
 
 void CAutoDoor::FireStopUpdate()
 {
@@ -328,7 +327,7 @@ void CAutoDoor::FireStopUpdate()
 }
 
 
-// Retourne une erreur liée à l'état de l'automate.
+// Retourne une erreur liï¿½e ï¿½ l'ï¿½tat de l'automate.
 
 Error CAutoDoor::RetError()
 {
@@ -336,7 +335,7 @@ Error CAutoDoor::RetError()
 }
 
 
-// Cherche la clé sous la porte.
+// Cherche la clï¿½ sous la porte.
 
 CObject* CAutoDoor::SearchKey()
 {
@@ -389,7 +388,7 @@ CObject* CAutoDoor::SearchObject(D3DVECTOR center, float radius)
 	{
 		pObj = (CObject*)m_iMan->SearchInstance(CLASS_OBJECT, i);
 		if ( pObj == 0 )  break;
-		if ( pObj == m_object )  continue;  // soi-même ?
+		if ( pObj == m_object )  continue;  // soi-mï¿½me ?
 		if ( pObj->RetLock() )  continue;
 		if ( !pObj->RetEnable() )  continue;
 
@@ -407,7 +406,7 @@ CObject* CAutoDoor::SearchObject(D3DVECTOR center, float radius)
 	return pBest;
 }
 
-// Particules avec la clé lorsque la porte est ouverte.
+// Particules avec la clï¿½ lorsque la porte est ouverte.
 
 void CAutoDoor::OpenParticule()
 {
@@ -466,7 +465,7 @@ void CAutoDoor::ReadSituation()
 	{
 		m_phase = (AutoDoorPhase)phase;
 		m_progress = 0.0f;
-		m_speed = 1.0f/0.001f;  // instantané (ou presque)
+		m_speed = 1.0f/0.001f;  // instantanï¿½ (ou presque)
 
 		if ( m_phase == ADOP_WAIT  ||
 			 m_phase == ADOP_CLOSE )

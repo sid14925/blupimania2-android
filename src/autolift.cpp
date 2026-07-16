@@ -37,7 +37,6 @@
 CAutoLift::CAutoLift(CInstanceManager* iMan, CObject* object)
 						 : CAuto(iMan, object)
 {
-	CAuto::CAuto(iMan, object);
 
 	m_bCamera = FALSE;
 	Init();
@@ -50,7 +49,7 @@ CAutoLift::~CAutoLift()
 }
 
 
-// Détruit l'objet.
+// Dï¿½truit l'objet.
 
 void CAutoLift::DeleteObject(BOOL bAll)
 {
@@ -68,7 +67,7 @@ void CAutoLift::Init()
 }
 
 
-// Démarre l'objet.
+// Dï¿½marre l'objet.
 
 BOOL CAutoLift::Start(int phase)
 {
@@ -92,8 +91,8 @@ BOOL CAutoLift::Start(int phase)
 
 	m_bSelect = FALSE;
 
-	if ( m_main->RetAgain() ||  // bouton "Recommencer" utilisé ?
-		 m_main->RetEdit()  ||  // édite un puzzle ?
+	if ( m_main->RetAgain() ||  // bouton "Recommencer" utilisï¿½ ?
+		 m_main->RetEdit()  ||  // ï¿½dite un puzzle ?
 		 m_engine->RetSetup(ST_MOVIE) == 0.0f )
 	{
 		Abort();
@@ -133,7 +132,7 @@ BOOL CAutoLift::Start(int phase)
 }
 
 
-// Gestion d'un événement.
+// Gestion d'un ï¿½vï¿½nement.
 
 BOOL CAutoLift::EventProcess(const Event &event)
 {
@@ -252,7 +251,7 @@ BOOL CAutoLift::EventProcess(const Event &event)
 			m_blupi->SetEnable(TRUE);
 			if ( m_bSelect )
 			{
-				m_main->SelectObject(m_blupi);  // sélectionne si nécessaire
+				m_main->SelectObject(m_blupi);  // sï¿½lectionne si nï¿½cessaire
 			}
 			m_blupi->SetPosition(0, m_posBlupi);  // pour afficher l'ombre !
 
@@ -298,7 +297,7 @@ BOOL CAutoLift::Abort()
 	m_blupi->SetEnable(TRUE);
 	if ( m_bSelect )
 	{
-		m_main->SelectObject(m_blupi);  // sélectionne si nécessaire
+		m_main->SelectObject(m_blupi);  // sï¿½lectionne si nï¿½cessaire
 	}
 	m_blupi->SetPosition(0, m_posBlupi);
 	m_blupi->SetAngle(0, m_angleBlupi);
@@ -319,7 +318,7 @@ BOOL CAutoLift::Abort()
 }
 
 
-// Retourne une erreur liée à l'état de l'automate.
+// Retourne une erreur liï¿½e ï¿½ l'ï¿½tat de l'automate.
 
 Error CAutoLift::RetError()
 {
@@ -343,7 +342,7 @@ CObject* CAutoLift::SearchObject(D3DVECTOR center, float radius)
 	{
 		pObj = (CObject*)m_iMan->SearchInstance(CLASS_OBJECT, i);
 		if ( pObj == 0 )  break;
-		if ( pObj == m_object )  continue;  // soi-même ?
+		if ( pObj == m_object )  continue;  // soi-mï¿½me ?
 		if ( pObj->RetLock() )  continue;
 		if ( !pObj->RetEnable() )  continue;
 
@@ -361,7 +360,7 @@ CObject* CAutoLift::SearchObject(D3DVECTOR center, float radius)
 	return pBest;
 }
 
-// Démarre une action pour Blupi.
+// Dï¿½marre une action pour Blupi.
 
 void CAutoLift::StartAction(int action, float speed)
 {
@@ -376,7 +375,7 @@ void CAutoLift::StartAction(int action, float speed)
 }
 
 
-// Rotation d'un point de la caméra.
+// Rotation d'un point de la camï¿½ra.
 
 void RotateLift(D3DVECTOR &pos, D3DVECTOR center, float angle)
 {
@@ -387,7 +386,7 @@ void RotateLift(D3DVECTOR &pos, D3DVECTOR center, float angle)
 	pos.z = rot.y;
 }
 
-// Début du mouvement vertical de la caméra.
+// Dï¿½but du mouvement vertical de la camï¿½ra.
 
 void CAutoLift::CameraStart1()
 {
@@ -418,7 +417,7 @@ void CAutoLift::CameraStart1()
 	m_main->SetMovieLock(TRUE, FALSE);
 }
 
-// Début du mouvement horizontal de la caméra.
+// Dï¿½but du mouvement horizontal de la camï¿½ra.
 
 void CAutoLift::CameraStart2()
 {
@@ -437,7 +436,7 @@ void CAutoLift::CameraStart2()
 	RotateLift(m_lookatGoal,  m_lookatFinal, m_dirFinal);
 }
 
-// Progression du mouvement spécial de la caméra.
+// Progression du mouvement spï¿½cial de la camï¿½ra.
 
 void CAutoLift::CameraProgress(float progress)
 {
@@ -452,7 +451,7 @@ void CAutoLift::CameraProgress(float progress)
 	m_camera->SetScriptLookat(lookat);
 }
 
-// Fin du mouvement spécial de la caméra.
+// Fin du mouvement spï¿½cial de la camï¿½ra.
 
 void CAutoLift::CameraStop()
 {

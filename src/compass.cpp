@@ -22,7 +22,6 @@
 
 CCompass::CCompass(CInstanceManager* iMan) : CControl(iMan)
 {
-	CControl::CControl(iMan);
 
 	m_dir = 0.0f;
 }
@@ -35,7 +34,7 @@ CCompass::~CCompass()
 }
 
 
-// Crée un nouveau bouton.
+// Crï¿½e un nouveau bouton.
 
 BOOL CCompass::Create(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg)
 {
@@ -46,7 +45,7 @@ BOOL CCompass::Create(FPOINT pos, FPOINT dim, int icon, EventMsg eventMsg)
 }
 
 
-// Gestion d'un événement.
+// Gestion d'un ï¿½vï¿½nement.
 
 BOOL CCompass::EventProcess(const Event &event)
 {
