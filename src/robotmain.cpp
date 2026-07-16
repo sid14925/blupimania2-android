@@ -2692,22 +2692,14 @@ void CRobotMain::InitEye()
 			lookat = D3DVECTOR(0.0f, 0.0f, 0.0f);
 			dirH =  0.0f*PI/180.0f;
 			dirV = 45.0f*PI/180.0f;
-#ifdef __ANDROID__
-			dist = 40.0f;	// touch: cam�ra plus proche (petits �crans)
-#else
-			dist = 60.0f;
-#endif
+			dist = 60.0f;	// distance d'origine; le zoom pinch permet de s'approcher
 		}
 		else
 		{
 			lookat = m_selectObject->RetPosition(0);
 			dirH = PI/2.0f-m_selectObject->RetAngleY(0);
 			dirV = 45.0f*PI/180.0f;
-#ifdef __ANDROID__
-			dist = 40.0f;	// touch: cam�ra plus proche (petits �crans)
-#else
-			dist = 60.0f;
-#endif
+			dist = 60.0f;	// distance d'origine; le zoom pinch permet de s'approcher
 		}
 		dirH += 10.0f*PI/180.0f;
 		m_camera->Init(lookat, dirH, dirV, dist);

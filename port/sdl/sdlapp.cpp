@@ -282,6 +282,12 @@ HRESULT CD3DApplication::Create(HINSTANCE hInst, TCHAR* strCmdLine)
 #ifdef __ANDROID__
     SDL_SetHint(SDL_HINT_ORIENTATIONS, "LandscapeLeft LandscapeRight");
 #endif
+    // never synthesize mouse events from touch: fingers are handled
+    // explicitly (tap = click, drag = camera pan) — the synthetic pair
+    // caused ghost clicks at the end of every pan on real devices
+    SDL_SetHint(SDL_HINT_TOUCH_MOUSE_EVENTS, "0");
+    SDL_SetHint(SDL_HINT_MOUSE_TOUCH_EVENTS, "0");
+
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_JOYSTICK) != 0)
     {
         SDL_Log("SDL_Init failed: %s", SDL_GetError());
@@ -589,6 +595,7 @@ static void HandleSDLEvent(const SDL_Event& e)
         case SDL_MOUSEBUTTONDOWN:
         case SDL_MOUSEBUTTONUP:
         {
+            if (e.button.which == SDL_TOUCH_MOUSEID) break;  // touch handled below
             BOOL bDown = (e.type == SDL_MOUSEBUTTONDOWN);
             LPARAM lp = (LPARAM)MAKELONG(e.button.x, e.button.y);
             if (e.button.button == SDL_BUTTON_LEFT)

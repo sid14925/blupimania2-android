@@ -82,6 +82,10 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
         # texture names are not always NUL-terminated); keep 2001 semantics
         -U_FORTIFY_SOURCE
         -D_FORTIFY_SOURCE=0
+        # the 2001 code assumes 'char' is signed (MSVC/x86); on ARM it is
+        # unsigned by default, which silently breaks negative char values
+        # (terrain/water levels, flags) — water and objects vanish
+        -fsigned-char
     )
 elseif(CMAKE_CXX_COMPILER_ID MATCHES "GNU")
     target_compile_options(blupimania2 PRIVATE
@@ -90,6 +94,7 @@ elseif(CMAKE_CXX_COMPILER_ID MATCHES "GNU")
         -fno-strict-aliasing
         # the 2001 codebase calls methods on NULL ("if (this == NULL) return;")
         -fno-delete-null-pointer-checks
+        -fsigned-char
     )
 endif()
 
