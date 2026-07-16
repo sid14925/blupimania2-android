@@ -1247,5 +1247,14 @@ extern "C" int main(int argc, char* argv[])
 
     fprintf(stderr, "[port] entering main loop\n");
     fflush(stderr);
-    return d3dApp.Run();
+    int result = d3dApp.Run();
+
+#ifdef __ANDROID__
+    // Quit must really terminate the app: if main just returns, the SDL
+    // activity lingers in the task list ("only minimizes"). Kill the
+    // process so Android closes the task completely.
+    SDL_Quit();
+    exit(0);
+#endif
+    return result;
 }
