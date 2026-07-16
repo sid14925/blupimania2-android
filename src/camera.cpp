@@ -1086,21 +1086,14 @@ BOOL CCamera::EventProcess(const Event &event)
 				EventMouseWheel(-1, event.param, TRUE);
 			}
 			// Port: zoom +/- pour la cam�ra libre (pinch sur �cran tactile).
+			// EventFrameFree recalcule l'oeil depuis m_distance � chaque
+			// frame, donc c'est m_distance qu'il faut modifier.
 			if ( m_type == CAMERA_FREE &&
 				 (event.param == VK_ADD || event.param == VK_SUBTRACT) )
 			{
-				D3DVECTOR	zdir;
-				float		zdist, zgoal;
-
-				zdir = m_eyePt-m_lookatPt;
-				zdist = Length(zdir);
-				zgoal = zdist*((event.param == VK_ADD)?0.92f:1.087f);
-				if ( zgoal <  15.0f )  zgoal =  15.0f;
-				if ( zgoal > 150.0f )  zgoal = 150.0f;
-				if ( zdist > 0.0f )
-				{
-					m_eyePt = m_lookatPt+zdir*(zgoal/zdist);
-				}
+				m_distance *= (event.param == VK_ADD)?0.92f:1.087f;
+				if ( m_distance <  15.0f )  m_distance =  15.0f;
+				if ( m_distance > 150.0f )  m_distance = 150.0f;
 			}
 			break;
 

@@ -2687,19 +2687,48 @@ void CRobotMain::InitEye()
 
 	if ( m_phase == PHASE_SIMUL )
 	{
+#ifdef __ANDROID__
+		dist = 40.0f;	// �cran tactile: cam�ra plus proche
+#else
+		dist = 60.0f;
+#endif
 		if ( m_selectObject == 0 )
 		{
-			lookat = D3DVECTOR(0.0f, 0.0f, 0.0f);
-			dirH =  0.0f*PI/180.0f;
+			// Port: pas encore de s�lection (blupi arrive en ballon) --
+			// centre quand m�me la vue sur le premier blupi de la sc�ne.
+			CObject*	pObj;
+			CObject*	pBlupi = 0;
+			int			i;
+
+			for ( i=0 ; i<1000000 ; i++ )
+			{
+				pObj = (CObject*)m_iMan->SearchInstance(CLASS_OBJECT, i);
+				if ( pObj == 0 )  break;
+				if ( pObj->RetType() == OBJECT_BLUPI )
+				{
+					pBlupi = pObj;
+					if ( !pObj->RetLock() )  break;	// pr�f�re un blupi actif
+				}
+			}
+
+			if ( pBlupi != 0 )
+			{
+				lookat = pBlupi->RetPosition(0);
+				lookat.y = 0.0f;
+				dirH = PI/2.0f-pBlupi->RetAngleY(0);
+			}
+			else
+			{
+				lookat = D3DVECTOR(0.0f, 0.0f, 0.0f);
+				dirH =  0.0f*PI/180.0f;
+			}
 			dirV = 45.0f*PI/180.0f;
-			dist = 60.0f;	// distance d'origine; le zoom pinch permet de s'approcher
 		}
 		else
 		{
 			lookat = m_selectObject->RetPosition(0);
 			dirH = PI/2.0f-m_selectObject->RetAngleY(0);
 			dirV = 45.0f*PI/180.0f;
-			dist = 60.0f;	// distance d'origine; le zoom pinch permet de s'approcher
 		}
 		dirH += 10.0f*PI/180.0f;
 		m_camera->Init(lookat, dirH, dirV, dist);
