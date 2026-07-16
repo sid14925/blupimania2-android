@@ -586,6 +586,12 @@ void IDirect3DDevice7::Resize(int width, int height)
 {
     m->width = width;
     m->height = height;
+    // keep the reported viewport in sync: the engine reads GetViewport() to
+    // compute the projection aspect ratio, so a stale size letterboxes/crops
+    m->viewport.dwX = 0;
+    m->viewport.dwY = 0;
+    m->viewport.dwWidth  = (DWORD)width;
+    m->viewport.dwHeight = (DWORD)height;
     glViewport(0, 0, width, height);
 }
 

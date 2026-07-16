@@ -771,13 +771,19 @@ static void HandleSDLEvent(const SDL_Event& e)
         }
 
         case SDL_WINDOWEVENT:
-            if (e.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
+            if (e.window.event == SDL_WINDOWEVENT_SIZE_CHANGED ||
+                e.window.event == SDL_WINDOWEVENT_RESIZED)
             {
                 SDL_GL_GetDrawableSize(g_window, &g_winWidth, &g_winHeight);
                 if (app->m_pD3DDevice != NULL)
                     app->m_pD3DDevice->Resize(g_winWidth, g_winHeight);
                 app->m_ddsdRenderTarget.dwWidth  = (DWORD)g_winWidth;
                 app->m_ddsdRenderTarget.dwHeight = (DWORD)g_winHeight;
+                // force the engine to recompute m_dim / projection from the
+                // new viewport (otherwise the aspect ratio stays stale and
+                // the scene is cropped after a portrait->landscape rotation)
+                if (app->m_pD3DEngine != NULL)
+                    app->m_pD3DEngine->SetFocus(app->m_pD3DEngine->RetFocus());
             }
             else if (e.window.event == SDL_WINDOWEVENT_FOCUS_LOST)
             {
