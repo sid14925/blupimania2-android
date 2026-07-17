@@ -1,7 +1,7 @@
 # BlupiMania 2 for Android
 
 An open-source Android port of the classic 2001 puzzle game **BlupiMania 2**, created by
-**Epsitec SA** and **Daniel Roux**.
+**Epsitec SA** and **[Daniel Roux](https://www.maniabricks.com/)**.
 
 The original game is a Windows title built on a Direct3D 7 engine. This project keeps the
 original game code intact and adds a compatibility layer underneath it, so the game runs
@@ -14,7 +14,8 @@ natively on Android with full touchscreen support.
 
 ## Credits & Trademark
 
-* Original game and source code: **Epsitec SA** and **Daniel Roux** — <https://blupi.org>
+* Original game and source code: **Epsitec SA** and **Daniel Roux**
+  ([maniabricks.com](https://www.maniabricks.com/)) — <https://blupi.org>
 * Upstream source: the [`blupimania2`](https://github.com/colobot/colobot/tree/blupimania2)
   branch of the [Colobot](https://github.com/colobot/colobot) project, maintained by the
   TerranovaTeam / Colobot community.
@@ -117,9 +118,22 @@ This app collects **no data whatsoever** — see [PRIVACY.md](PRIVACY.md).
 
 ## Development notes
 
-This port was developed with the assistance of Anthropic's **Claude Fable 5**, which
-handled the D3D7→OpenGL ES translation layer, the Win32 compatibility shims and the
-touch input design. A few notable porting pitfalls that took real debugging:
+This port was written with Anthropic's **Claude Fable 5**, and it is only fair to be
+precise about who did what.
+
+**Claude wrote essentially all of the port code** — the Win32/DirectX 7 compatibility
+shims, the `IDirect3DDevice7` implementation on top of OpenGL ES 2.0, the SDL2 platform
+layer, the audio mixer, the Android project — and diagnosed the platform-specific bugs
+listed below.
+
+**My part** was the direction and everything around the code: obtaining the permission from
+Epsitec, sourcing the game data, deciding how the game should feel on a touchscreen, and
+above all **testing every build on a real device**. That last part mattered more than it
+sounds: the emulator is x86_64 and hid several bugs that only appear on real ARM hardware —
+the missing water and dolphin, the ghost clicks after a camera pan, the cropped view on
+first launch. Each of those was found by playing the game on a phone, then fixed in code.
+
+A few notable porting pitfalls that took real debugging:
 
 * `char` is **unsigned** on ARM but signed on x86/MSVC — the terrain and water level data
   broke silently on real devices while working fine on the x86 emulator.
