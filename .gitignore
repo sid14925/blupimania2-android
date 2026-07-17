@@ -6,6 +6,7 @@ android/app/build/
 android/app/.cxx/
 android/gradle.log
 android/gradle-*.log
+android/*.log
 android/local.properties
 android/keystore.properties
 *.jks
