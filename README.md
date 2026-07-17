@@ -110,7 +110,8 @@ echo "rip-1.3-port1" > data.ver
 On first launch the app extracts these assets into its internal storage.
 
 A desktop (Windows/Linux) build of the same port is also possible via the top-level
-`CMakeLists.txt`; it is used for debugging.
+`CMakeLists.txt`; it is used for debugging. Run it with the `-touch` flag to test the
+touch-style behaviour (camera drag direction, the touch controls page) with a mouse.
 
 ## Privacy
 

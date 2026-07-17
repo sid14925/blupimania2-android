@@ -20,6 +20,9 @@
 #include "object.h"
 #include "camera.h"
 
+// Port: TRUE sur �cran tactile (Android, ou "-touch" sur PC).
+extern "C" BOOL PortIsTouchUI(void);
+
 
 
 
@@ -460,6 +463,15 @@ void CCamera::SetScrollMouse(FPOINT mouse, BOOL bFinal)
 		mouse.y *= 200.0f;
 		mouse.x *= 0.5f+m_engine->RetSetup(ST_SPEEDSCH);
 		mouse.y *= 0.5f+m_engine->RetSetup(ST_SPEEDSCV);
+
+		// Port: sur �cran tactile, on "attrape" la carte: elle suit le doigt,
+		// donc la cam�ra se d�place � l'oppos� du glissement.
+		if ( PortIsTouchUI() )
+		{
+			mouse.x *= -1.0f;
+			mouse.y *= -1.0f;
+		}
+
 		if ( m_engine->RetSetup(ST_INVSCH) != 0.0f )  mouse.x *= -1.0f;
 		if ( m_engine->RetSetup(ST_INVSCV) != 0.0f )  mouse.y *= -1.0f;
 	}

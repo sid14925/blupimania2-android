@@ -52,6 +52,9 @@
 #include "robotmain.h"
 #include "maindialog.h"
 
+// Port: TRUE sur ecran tactile (Android, ou "-touch" sur PC).
+extern "C" BOOL PortIsTouchUI(void);
+
 
 
 #define KEY_VISIBLE		6		// nb de touches red�finissables visibles
@@ -1230,6 +1233,84 @@ void CMainDialog::ChangePhase(Phase phase, Phase fadeIn)
 	if ( m_phase == PHASE_SETUPc  ||  // setup/commandes ?
 		 m_phase == PHASE_SETUPcs )
 	{
+	  if ( PortIsTouchUI() )
+	  {
+		// Port: sur �cran tactile il n'y a pas de touches � red�finir;
+		// cette page montre les gestes tactiles � la place (deux colonnes,
+		// car la police proportionnelle ne permet pas d'aligner aux espaces).
+		static const char* touchGesture[] =
+		{
+			"Tap",
+			"Drag one finger",
+			"Pinch two fingers",
+			"Drag two fingers sideways",
+			"Tap during the intro",
+		};
+		static const char* touchAction[] =
+		{
+			"Move Blupi, press buttons",
+			"Move the camera over the map",
+			"Zoom in and out",
+			"Rotate the camera",
+			"Skip the cinematic",
+		};
+		int		nbHelp = sizeof(touchGesture)/sizeof(touchGesture[0]);
+		int		i;
+
+		pos.x  = ox+sx*3;
+		pos.y  = 320.0f/480.0f;
+		ddim.x = dim.x*15.0f;
+		ddim.y = 18.0f/480.0f;
+		strcpy(name, "Touch controls:");
+		pl = pw->CreateLabel(pos, ddim, 0, EVENT_INTERFACE_KINFO1, name);
+		pl->SetJustif(1);
+
+		ddim.x = 428.0f/640.0f;
+		ddim.y = 128.0f/480.0f;
+		pos.x  = 105.0f/640.0f;
+		pos.y  = 174.0f/480.0f;
+		pg = pw->CreateGroup(pos, ddim, 7, EVENT_INTERFACE_KGROUP);
+		pg->ClearState(STATE_ENABLE);
+		pg->SetState(STATE_DEAD);
+		pg->SetState(STATE_SHADOW);
+
+		dddim.x = 200.0f/640.0f;
+		dddim.y =  16.0f/480.0f;
+		for ( i=0 ; i<nbHelp ; i++ )
+		{
+			ppos.y = (272.0f-16.0f*i)/480.0f;
+
+			ppos.x = 122.0f/640.0f;
+			strcpy(name, touchGesture[i]);
+			pl = pw->CreateLabel(ppos, dddim, 0, EVENT_LABEL1, name);
+			pl->SetJustif(1);
+			pl->SetFontSize(10.0f);
+
+			ppos.x = 320.0f/640.0f;
+			strcpy(name, touchAction[i]);
+			pl = pw->CreateLabel(ppos, dddim, 0, EVENT_LABEL1, name);
+			pl->SetJustif(1);
+			pl->SetFontSize(10.0f);
+		}
+
+		ppos.x = 122.0f/640.0f;
+		ppos.y = 188.0f/480.0f;
+		dddim.x = 400.0f/640.0f;
+		strcpy(name, "The camera direction can be reversed with \"Invert scrolling\"");
+		pl = pw->CreateLabel(ppos, dddim, 0, EVENT_LABEL1, name);
+		pl->SetJustif(1);
+		pl->SetFontSize(9.0f);
+
+		ppos.y = 176.0f/480.0f;
+		strcpy(name, "on the Game page.");
+		pl = pw->CreateLabel(ppos, dddim, 0, EVENT_LABEL1, name);
+		pl->SetJustif(1);
+		pl->SetFontSize(9.0f);
+
+		UpdateSetupButtons();
+	  }
+	  else
+	  {
 		pos.x  = ox+sx*3;
 		pos.y  = 320.0f/480.0f;
 		ddim.x = dim.x*15.0f;
@@ -1274,6 +1355,7 @@ void CMainDialog::ChangePhase(Phase phase, Phase fadeIn)
 		pb->SetTabOrder(10);
 
 		UpdateSetupButtons();
+	  }
 	}
 
 	if ( m_phase == PHASE_SETUPs  ||  // setup/sound ?

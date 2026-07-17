@@ -204,7 +204,18 @@ static void MatMul(D3DMATRIX& out, const D3DMATRIX& a, const D3DMATRIX& b)
 // shader
 // ---------------------------------------------------------------------------
 
+// Precision qualifiers only exist in GLSL ES; desktop GLSL 1.10 rejects them.
+// u_fogEnable is declared in both shaders, so on GLES its precision must match
+// explicitly (the default int precision differs between vertex and fragment).
+#define GLSL_PRECISION_PROLOG \
+"#ifndef GL_ES\n" \
+"#define lowp\n" \
+"#define mediump\n" \
+"#define highp\n" \
+"#endif\n"
+
 static const char* VS_SRC =
+GLSL_PRECISION_PROLOG
 "uniform mat4 u_mvp;\n"
 "uniform mat4 u_world;\n"
 "uniform int  u_lighting;\n"
@@ -295,6 +306,7 @@ static const char* VS_SRC =
 "}\n";
 
 static const char* FS_SRC =
+GLSL_PRECISION_PROLOG
 "#ifdef GL_ES\n"
 "#ifdef GL_FRAGMENT_PRECISION_HIGH\n"
 "precision highp float;\n"

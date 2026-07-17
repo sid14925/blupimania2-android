@@ -57,6 +57,20 @@ static BOOL             g_bPinching = FALSE;
 static float            g_gestureLastX = -1.0f;
 static float            g_gesturePanAcc = 0.0f;
 
+// Touch-style UI: real on Android, and forced on the desktop with "-touch"
+// so the touch behaviour can be tested without a phone.
+static BOOL             g_bTouchUI =
+#ifdef __ANDROID__
+    TRUE;
+#else
+    FALSE;
+#endif
+
+extern "C" BOOL PortIsTouchUI(void)
+{
+    return g_bTouchUI;
+}
+
 // in-game one-finger gesture: tap = left click, drag = camera pan (RMB drag)
 #define TAP_SLOP        0.02f       // movement below this (normalized) = tap
 static BOOL             g_bTapCandidate = FALSE;    // finger down, undecided
@@ -218,6 +232,8 @@ Error CD3DApplication::CheckMistery(char *strCmdLine)
         m_bShowStats = TRUE;
         SetDebugMode(TRUE);
     }
+    // desktop: emulate the touch UI (camera drag direction, controls page)
+    if (strstr(strCmdLine, "-touch") != 0) g_bTouchUI = TRUE;
     if (strstr(strCmdLine, "-audiostate") != 0) m_bAudioState = FALSE;
     m_bAudioTrack = FALSE;
     m_CDpath[0] = 0;
