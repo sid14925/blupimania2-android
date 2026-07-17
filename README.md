@@ -7,6 +7,10 @@ The original game is a Windows title built on a Direct3D 7 engine. This project 
 original game code intact and adds a compatibility layer underneath it, so the game runs
 natively on Android with full touchscreen support.
 
+### ▶ [Watch the trailer](https://youtu.be/jAfV60X-JL4)
+
+[![BlupiMania 2 on Android — trailer](https://img.youtube.com/vi/jAfV60X-JL4/maxresdefault.jpg)](https://youtu.be/jAfV60X-JL4)
+
 <p align="center">
   <img src="docs/screenshot1.png" width="45%" alt="BlupiMania 2 running on Android">
   <img src="docs/screenshot2.png" width="45%" alt="Main menu on Android">
