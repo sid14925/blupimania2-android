@@ -7,6 +7,9 @@ android/app/.cxx/
 android/gradle.log
 android/gradle-*.log
 android/local.properties
+android/keystore.properties
+*.jks
+*.keystore
 build.log
 
 # original game data (Copyright Epsitec SA) — supply your own copy, see README
